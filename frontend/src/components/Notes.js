@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
-  // Khi darkMode thay đổi, thêm/bỏ class "dark-mode" cho body
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("dark-mode");
