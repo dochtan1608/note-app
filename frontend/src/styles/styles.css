@@ -235,4 +235,53 @@ body {
 .btn-create {
   background: linear-gradient(135deg, var(--primary-color-light), var(--primary-color));
   color: #fff;
-  border
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: transform var(--transition-speed);
+}
+
+.btn-create:hover {
+  transform: translateY(-2px);
+}
+
+/* ================================
+   6. Dark Mode Styles (tùy chọn)
+   ================================ */
+body.dark-mode {
+  background-color: #121212;
+  color: #fff;
+}
+
+body.dark-mode .nav-bar {
+  background: #333;
+}
+
+body.dark-mode .create-form-section,
+body.dark-mode .notes-section,
+body.dark-mode .note-card {
+  background-color: #333;
+  border-color: #555;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .note-title,
+body.dark-mode .note-body,
+body.dark-mode .create-form-section h2,
+body.dark-mode .notes-section h2 {
+  color: #fff;
+}
+
+body.dark-mode .input-field {
+  background-color: #444;
+  border-color: #555;
+  color: #eee;
+}
+
+body.dark-mode .footer {
+  background-color: #222;
+}
