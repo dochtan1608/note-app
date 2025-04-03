@@ -1,15 +1,12 @@
-import LoginPage from "../pages/LoginPage";
-import NotesPage from "../pages/NotesPage";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import RequireAuth from "./RequireAuth";
-import SignupPage from "../pages/SignupPage";
-import LogoutPage from "../pages/LogoutPage";
-import "../styles/styles.css";
-import { useState, useEffect } from "react";
+import NotesPage from "./pages/NotesPage";
+import "./styles/styles.css";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
+  // Thay đổi class "dark-mode" trên <body> khi bật/tắt darkMode
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("dark-mode");
@@ -18,12 +15,9 @@ function App() {
     }
   }, [darkMode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
     <BrowserRouter>
+      {/* HEADER */}
       <header className="nav-bar">
         <nav>
           <ul className="nav-list">
@@ -32,56 +26,25 @@ function App() {
                 Home
               </Link>
             </li>
-            <div className="auth-links">
-              <li>
-                <Link to="/login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link to="/signup" className="nav-link">
-                  Signup
-                </Link>
-              </li>
-              <li>
-                <Link to="/logout" className="nav-link">
-                  Logout
-                </Link>
-              </li>
-            </div>
+            {/* Thêm các link khác (Login, Signup...) nếu cần */}
           </ul>
         </nav>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-            {darkMode ? "Light Mode" : "Dark Mode"}
-          </button>
-        </div>
+        <button className="dark-mode-toggle" onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
       </header>
 
+      {/* MAIN */}
       <main className="app-container">
         <Routes>
-          <Route
-            index
-            element={
-              <RequireAuth>
-                <NotesPage />
-              </RequireAuth>
-            }
-          />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/logout" element={<LogoutPage />} />
+          <Route path="/" element={<NotesPage />} />
+          {/* Các route khác nếu cần */}
         </Routes>
       </main>
 
+      {/* FOOTER */}
       <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Notes App. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Notes App</p>
       </footer>
     </BrowserRouter>
   );
