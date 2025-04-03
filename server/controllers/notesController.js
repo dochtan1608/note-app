@@ -72,6 +72,6 @@ module.exports = {
   fetchNotes,
   fetchNote,
   createNote,
-  updateNote,
+  updateNote, 
   deleteNote,
 };

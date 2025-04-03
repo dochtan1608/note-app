@@ -5,12 +5,12 @@ export default function Notes() {
   const store = notesStore();
 
   return (
-    <div>
+    <div className="notes-container">
       <h2>Notes:</h2>
-      {store.notes &&
-        store.notes.map((note) => {
-          return <Note note={note} key={note._id} />;
-        })}
+      <div className="notes-grid">
+        {store.notes &&
+          store.notes.map((note) => <Note note={note} key={note._id} />)}
+      </div>
     </div>
   );
 }

@@ -6,5 +6,16 @@ export default function LogoutPage() {
   useEffect(() => {
     store.logout();
   }, []);
-  return <h1>Ban da dang xuat</h1>;
+  return (
+    <div
+      style={{
+        minHeight: "80vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <h1>You have been logged out</h1>
+    </div>
+  );
 }

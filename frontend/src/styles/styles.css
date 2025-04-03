@@ -1,0 +1,372 @@
+/* General Styles */
+:root {
+  --primary-color: #2563eb; /* Indigo-600 */
+  --primary-color-light: #3b82f6; /* Indigo-500 */
+  --secondary-color: #64748b; /* Slate-500 */
+  --bg-light: #f8fafc; /* Slate-50 */
+  --bg-medium: #f1f5f9; /* Slate-100 */
+  --bg-dark: #e2e8f0; /* Slate-200 */
+  --text-dark: #1e293b; /* Slate-900 */
+  --text-medium: #475569; /* Slate-700 */
+  --text-light: #6b7280; /* Slate-500 */
+  --border-color: #e2e8f0; /* Slate-200 */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --border-radius: 0.5rem;
+  --font-family: "Inter", sans-serif;
+  --transition-speed: 0.2s;
+}
+
+body {
+  background-color: var(--bg-light);
+  font-family: var(--font-family);
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: background-color var(--transition-speed),
+    color var(--transition-speed);
+}
+
+/* Layout Styles */
+.app-container {
+  display: flex;
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Header Styles */
+.nav-bar {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color-light) 0%,
+    var(--primary-color) 100%
+  );
+  padding: 1.2rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px var(--shadow-color);
+  transition: background var(--transition-speed),
+    box-shadow var(--transition-speed);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-list .auth-links {
+  display: flex;
+  gap: 1rem; /* Space between auth links */
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-speed) ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Form Styles */
+.form-container {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  max-width: 500px;
+  margin: 2rem auto;
+  transition: background-color var(--transition-speed),
+    border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.form-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  transition: color var(--transition-speed);
+}
+
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-medium);
+  margin-bottom: 0.5rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.2rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all var(--transition-speed) ease;
+  background-color: var(--bg-light);
+  color: var(--text-medium);
+  box-sizing: border-box; /* Ensures padding doesn't affect overall width */
+}
+
+.input-field:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.btn {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color-light) 0%,
+    var(--primary-color) 100%
+  );
+  color: white;
+  padding: 1rem 1.75rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  transition: all var(--transition-speed) ease;
+  width: 100%;
+  box-shadow: 0 2px 4px -1px var(--shadow-color);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 7px -2px var(--shadow-color);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border: 1px solid #fc8181;
+}
+
+/* Notes Grid Styles */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* Note Card Styles */
+.note-card {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-speed) ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.note-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1.2rem;
+  transition: color var(--transition-speed);
+}
+
+.note-body {
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+  transition: color var(--transition-speed);
+}
+
+/* Button Group Styles */
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+/* Content Layout Styles */
+.content-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  align-items: start;
+  transition: grid-template-columns var(--transition-speed),
+    max-width var(--transition-speed), padding var(--transition-speed);
+}
+
+/* Notes Section Styles */
+.notes-section {
+  width: 100%;
+  background: transparent;
+}
+
+/* Create Form Section Styles */
+.create-form-section {
+  background: white;
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  transition: background-color var(--transition-speed),
+    border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+/* Heading Styles */
+h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 1.75rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+  transition: color var(--transition-speed);
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 3.5rem;
+  height: 0.3rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color-light) 0%,
+    var(--primary-color) 100%
+  );
+  border-radius: 4px;
+}
+
+/* Footer Styles */
+.footer {
+  background: var(--text-dark);
+  color: white;
+  text-align: center;
+  padding: 1.2rem;
+  margin-top: auto; /* Push the footer to the bottom */
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-speed),
+    color var(--transition-speed);
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #fff;
+}
+
+body.dark-mode .nav-bar {
+  background: #333;
+  box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .form-container,
+body.dark-mode .create-form-section,
+body.dark-mode .note-card {
+  background-color: #333;
+  border-color: #555;
+  box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .form-title,
+body.dark-mode .note-title,
+body.dark-mode h2 {
+  color: #fff;
+}
+
+body.dark-mode .input-field {
+  background-color: #444;
+  border-color: #555;
+  color: #eee;
+}
+
+body.dark-mode .input-field:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+body.dark-mode .note-body {
+  color: #ddd;
+}
+
+body.dark-mode .footer {
+  background-color: #222;
+}
+
+/* Dark Mode Toggle Button Styles */
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  transition: color var(--transition-speed);
+}
+
+.dark-mode-toggle:hover {
+  color: var(--primary-color-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .content-layout {
+    grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    padding: 0 1rem;
+  }
+
+  .nav-list {
+    flex-direction: column; /* Stack navigation links */
+    align-items: flex-start;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-container,
+  .create-form-section {
+    padding: 2rem;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr; /* Single column for notes */
+  }
+}
