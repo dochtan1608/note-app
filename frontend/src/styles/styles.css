@@ -1,17 +1,6 @@
-/* 
-  styles(2).css - Updated cho giao diện hai cột
-  ---------------------------------------------------------
-  Mục đích:
-    - Định nghĩa các kiểu cơ bản, biến CSS và kiểu bố trí cho ứng dụng.
-    - Tạo layout với 2 cột: 
-         + Cột trái (2fr) chứa danh sách note đã tạo.
-         + Cột phải (1fr) chứa form tạo note.
-    - Thêm hiệu ứng fade-in và hover để giao diện trở nên trực quan và mượt mà hơn.
-*/
-
-/* ---------------------- */
-/* 1. General Styles      */
-/* ---------------------- */
+/* ================================
+   1. Biến CSS & Cấu hình cơ bản
+   ================================ */
 :root {
   --primary-color: #2563eb; /* Indigo-600 */
   --primary-color-light: #3b82f6; /* Indigo-500 */
@@ -43,43 +32,18 @@ body {
     color var(--transition-speed);
 }
 
-/* ---------------------- */
-/* 2. Layout Styles       */
-/* ---------------------- */
-/* Container cho toàn bộ ứng dụng */
-.app-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1.5rem;
-}
-
-/* Layout 2 cột: Cột trái cho danh sách note, cột phải cho form tạo note.
-   Sử dụng grid với 2 cột, với cột note rộng gấp đôi form */
-.content-layout {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 3rem;
-  margin: 3rem auto;
-  padding: 0 2rem;
-  align-items: start;
-  transition: grid-template-columns var(--transition-speed),
-    max-width var(--transition-speed), padding var(--transition-speed);
-}
-
-/* ---------------------- */
-/* 3. Header, Form & Footer Styles */
-/* ---------------------- */
+/* ================================
+   2. Header & Footer 
+   ================================ */
 .nav-bar {
   background: linear-gradient(
     135deg,
     var(--primary-color-light) 0%,
     var(--primary-color) 100%
   );
-  padding: 1.2rem 2rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 6px -1px var(--shadow-color);
-  transition: background var(--transition-speed),
-    box-shadow var(--transition-speed);
+  padding: 0.8rem 1.5rem; /* Giảm padding cho gọn */
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px var(--shadow-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -88,7 +52,7 @@ body {
 .nav-list {
   list-style: none;
   display: flex;
-  gap: 2rem;
+  gap: 1.2rem; /* Giảm khoảng cách */
   margin: 0;
   padding: 0;
   align-items: center;
@@ -96,15 +60,15 @@ body {
 
 .nav-list .auth-links {
   display: flex;
-  gap: 1rem; /* Khoảng cách giữa các liên kết auth */
+  gap: 0.8rem;
 }
 
 .nav-link {
   color: white;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.1rem;
-  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem; /* Giảm font-size */
+  padding: 0.4rem 0.8rem;
   border-radius: var(--border-radius);
   transition: all var(--transition-speed) ease;
 }
@@ -118,36 +82,114 @@ body {
   background: var(--text-dark);
   color: white;
   text-align: center;
-  padding: 1.2rem;
+  padding: 0.8rem;
   margin-top: auto;
   border-radius: var(--border-radius);
+  font-size: 0.9rem; /* Chữ footer nhỏ hơn */
   transition: background-color var(--transition-speed),
     color var(--transition-speed);
 }
 
-/* ---------------------- */
-/* 4. Form & Input Styles */
-/* ---------------------- */
-.form-container,
-.create-form-section {
-  background: white;
-  padding: 2.5rem;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-color);
-  transition: background-color var(--transition-speed),
-    border-color var(--transition-speed), box-shadow var(--transition-speed);
+/* ================================
+   3. Container & Layout 2 cột
+   ================================ */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-/* Các trường nhập liệu và tiêu đề của form */
+/* 
+  content-layout: Grid 2 cột, 
+  cột trái hiển thị Notes, cột phải hiển thị CreateForm 
+*/
+.content-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;         /* Giảm khoảng cách giữa 2 cột */
+  margin: 0 auto;
+  padding: 0.5rem;     /* Giảm padding */
+  align-items: start;
+}
+
+/* ================================
+   4. Notes Section (Cột trái)
+   ================================ */
+.notes-section {
+  background: var(--bg-medium);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: 0 1px 2px var(--shadow-color);
+}
+
+.notes-section h2 {
+  font-size: 1.25rem; /* Nhỏ hơn h2 mặc định */
+  margin-bottom: 0.75rem;
+}
+
+/* Lưới các note */
+.notes-grid {
+  display: grid;
+  /* Giảm kích thước min cho card để chúng nhỏ gọn */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+/* Card note */
+.note-card {
+  background: white;
+  padding: 1rem; /* Giảm padding */
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-speed) ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.1);
+}
+
+.note-title {
+  font-size: 1.1rem; /* Giảm so với 1.5rem */
+  font-weight: 600;  /* Vẫn đậm nhưng nhỏ hơn */
+  margin-bottom: 0.5rem;
+}
+
+.note-body {
+  font-size: 0.95rem; /* Nhỏ hơn */
+  color: var(--secondary-color);
+  margin-bottom: 0.75rem;
+  flex-grow: 1;
+}
+
+/* ================================
+   5. Create Form Section (Cột phải)
+   ================================ */
+.create-form-section {
+  background: white;
+  padding: 1rem; /* Giảm padding */
+  border-radius: var(--border-radius);
+  box-shadow: 0 1px 2px var(--shadow-color);
+  border: 1px solid var(--border-color);
+}
+
+.create-form-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
 .input-field {
   width: 100%;
-  padding: 1rem 1.1rem;
-  margin-bottom: 1.2rem;
-  border: 2px solid var(--border-color);
+  padding: 0.75rem; /* Giảm padding */
+  margin-bottom: 0.75rem;
+  border: 1.5px solid var(--border-color); /* Giảm độ dày border */
   border-radius: var(--border-radius);
-  font-size: 1rem;
-  transition: all var(--transition-speed) ease;
+  font-size: 0.9rem;
   background-color: var(--bg-light);
   color: var(--text-medium);
   box-sizing: border-box;
@@ -156,7 +198,7 @@ body {
 .input-field:focus {
   border-color: var(--primary-color);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
 }
 
 .btn {
@@ -166,102 +208,27 @@ body {
     var(--primary-color) 100%
   );
   color: white;
-  padding: 1rem 1.75rem;
+  padding: 0.75rem;
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 0.9rem; /* Giảm font-size */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
   transition: all var(--transition-speed) ease;
   width: 100%;
-  box-shadow: 0 2px 4px -1px var(--shadow-color);
+  box-shadow: 0 1px 2px var(--shadow-color);
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 7px -2px var(--shadow-color);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px -2px var(--shadow-color);
 }
 
-/* ---------------------- */
-/* 5. Notes Section Styles */
-/* ---------------------- */
-/* Cột trái: Danh sách note */
-.notes-section {
-  width: 100%;
-  background: var(--bg-medium);
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease-out;
-}
-
-/* Grid chứa các card note */
-.notes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 1rem;
-}
-
-/* Kiểu card note */
-.note-card {
-  background: white;
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-color);
-  transition: all var(--transition-speed) ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.note-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.note-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 1.2rem;
-  transition: color var(--transition-speed);
-}
-
-.note-body {
-  color: var(--secondary-color);
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  flex-grow: 1;
-  transition: color var(--transition-speed);
-}
-
-/* ---------------------- */
-/* 6. Animations          */
-/* ---------------------- */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Áp dụng hiệu ứng fadeIn cho cả notes-section và create-form-section */
-.notes-section,
-.create-form-section {
-  animation: fadeIn 0.5s ease-out;
-}
-
-/* ---------------------- */
-/* 7. Dark Mode Styles    */
-/* ---------------------- */
+/* ================================
+   6. Dark Mode 
+   ================================ */
 body.dark-mode {
   background-color: #121212;
   color: #fff;
@@ -272,17 +239,18 @@ body.dark-mode .nav-bar {
   box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1);
 }
 
-body.dark-mode .form-container,
 body.dark-mode .create-form-section,
+body.dark-mode .notes-section,
 body.dark-mode .note-card {
   background-color: #333;
   border-color: #555;
   box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1);
 }
 
-body.dark-mode .form-title,
 body.dark-mode .note-title,
-body.dark-mode h2 {
+body.dark-mode .note-body,
+body.dark-mode .create-form-section h2,
+body.dark-mode .notes-section h2 {
   color: #fff;
 }
 
@@ -296,40 +264,19 @@ body.dark-mode .input-field:focus {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
-body.dark-mode .note-body {
-  color: #ddd;
-}
-
 body.dark-mode .footer {
   background-color: #222;
 }
 
-/* ---------------------- */
-/* 8. Responsive Adjustments */
-/* ---------------------- */
+/* ================================
+   7. Responsive 
+   ================================ */
 @media (max-width: 768px) {
   .content-layout {
-    grid-template-columns: 1fr; /* Stack cột trên thiết bị nhỏ */
-    padding: 0 1rem;
-  }
-
-  .nav-list {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-link {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 0.5rem;
-  }
-
-  .form-container,
-  .create-form-section {
-    padding: 2rem;
+    grid-template-columns: 1fr; /* Xếp chồng cột khi màn hình nhỏ */
   }
 
   .notes-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Mỗi note một hàng */
   }
 }
