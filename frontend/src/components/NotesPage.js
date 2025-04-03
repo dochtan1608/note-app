@@ -10,8 +10,8 @@ import CreateForm from "../components/CreateForm";
 export default function NotesPage() {
   return (
     <div className="content-layout">
-      <Notes />
-      <CreateForm />
+     <CreateForm />
+     <Notes />
     </div>
   );
 }
