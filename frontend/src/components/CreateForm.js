@@ -1,4 +1,3 @@
-// CreateForm.jsx
 import notesStore from "../stores/notesStore";
 
 export default function CreateForm() {
