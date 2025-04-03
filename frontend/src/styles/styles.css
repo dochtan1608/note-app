@@ -1,6 +1,14 @@
-/* ================================
-   1. Biến CSS & Cấu hình cơ bản
-   ================================ */
+/* 
+  styles.css
+  ------------------------------
+  Mục đích:
+   - Cấu hình 2 cột khi màn hình đủ rộng.
+   - Tự động chuyển về 1 cột khi màn hình nhỏ.
+   - Notes ở cột trái, Create Note ở cột phải.
+   - Header & Footer vẫn ở trên và dưới như bình thường.
+*/
+
+/* Biến CSS & cấu hình chung */
 :root {
   --primary-color: #2563eb;
   --primary-color-light: #3b82f6;
@@ -32,16 +40,14 @@ body {
     color var(--transition-speed);
 }
 
-/* ================================
-   2. Header & Footer 
-   ================================ */
+/* 1. Header & Footer (vẫn giữ ngang) */
 .nav-bar {
   background: linear-gradient(
     135deg,
     var(--primary-color-light) 0%,
     var(--primary-color) 100%
   );
-  padding: 0.8rem 1.5rem;
+  padding: 1rem 2rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 4px var(--shadow-color);
   display: flex;
@@ -49,74 +55,49 @@ body {
   align-items: center;
 }
 
-.nav-list {
-  list-style: none;
-  display: flex;
-  gap: 1.2rem;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-}
-
-.nav-list .auth-links {
-  display: flex;
-  gap: 0.8rem;
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: var(--border-radius);
-  transition: all var(--transition-speed) ease;
-}
-
-.nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
-}
-
 .footer {
   background: var(--text-dark);
   color: white;
   text-align: center;
-  padding: 0.8rem;
+  padding: 1rem;
   margin-top: auto;
   border-radius: var(--border-radius);
-  font-size: 0.9rem;
   transition: background-color var(--transition-speed),
     color var(--transition-speed);
 }
 
-/* ================================
-   3. Container & Layout Vertical
-   ================================ */
+/* 2. Container chính cho nội dung (app-container) */
 .app-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* content-layout chuyển sang vertical:
-   Sắp xếp Notes và CreateForm theo chiều dọc, với khoảng cách hợp lý */
+/* 3. content-layout
+   - Mặc định (trên màn hình lớn): hiển thị dạng 2 cột
+   - Khi màn hình nhỏ, chuyển sang 1 cột dọc
+*/
 .content-layout {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  /* 2 cột: cột trái (2fr) cho Notes, cột phải (1fr) cho Create Note */
+  grid-template-columns: 2fr 1fr;
   gap: 1.5rem;
-  margin: 0 auto;
-  padding: 0.5rem;
 }
 
-/* ================================
-   4. Notes Section
-   ================================ */
+/* Khi màn hình nhỏ hơn 768px, chuyển sang 1 cột */
+@media (max-width: 768px) {
+  .content-layout {
+    grid-template-columns: 1fr; /* 1 cột dọc */
+  }
+}
+
+/* 4. Notes Section (Cột trái) */
 .notes-section {
   background: var(--bg-medium);
   border-radius: var(--border-radius);
   padding: 1rem;
   box-shadow: 0 1px 2px var(--shadow-color);
+  margin-bottom: 1rem; /* Để tách biệt với CreateNote trên mobile */
 }
 
 .notes-section h2 {
@@ -128,7 +109,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .note-card {
@@ -161,9 +142,7 @@ body {
   flex-grow: 1;
 }
 
-/* ================================
-   5. Create Form Section
-   ================================ */
+/* 5. Create Form Section (Cột phải) */
 .create-form-section {
   background: white;
   padding: 1rem;
@@ -220,9 +199,7 @@ body {
   box-shadow: 0 3px 6px -2px var(--shadow-color);
 }
 
-/* ================================
-   6. Dark Mode 
-   ================================ */
+/* 6. Dark Mode (nếu có) */
 body.dark-mode {
   background-color: #121212;
   color: #fff;
@@ -260,17 +237,4 @@ body.dark-mode .input-field:focus {
 
 body.dark-mode .footer {
   background-color: #222;
-}
-
-/* ================================
-   7. Responsive 
-   ================================ */
-@media (max-width: 768px) {
-  .content-layout {
-    flex-direction: column;
-  }
-
-  .notes-grid {
-    grid-template-columns: 1fr;
-  }
 }
