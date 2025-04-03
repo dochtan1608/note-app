@@ -98,9 +98,8 @@ body {
 */
 .content-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
 }
 
 @media (max-width: 768px) {
