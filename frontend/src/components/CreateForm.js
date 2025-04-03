@@ -1,10 +1,11 @@
-// src/components/CreateForm.jsx
+import React from "react";
 import notesStore from "../stores/notesStore";
 
+// Form tạo ghi chú (Create Note) bên cột phải
 export default function CreateForm() {
   const store = notesStore();
 
-  // Nếu đang cập nhật note (có _id) thì ẩn form tạo
+  // Nếu đang cập nhật (store.updateForm._id có giá trị) thì ẩn form tạo
   if (store.updateForm._id) return null;
 
   return (
@@ -13,20 +14,21 @@ export default function CreateForm() {
       <form onSubmit={store.createNote}>
         <input
           className="input-field"
-          onChange={store.updateCreateFormField}
-          value={store.createForm.title}
+          type="text"
           name="title"
           placeholder="Title"
+          value={store.createForm.title}
+          onChange={store.updateCreateFormField}
         />
         <textarea
           className="input-field"
-          onChange={store.updateCreateFormField}
-          value={store.createForm.body}
           name="body"
-          placeholder="Body"
+          placeholder="Description"
           rows="5"
+          value={store.createForm.body}
+          onChange={store.updateCreateFormField}
         />
-        <button className="btn" type="submit">
+        <button className="btn-create" type="submit">
           Create Note
         </button>
       </form>
