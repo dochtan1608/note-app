@@ -1,4 +1,4 @@
-// src/pages/NotesPage.js
+// src/pages/NotesPage.jsx
 import Notes from "../components/Notes";
 import CreateForm from "../components/CreateForm";
 
