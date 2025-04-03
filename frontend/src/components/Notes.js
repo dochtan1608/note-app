@@ -1,90 +1,41 @@
-import LoginPage from "../pages/LoginPage";
-import NotesPage from "../pages/NotesPage";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import RequireAuth from "./RequireAuth";
-import SignupPage from "../pages/SignupPage";
-import LogoutPage from "../pages/LogoutPage";
-import "../styles/styles.css";
-import { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import notesStore from "../stores/notesStore";
 
-function App() {
-  const [darkMode, setDarkMode] = useState(false);
+// Component hiển thị danh sách ghi chú
+export default function Notes() {
+  const store = notesStore();
 
+  // Fetch notes khi component mount
   useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-  }, [darkMode]);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+    store.fetchNotes();
+  }, [store]);
 
   return (
-    <BrowserRouter>
-      <header className="nav-bar">
-        <nav>
-          <ul className="nav-list">
-            <li>
-              <Link to="/" className="nav-link">
-                Home
-              </Link>
-            </li>
-            <div className="auth-links">
-              <li>
-                <Link to="/login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link to="/signup" className="nav-link">
-                  Signup
-                </Link>
-              </li>
-              <li>
-                <Link to="/logout" className="nav-link">
-                  Logout
-                </Link>
-              </li>
+    <div className="notes-section">
+      <h2>Notes</h2>
+      <div className="notes-grid">
+        {store.notes &&
+          store.notes.map((note) => (
+            <div className="note-card" key={note._id}>
+              <h3 className="note-title">{note.title}</h3>
+              <p className="note-body">{note.body}</p>
+              <div className="note-actions">
+                <button
+                  className="btn-delete"
+                  onClick={() => store.deleteNote(note._id)}
+                >
+                  Delete
+                </button>
+                <button
+                  className="btn-update"
+                  onClick={() => store.toggleUpdate(note)}
+                >
+                  Update
+                </button>
+              </div>
             </div>
-          </ul>
-        </nav>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-            {darkMode ? "Light Mode" : "Dark Mode"}
-          </button>
-        </div>
-      </header>
-
-      <main className="app-container">
-        <Routes>
-          <Route
-            index
-            element={
-              <RequireAuth>
-                <NotesPage />
-              </RequireAuth>
-            }
-          />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/logout" element={<LogoutPage />} />
-        </Routes>
-      </main>
-
-      <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Notes App. All rights reserved.</p>
-      </footer>
-    </BrowserRouter>
+          ))}
+      </div>
+    </div>
   );
 }
-
-export default App;
