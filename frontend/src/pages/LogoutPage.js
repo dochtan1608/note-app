@@ -6,5 +6,5 @@ export default function LogoutPage() {
   useEffect(() => {
     store.logout();
   }, []);
-  return <h1 className="logout-page">Bạn đã đăng xuất</h1>;
+  return <h1>Ban da dang xuat</h1>;
 }

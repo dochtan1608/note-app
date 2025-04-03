@@ -1,27 +1,25 @@
-import React from "react";
 import notesStore from "../stores/notesStore";
 
 export default function CreateForm() {
   const store = notesStore();
 
+  if (store.updateForm._id) return <></>;
+
   return (
-    <div className="create-form">
+    <div>
+      <h2>Create note</h2>
       <form onSubmit={store.createNote}>
         <input
-          type="text"
-          name="title"
-          value={store.createForm.title}
           onChange={store.updateCreateFormField}
-          placeholder="Tiêu đề"
+          value={store.createForm.title}
+          name="title"
         />
         <textarea
-          name="body"
-          value={store.createForm.body}
           onChange={store.updateCreateFormField}
-          placeholder="Nội dung"
-          rows="4"
+          value={store.createForm.body}
+          name="body"
         />
-        <button type="submit">Create Note</button>
+        <button type="submit">Create note</button>
       </form>
     </div>
   );

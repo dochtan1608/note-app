@@ -13,18 +13,11 @@ export default function UpdateForm() {
           onChange={store.handleUpdateFieldChange}
           value={store.updateForm.title}
           name="title"
-          style={{ width: "100%", padding: "10px", fontSize: "16px" }} // Larger input
         />
         <textarea
           onChange={store.handleUpdateFieldChange}
           value={store.updateForm.body}
           name="body"
-          style={{
-            width: "100%",
-            height: "150px",
-            padding: "10px",
-            fontSize: "16px",
-          }} // Larger textarea
         />
         <button type="submit">Update note</button>
       </form>
