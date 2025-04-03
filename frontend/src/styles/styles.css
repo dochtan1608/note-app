@@ -2,16 +2,16 @@
    1. Biến CSS & Cấu hình cơ bản
    ================================ */
 :root {
-  --primary-color: #2563eb; /* Indigo-600 */
-  --primary-color-light: #3b82f6; /* Indigo-500 */
-  --secondary-color: #64748b; /* Slate-500 */
-  --bg-light: #f8fafc; /* Slate-50 */
-  --bg-medium: #f1f5f9; /* Slate-100 */
-  --bg-dark: #e2e8f0; /* Slate-200 */
-  --text-dark: #1e293b; /* Slate-900 */
-  --text-medium: #475569; /* Slate-700 */
-  --text-light: #6b7280; /* Slate-500 */
-  --border-color: #e2e8f0; /* Slate-200 */
+  --primary-color: #2563eb;
+  --primary-color-light: #3b82f6;
+  --secondary-color: #64748b;
+  --bg-light: #f8fafc;
+  --bg-medium: #f1f5f9;
+  --bg-dark: #e2e8f0;
+  --text-dark: #1e293b;
+  --text-medium: #475569;
+  --text-light: #6b7280;
+  --border-color: #e2e8f0;
   --shadow-color: rgba(0, 0, 0, 0.1);
   --border-radius: 0.5rem;
   --font-family: "Inter", sans-serif;
@@ -41,7 +41,7 @@ body {
     var(--primary-color-light) 0%,
     var(--primary-color) 100%
   );
-  padding: 0.8rem 1.5rem; /* Giảm padding cho gọn */
+  padding: 0.8rem 1.5rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 4px var(--shadow-color);
   display: flex;
@@ -52,7 +52,7 @@ body {
 .nav-list {
   list-style: none;
   display: flex;
-  gap: 1.2rem; /* Giảm khoảng cách */
+  gap: 1.2rem;
   margin: 0;
   padding: 0;
   align-items: center;
@@ -67,7 +67,7 @@ body {
   color: white;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.95rem; /* Giảm font-size */
+  font-size: 0.95rem;
   padding: 0.4rem 0.8rem;
   border-radius: var(--border-radius);
   transition: all var(--transition-speed) ease;
@@ -85,13 +85,13 @@ body {
   padding: 0.8rem;
   margin-top: auto;
   border-radius: var(--border-radius);
-  font-size: 0.9rem; /* Chữ footer nhỏ hơn */
+  font-size: 0.9rem;
   transition: background-color var(--transition-speed),
     color var(--transition-speed);
 }
 
 /* ================================
-   3. Container & Layout 2 cột
+   3. Container & Layout Vertical
    ================================ */
 .app-container {
   max-width: 1200px;
@@ -99,21 +99,18 @@ body {
   padding: 0 1rem;
 }
 
-/* 
-  content-layout: Grid 2 cột, 
-  cột trái hiển thị Notes, cột phải hiển thị CreateForm 
-*/
+/* content-layout chuyển sang vertical:
+   Sắp xếp Notes và CreateForm theo chiều dọc, với khoảng cách hợp lý */
 .content-layout {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1.5rem;         /* Giảm khoảng cách giữa 2 cột */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   margin: 0 auto;
-  padding: 0.5rem;     /* Giảm padding */
-  align-items: start;
+  padding: 0.5rem;
 }
 
 /* ================================
-   4. Notes Section (Cột trái)
+   4. Notes Section
    ================================ */
 .notes-section {
   background: var(--bg-medium);
@@ -123,23 +120,20 @@ body {
 }
 
 .notes-section h2 {
-  font-size: 1.25rem; /* Nhỏ hơn h2 mặc định */
+  font-size: 1.25rem;
   margin-bottom: 0.75rem;
 }
 
-/* Lưới các note */
 .notes-grid {
   display: grid;
-  /* Giảm kích thước min cho card để chúng nhỏ gọn */
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
   padding: 0.5rem;
 }
 
-/* Card note */
 .note-card {
   background: white;
-  padding: 1rem; /* Giảm padding */
+  padding: 1rem;
   border-radius: var(--border-radius);
   box-shadow: 0 2px 4px var(--shadow-color);
   border: 1px solid var(--border-color);
@@ -155,24 +149,24 @@ body {
 }
 
 .note-title {
-  font-size: 1.1rem; /* Giảm so với 1.5rem */
-  font-weight: 600;  /* Vẫn đậm nhưng nhỏ hơn */
+  font-size: 1.1rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 .note-body {
-  font-size: 0.95rem; /* Nhỏ hơn */
+  font-size: 0.95rem;
   color: var(--secondary-color);
   margin-bottom: 0.75rem;
   flex-grow: 1;
 }
 
 /* ================================
-   5. Create Form Section (Cột phải)
+   5. Create Form Section
    ================================ */
 .create-form-section {
   background: white;
-  padding: 1rem; /* Giảm padding */
+  padding: 1rem;
   border-radius: var(--border-radius);
   box-shadow: 0 1px 2px var(--shadow-color);
   border: 1px solid var(--border-color);
@@ -185,9 +179,9 @@ body {
 
 .input-field {
   width: 100%;
-  padding: 0.75rem; /* Giảm padding */
+  padding: 0.75rem;
   margin-bottom: 0.75rem;
-  border: 1.5px solid var(--border-color); /* Giảm độ dày border */
+  border: 1.5px solid var(--border-color);
   border-radius: var(--border-radius);
   font-size: 0.9rem;
   background-color: var(--bg-light);
@@ -212,7 +206,7 @@ body {
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
-  font-size: 0.9rem; /* Giảm font-size */
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
@@ -273,10 +267,10 @@ body.dark-mode .footer {
    ================================ */
 @media (max-width: 768px) {
   .content-layout {
-    grid-template-columns: 1fr; /* Xếp chồng cột khi màn hình nhỏ */
+    flex-direction: column;
   }
 
   .notes-grid {
-    grid-template-columns: 1fr; /* Mỗi note một hàng */
+    grid-template-columns: 1fr;
   }
 }
