@@ -16,14 +16,14 @@ export default function CreateForm() {
           className="input-field"
           type="text"
           name="title"
-          placeholder="Title"
+          placeholder="Note title..."
           value={store.createForm.title}
           onChange={store.updateCreateFormField}
         />
         <textarea
           className="input-field"
           name="body"
-          placeholder="Description"
+          placeholder="Write your note here..."
           rows="5"
           value={store.createForm.body}
           onChange={store.updateCreateFormField}

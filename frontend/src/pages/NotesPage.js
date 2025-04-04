@@ -7,15 +7,19 @@ import CreateForm from "../components/CreateForm";
 export default function NotesPage() {
   const store = notesStore();
 
-  // Use effect
   useEffect(() => {
     store.fetchNotes();
   }, []);
+
   return (
-    <div>
-      <Notes />
-      <UpdateForm />
-      <CreateForm />
+    <div className="notes-page">
+      <aside className="sidebar">
+        <CreateForm />
+        <UpdateForm />
+      </aside>
+      <main className="main-content">
+        <Notes />
+      </main>
     </div>
   );
 }
