@@ -6,8 +6,13 @@ export default function UpdateForm() {
   if (!store.updateForm._id) return null;
 
   return (
-    <div className="form-container">
-      <h2 className="form-title">Update Note</h2>
+    <div className="update-form-section">
+      <div className="update-form-header">
+        <h2>Update Note</h2>
+        <button className="btn-cancel" onClick={() => store.toggleUpdate({})}>
+          ✕
+        </button>
+      </div>
       <form onSubmit={store.updateNote}>
         <input
           className="input-field"
@@ -24,8 +29,8 @@ export default function UpdateForm() {
           placeholder="Body"
           rows="5"
         />
-        <button className="btn" type="submit">
-          Update note
+        <button className="btn-update-submit" type="submit">
+          Save Changes
         </button>
       </form>
     </div>
