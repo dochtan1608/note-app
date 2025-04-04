@@ -1,6 +1,6 @@
 import LoginPage from "../pages/LoginPage";
 import NotesPage from "../pages/NotesPage";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import RequireAuth from "./RequireAuth";
 import SignupPage from "../pages/SignupPage";
 import LogoutPage from "../pages/LogoutPage";
@@ -23,51 +23,38 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <>
       <header className="nav-bar">
-        <nav>
-          <ul className="nav-list">
-            <li>
-              <Link to="/" className="nav-link">
-                Home
-              </Link>
-            </li>
-            <div className="auth-links">
-              <li>
-                <Link to="/login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link to="/signup" className="nav-link">
-                  Signup
-                </Link>
-              </li>
-              <li>
-                <Link to="/logout" className="nav-link">
-                  Logout
-                </Link>
-              </li>
-            </div>
-          </ul>
+        <nav className="nav-content">
+          <Link to="/" className="nav-link">
+            📝 Notes App
+          </Link>
+
+          <div className="auth-links">
+            <Link to="/login" className="nav-link">
+              Sign In
+            </Link>
+            <Link to="/signup" className="nav-link">
+              Sign Up
+            </Link>
+            <Link to="/logout" className="nav-link">
+              Sign Out
+            </Link>
+            <button
+              className="dark-mode-toggle"
+              onClick={toggleDarkMode}
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? "🌞" : "🌙"}
+            </button>
+          </div>
         </nav>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-            {darkMode ? "Light Mode" : "Dark Mode"}
-          </button>
-        </div>
       </header>
 
       <main className="app-container">
         <Routes>
           <Route
-            index
+            path="/"
             element={
               <RequireAuth>
                 <NotesPage />
@@ -79,11 +66,7 @@ function App() {
           <Route path="/logout" element={<LogoutPage />} />
         </Routes>
       </main>
-
-      <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Notes App. All rights reserved.</p>
-      </footer>
-    </BrowserRouter>
+    </>
   );
 }
 

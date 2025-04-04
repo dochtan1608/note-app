@@ -8,7 +8,7 @@ export default function Notes() {
   // Fetch notes khi component mount
   useEffect(() => {
     store.fetchNotes();
-  }, [store]);
+  }, []);
 
   return (
     <div className="notes-section">

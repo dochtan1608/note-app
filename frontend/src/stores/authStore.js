@@ -1,5 +1,4 @@
 import create from "zustand";
-
 import axios from "axios";
 
 const authStore = create((set) => ({
@@ -57,21 +56,18 @@ const authStore = create((set) => ({
   },
   signup: async () => {
     const { signupForm } = authStore.getState();
-    const res = await axios.post("/signup", signupForm, {
-      withCredentials: true,
-    });
+    await axios.post("/signup", signupForm);
     set({
       signupForm: {
         email: "",
         password: "",
       },
     });
-
-    console.log(res);
   },
   logout: async () => {
     await axios.get("/logout");
     set({ loggedIn: false });
   },
 }));
+
 export default authStore;

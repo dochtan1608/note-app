@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import authStore from "../stores/authStore";
 
 export default function SignupForm() {
@@ -8,40 +8,54 @@ export default function SignupForm() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    await store.signup();
-    navigate("/login");
+    try {
+      await store.signup();
+      alert("Registration successful!");
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <div className="form-container">
-      <h2 className="form-title">Signup</h2>
-      <form onSubmit={handleSignup}>
-        <div className="input-group">
-          <label htmlFor="email">Email:</label>
+    <div className="auth-container">
+      <h2 className="auth-title">Create Account</h2>
+      <form onSubmit={handleSignup} className="auth-form">
+        <div className="form-group">
+          <label htmlFor="email" className="form-label">
+            Email Address
+          </label>
           <input
-            className="input-field"
+            id="email"
+            className="auth-input"
             onChange={store.updateSignupForm}
             value={store.signupForm.email}
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Enter your email"
           />
         </div>
-        <div className="input-group">
-          <label htmlFor="password">Password:</label>
+        <div className="form-group">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
           <input
-            className="input-field"
+            id="password"
+            className="auth-input"
             onChange={store.updateSignupForm}
             value={store.signupForm.password}
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Choose a password"
           />
         </div>
-        <button className="btn" type="submit">
-          Signup
+        <button className="auth-button" type="submit">
+          Create Account
         </button>
       </form>
+      <div className="auth-link">
+        Already have an account? <Link to="/login">Sign In</Link>
+      </div>
     </div>
   );
 }
