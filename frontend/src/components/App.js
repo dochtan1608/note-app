@@ -27,7 +27,7 @@ function App() {
       <header className="nav-bar">
         <nav className="nav-content">
           <Link to="/" className="nav-link">
-            📝 Notes App
+            📒 Chitan Notes
           </Link>
 
           <div className="auth-links">
@@ -45,7 +45,7 @@ function App() {
               onClick={toggleDarkMode}
               aria-label="Toggle dark mode"
             >
-              {darkMode ? "🌞" : "🌙"}
+              {darkMode ? "☀️" : "🌙"}
             </button>
           </div>
         </nav>
