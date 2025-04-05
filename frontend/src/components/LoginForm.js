@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import authStore from "../stores/authStore";
 
 export default function LoginForm() {
   const store = authStore();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -38,15 +39,25 @@ export default function LoginForm() {
           <label htmlFor="password" className="form-label">
             Password
           </label>
-          <input
-            id="password"
-            className="auth-input"
-            onChange={store.updateLoginForm}
-            value={store.loginForm.password}
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-          />
+          <div className="password-input-container">
+            <input
+              id="password"
+              className="auth-input password-input"
+              onChange={store.updateLoginForm}
+              value={store.loginForm.password}
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? "🔓" : "🔒"}
+            </button>
+          </div>
         </div>
         <button className="auth-button" type="submit">
           Sign In

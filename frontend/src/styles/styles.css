@@ -118,7 +118,7 @@ body {
 
 .content-layout {
   display: grid;
-  grid-template-columns: 350px 1fr;
+  grid-template-columns: 400px 1fr; /* Tăng từ 350px lên 400px để bằng với update form */
   gap: 2rem;
   height: calc(100vh - 80px); /* Subtract navbar height */
   margin-top: 1rem;
@@ -265,69 +265,106 @@ body {
 }
 
 .create-form-section {
-  background: white;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: var(--card-shadow);
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
   position: sticky;
   top: 1rem;
   height: fit-content;
+  width: 100%; /* Thêm width 100% */
   max-height: calc(100vh - 100px);
   overflow-y: auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box; /* Thêm box-sizing */
 }
 
 .create-form-section:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .create-form-section h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1.25rem;
+  font-size: 1.75rem;
+  font-weight: 700;
   color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--primary-color-light)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.input-field {
+.create-form-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.create-form-section .input-field {
   width: 100%;
-  padding: 1rem;
-  margin-bottom: 1.25rem;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 1rem;
-  background: var(--bg-light);
-  color: var(--text-medium);
+  padding: 1.25rem;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-dark);
   box-sizing: border-box;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.input-field:focus {
+.create-form-section .input-field:focus {
   border-color: var(--primary-color);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-  animation: pulseGlow 2s infinite;
-  --glow-color: 37, 99, 235;
-}
-
-.btn-create {
-  background: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  width: 100%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
-  letter-spacing: 0.5px;
-}
-
-.btn-create:hover {
+  background: white;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
   transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
+}
+
+.create-form-section .input-field::placeholder {
+  color: var(--text-medium);
+  opacity: 0.7;
+}
+
+.create-form-section textarea.input-field {
+  min-height: 150px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .create-form-section {
+  background: rgba(45, 45, 45, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .create-form-section h2 {
+  background: linear-gradient(to right, #60a5fa, #93c5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.dark-mode .create-form-section .input-field {
+  background: rgba(30, 30, 30, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .create-form-section .input-field:focus {
+  background: rgba(35, 35, 35, 0.95);
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.1);
+}
+
+body.dark-mode .create-form-section .input-field::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 body.dark-mode {
@@ -547,19 +584,20 @@ body.dark-mode .auth-link {
 }
 
 .update-form-section {
-  background: white;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: var(--card-shadow);
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
   margin-top: 1.5rem;
   animation: slideIn 0.3s ease;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .update-form-section:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .update-form-header {
@@ -570,48 +608,70 @@ body.dark-mode .auth-link {
 }
 
 .update-form-header h2 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
   color: var(--text-dark);
-  margin: 0;
+  background: linear-gradient(to right, var(--warning-color), #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.btn-cancel {
-  background: none;
-  border: none;
-  font-size: 1.25rem;
-  color: var(--text-medium);
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 50%;
+.update-form-section form {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
-.btn-cancel:hover {
-  background: var(--bg-medium);
-  color: var(--text-dark);
-}
-
-.btn-update-submit {
-  background: var(--warning-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+.update-form-section .input-field {
   width: 100%;
-  cursor: pointer;
+  padding: 1.25rem;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-dark);
+  box-sizing: border-box;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.btn-update-submit:hover {
-  background: #d97706;
+.update-form-section .input-field:focus {
+  border-color: var(--warning-color);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
   transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(245, 158, 11, 0.3);
+}
+
+.update-form-section textarea.input-field {
+  min-height: 150px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* Dark mode adjustments for update form */
+body.dark-mode .update-form-section {
+  background: rgba(45, 45, 45, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .update-form-header h2 {
+  background: linear-gradient(to right, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.dark-mode .update-form-section .input-field {
+  background: rgba(30, 30, 30, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .update-form-section .input-field:focus {
+  background: rgba(35, 35, 35, 0.95);
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.1);
 }
 
 @keyframes slideIn {
@@ -719,110 +779,104 @@ button,
 .btn-delete,
 .btn-update-submit,
 .auth-button {
-  font-weight: 600;
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 0.95rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
-  isolation: isolate;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 .btn-create {
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--primary-color-light)
-  );
+  background: #3b82f6;
   color: white;
 }
 
 .btn-create:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-  --glow-color: 37, 99, 235;
-  animation: pulseGlow 2s infinite;
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
 
 .btn-update {
-  background: linear-gradient(135deg, var(--warning-color), #fbbf24);
+  background: var(--warning-color);
   color: white;
 }
 
 .btn-update:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-  --glow-color: 245, 158, 11;
-  animation: pulseGlow 2s infinite;
+  background: #d97706;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
 }
 
 .btn-delete {
-  background: linear-gradient(135deg, var(--danger-color), #f87171);
+  background: #ef4444;
   color: white;
 }
 
 .btn-delete:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-  --glow-color: 239, 68, 68;
-  animation: pulseGlow 2s infinite;
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
 }
 
 .btn-update-submit {
-  background: linear-gradient(135deg, var(--warning-color), #fbbf24);
+  background: var(--warning-color);
   color: white;
 }
 
 .btn-update-submit:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-  --glow-color: 245, 158, 11;
-  animation: pulseGlow 2s infinite;
+  background: #d97706;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
 }
 
 .auth-button {
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--primary-color-light)
-  );
+  background: #3b82f6;
   color: white;
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 1rem;
 }
 
 .auth-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-  --glow-color: 37, 99, 235;
-  animation: pulseGlow 2s infinite;
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
 
-/* Active/Pressed state for all buttons */
+/* Active state for all buttons */
 .btn-create:active,
 .btn-update:active,
 .btn-delete:active,
 .btn-update-submit:active,
 .auth-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(1px);
+  box-shadow: none;
 }
 
-/* Dark mode adjustments for buttons */
+/* Dark mode adjustments */
 body.dark-mode .btn-create,
-body.dark-mode .btn-update,
-body.dark-mode .btn-delete,
-body.dark-mode .btn-update-submit,
 body.dark-mode .auth-button {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: #3b82f6;
+}
+
+body.dark-mode .btn-update,
+body.dark-mode .btn-update-submit {
+  background: var(--warning-color);
+}
+
+body.dark-mode .btn-delete {
+  background: #ef4444;
 }
 
 /* Enhanced Button Styles */
@@ -992,4 +1046,81 @@ body.dark-mode .auth-button:hover {
   border-top-color: white;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+}
+
+.password-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-input {
+  padding-right: 40px !important;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.password-toggle:hover {
+  opacity: 1;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .password-toggle {
+  color: var(--text-light);
+  opacity: 0.8;
+}
+
+body.dark-mode .password-toggle:hover {
+  opacity: 1;
+}
+
+.btn-cancel {
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  font-size: 1.1rem;
+  color: var(--text-medium);
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  backdrop-filter: blur(8px);
+}
+
+.btn-cancel:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger-color);
+  transform: rotate(90deg);
+}
+
+.btn-cancel:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+/* Dark mode adjustments for btn-cancel */
+body.dark-mode .btn-cancel {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-light);
+}
+
+body.dark-mode .btn-cancel:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
 }
