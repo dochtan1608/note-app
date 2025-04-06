@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import notesStore from "../stores/notesStore";
+import {
+  simpleFormatDistanceToNow as formatDistanceToNow,
+  simpleFormat as format,
+} from "./SimpleFallbacks";
 
-export default function SharedNoteCard({ sharedNote }) {
+const SharedNoteCard = ({ sharedNote }) => {
   const store = notesStore();
   const { note, sharedBy, permissions } = sharedNote;
   const [isEditing, setIsEditing] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [editForm, setEditForm] = useState({
     title: note?.title || "",
     body: note?.body || "",
@@ -14,11 +19,14 @@ export default function SharedNoteCard({ sharedNote }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       await store.updateSharedNote(note._id, editForm);
       setIsEditing(false);
     } catch (err) {
       console.error("Failed to update note:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -30,15 +38,14 @@ export default function SharedNoteCard({ sharedNote }) {
     }));
   };
 
-  // Format date to readable format
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  };
+  // Format dates in a user-friendly way
+  const timeAgo = note.updatedAt
+    ? formatDistanceToNow(new Date(note.updatedAt))
+    : "";
+
+  const formattedDate = note.updatedAt
+    ? format(new Date(note.updatedAt), "MMM d, yyyy 'at' h:mm a")
+    : "";
 
   return (
     <div className={`shared-note-card ${isEditing ? "is-editing" : ""}`}>
@@ -72,13 +79,24 @@ export default function SharedNoteCard({ sharedNote }) {
             rows="6"
           />
           <div className="form-footer">
-            <button type="submit" className="btn-update-submit">
-              Save Changes
+            <button
+              type="submit"
+              className="btn-update-submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="spinner"></span>
+                  Saving...
+                </>
+              ) : (
+                "Save Changes"
+              )}
             </button>
           </div>
         </form>
       ) : (
-        <>
+        <div>
           <div className="shared-note-header">
             <div className="shared-info">
               <div className="shared-by">
@@ -93,8 +111,8 @@ export default function SharedNoteCard({ sharedNote }) {
                 {permissions.write ? "✏️ Can Edit" : "👁️ Read Only"}
               </div>
             </div>
-            <div className="shared-date">
-              {note.updatedAt && formatDate(note.updatedAt)}
+            <div className="shared-date" title={formattedDate}>
+              {timeAgo}
             </div>
           </div>
 
@@ -113,8 +131,10 @@ export default function SharedNoteCard({ sharedNote }) {
               </button>
             )}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
-}
+};
+
+export default SharedNoteCard;

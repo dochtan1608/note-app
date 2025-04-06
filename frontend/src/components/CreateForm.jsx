@@ -1,27 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import notesStore from "../stores/notesStore";
 
-// Form tạo ghi chú (Create Note) bên cột phải
-export default function CreateForm() {
+const CreateForm = () => {
   const store = notesStore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Nếu đang cập nhật (store.updateForm._id có giá trị) thì ẩn form tạo
+  // Don't render if update form is active
   if (store.updateForm._id) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Only proceed if there's actual content
+    if (!store.createForm.title.trim() && !store.createForm.body.trim()) return;
+
+    setIsSubmitting(true);
     try {
-      // Tạo note mới
       await store.createNote(e);
-      // Không cần gọi fetchNotes ở đây vì createNote đã cập nhật state
     } catch (err) {
       console.error("Error creating note:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="create-form-section">
       <h2>Create Note</h2>
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -32,18 +38,30 @@ export default function CreateForm() {
           placeholder="Title"
           required
         />
+
         <textarea
           name="body"
           value={store.createForm.body}
           onChange={store.updateCreateFormField}
           className="input-field"
-          placeholder="Body"
+          placeholder="What's on your mind?"
           required
+          rows="5"
         />
-        <button type="submit" className="btn-create">
-          Create Note
+
+        <button type="submit" className="btn-create" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <span className="spinner"></span>
+              Creating...
+            </>
+          ) : (
+            "Create Note"
+          )}
         </button>
       </form>
     </div>
   );
-}
+};
+
+export default CreateForm;
