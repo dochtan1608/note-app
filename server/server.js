@@ -11,6 +11,8 @@ const connectToDB = require("./config/connectToDB");
 const notesController = require("./controllers/notesController");
 const userController = require("./controllers/userController");
 const requireAuth = require("./middleware/requireAuth");
+const shareController = require("./controllers/shareController");
+
 // create express app
 
 const app = express();
@@ -36,5 +38,14 @@ app.get("/notes/:id", requireAuth, notesController.fetchNote);
 app.post("/notes", requireAuth, notesController.createNote);
 app.put("/notes/:id", requireAuth, notesController.updateNote);
 app.delete("/notes/:id", requireAuth, notesController.deleteNote);
+
+// Note sharing routes
+app.post("/notes/share", requireAuth, shareController.shareNote);
+app.get("/notes/shared", requireAuth, shareController.getSharedNotes);
+
+// Note actions routes
+app.put("/notes/:id/pin", requireAuth, notesController.togglePin);
+app.put("/notes/:id/favorite", requireAuth, notesController.toggleFavorite);
+
 // chay server
 app.listen(process.env.PORT);

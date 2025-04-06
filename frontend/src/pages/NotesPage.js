@@ -8,18 +8,25 @@ export default function NotesPage() {
   const store = notesStore();
 
   useEffect(() => {
-    store.fetchNotes();
+    const loadNotes = async () => {
+      try {
+        await store.fetchNotes();
+      } catch (error) {
+        console.error("Error loading notes:", error);
+      }
+    };
+    loadNotes();
   }, []);
 
   return (
     <div className="notes-page">
-      <aside className="sidebar">
+      <div className="sidebar">
         <CreateForm />
-        <UpdateForm />
-      </aside>
-      <main className="main-content">
-        <Notes />
-      </main>
+        {store.updateForm._id && <UpdateForm />}
+      </div>
+      <div className="main-content">
+        <Notes notes={store.notes} />
+      </div>
     </div>
   );
 }

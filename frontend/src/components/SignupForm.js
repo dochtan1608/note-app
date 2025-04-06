@@ -56,7 +56,7 @@ export default function SignupForm() {
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
-              {showPassword ? "👁️" : "👁️‍🗨️"}
+              {showPassword ? "🔓" : "🔒"}
             </button>
           </div>
         </div>

@@ -1,11 +1,27 @@
 const Note = require("../models/note");
 
 const fetchNotes = async (req, res) => {
-  // Find the notes
-  const notes = await Note.find({ user: req.user._id });
+  try {
+    console.log("Fetching notes for user:", req.user._id);
 
-  // Respond with them
-  res.json({ notes });
+    // Get all notes for current user
+    const notes = await Note.find({
+      user: req.user._id,
+    }).sort({
+      createdAt: -1,
+    });
+
+    console.log("Found notes:", notes);
+
+    // Always return an array
+    res.json({ notes: notes || [] });
+  } catch (err) {
+    console.error("Error in fetchNotes:", err);
+    res.status(500).json({
+      error: err.message,
+      notes: [],
+    });
+  }
 };
 
 const fetchNote = async (req, res) => {
@@ -20,18 +36,23 @@ const fetchNote = async (req, res) => {
 };
 
 const createNote = async (req, res) => {
-  // Get the sent in data off request body
-  const { title, body } = req.body;
+  try {
+    // Lấy data từ request body
+    const { title, body } = req.body;
 
-  // Create a note with it
-  const note = await Note.create({
-    title,
-    body,
-    user: req.user._id,
-  });
+    // Tạo note mới với user ID
+    const note = await Note.create({
+      title,
+      body,
+      user: req.user._id,
+    });
 
-  // respond with the new note
-  res.json({ note });
+    console.log("Created note:", note);
+    res.json({ note });
+  } catch (err) {
+    console.error("Error in createNote:", err);
+    res.status(500).json({ error: err.message });
+  }
 };
 
 const updateNote = async (req, res) => {
@@ -68,10 +89,34 @@ const deleteNote = async (req, res) => {
   res.json({ success: "Record deleted" });
 };
 
+const togglePin = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    note.isPinned = !note.isPinned;
+    await note.save();
+    res.json({ note });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+const toggleFavorite = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    note.isFavorite = !note.isFavorite;
+    await note.save();
+    res.json({ note });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 module.exports = {
   fetchNotes,
   fetchNote,
   createNote,
-  updateNote, 
+  updateNote,
   deleteNote,
+  togglePin,
+  toggleFavorite,
 };

@@ -1,8 +1,7 @@
-import create from "zustand";
-
+import { create } from "zustand";
 import axios from "axios";
 
-const notesStore = create((set) => ({
+const notesStore = create((set, get) => ({
   notes: [],
 
   createForm: {
@@ -17,11 +16,22 @@ const notesStore = create((set) => ({
   },
 
   fetchNotes: async () => {
-    // fetch notes
-    const res = await axios.get("/notes");
+    try {
+      const res = await axios.get("/notes");
+      console.log("Fetching notes response:", res.data);
 
-    // sset state
-    set({ notes: res.data.notes });
+      // Sort notes - pinned notes first, then by creation date
+      const sortedNotes = (res.data.notes || []).sort((a, b) => {
+        if (a.isPinned && !b.isPinned) return -1;
+        if (!a.isPinned && b.isPinned) return 1;
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+
+      set({ notes: sortedNotes });
+    } catch (err) {
+      console.error("Error fetching notes:", err);
+      set({ notes: [] });
+    }
   },
 
   updateCreateFormField: (e) => {
@@ -39,17 +49,30 @@ const notesStore = create((set) => ({
 
   createNote: async (e) => {
     e.preventDefault();
+    try {
+      const { createForm, notes } = get();
+      const res = await axios.post("/notes", createForm);
+      console.log("Create Note Response:", res.data);
 
-    const { createForm, notes } = notesStore.getState();
-    const res = await axios.post("/notes", createForm);
+      if (res.data && res.data.note) {
+        // Sort notes - pinned notes first, then by creation date
+        const newNotes = [res.data.note, ...notes].sort((a, b) => {
+          if (a.isPinned && !b.isPinned) return -1;
+          if (!a.isPinned && b.isPinned) return 1;
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
 
-    set({
-      notes: [...notes, res.data.note],
-      createForm: {
-        title: "",
-        body: "",
-      },
-    });
+        set({
+          notes: newNotes,
+          createForm: {
+            title: "",
+            body: "",
+          },
+        });
+      }
+    } catch (err) {
+      console.error("Error creating note:", err);
+    }
   },
 
   deleteNote: async (_id) => {
@@ -79,13 +102,13 @@ const notesStore = create((set) => ({
   },
 
   toggleUpdate: ({ _id, title, body }) => {
-    set({
+    set((state) => ({
       updateForm: {
-        title,
-        body,
-        _id,
+        _id: _id || null,
+        title: title || "",
+        body: body || "",
       },
-    });
+    }));
   },
 
   updateNote: async (e) => {
@@ -117,6 +140,42 @@ const notesStore = create((set) => ({
         body: "",
       },
     });
+  },
+
+  sharedNotes: [],
+
+  togglePin: async (noteId) => {
+    const res = await axios.put(`/notes/${noteId}/pin`);
+    const notes = get().notes;
+    const updatedNotes = notes
+      .map((note) => (note._id === noteId ? res.data.note : note))
+      .sort((a, b) => {
+        if (a.isPinned && !b.isPinned) return -1;
+        if (!a.isPinned && b.isPinned) return 1;
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+    set({ notes: updatedNotes });
+  },
+
+  toggleFavorite: async (noteId) => {
+    const res = await axios.put(`/notes/${noteId}/favorite`);
+    const notes = get().notes.map((note) =>
+      note._id === noteId ? res.data.note : note
+    );
+    set({ notes });
+  },
+
+  shareNote: async (noteId, email, permissions) => {
+    await axios.post("/notes/share", {
+      noteId,
+      email,
+      permissions,
+    });
+  },
+
+  fetchSharedNotes: async () => {
+    const res = await axios.get("/notes/shared");
+    set({ sharedNotes: res.data.sharedNotes });
   },
 }));
 
