@@ -8,7 +8,7 @@ const categorySchema = new mongoose.Schema({
   },
   color: {
     type: String,
-    default: "#2563eb", // Default color
+    default: "#2563eb",
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

@@ -1274,3 +1274,332 @@ body.dark-mode .tab.active {
   background: var(--primary-color);
   color: white;
 }
+
+/* Shared Notes Page Styles */
+.shared-page {
+  padding: 2rem 1rem;
+}
+
+.shared-page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-header h1::before {
+  content: "🔗";
+  font-size: 1.75rem;
+}
+
+.page-description {
+  color: var(--text-medium);
+  font-size: 1rem;
+  max-width: 600px;
+}
+
+.shared-notes-container {
+  background: var(--bg-light);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.shared-notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background: white;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.shared-notes-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.shared-count {
+  background: var(--bg-medium);
+  color: var(--text-medium);
+  font-weight: 500;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.shared-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.shared-note-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.shared-note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.shared-note-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.shared-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.shared-by {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.shared-by-icon {
+  opacity: 0.7;
+}
+
+.permission-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.permission-badge.can-edit {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning-color);
+}
+
+.permission-badge.read-only {
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--secondary-color);
+}
+
+.shared-date {
+  font-size: 0.8rem;
+  color: var(--text-medium);
+  opacity: 0.8;
+}
+
+.shared-note-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.shared-note-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: var(--text-dark);
+}
+
+.shared-note-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-medium);
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.shared-note-footer {
+  padding: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-edit-shared {
+  background: var(--warning-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-edit-shared:hover {
+  background: #d97706;
+  transform: translateY(-2px);
+}
+
+.btn-icon-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit-shared-form {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.form-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.close-edit {
+  font-size: 1.1rem;
+  opacity: 0.6;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  transition: all 0.3s ease;
+}
+
+.close-edit:hover {
+  background: rgba(0, 0, 0, 0.05);
+  opacity: 1;
+}
+
+.edit-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.edit-body {
+  font-size: 1rem;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.empty-shared-notes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+.empty-shared-notes p {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin: 0 0 0.5rem;
+}
+
+.empty-message {
+  color: var(--text-medium);
+  font-size: 1rem;
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .shared-notes-container {
+  background: var(--bg-dark);
+}
+
+body.dark-mode .shared-notes-header {
+  background: #2d2d2d;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .shared-count {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
+
+body.dark-mode .shared-note-card {
+  background: #2d2d2d;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .shared-note-header,
+body.dark-mode .shared-note-footer {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .close-edit:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .empty-shared-notes p {
+  color: white;
+}
+
+body.dark-mode .empty-message {
+  color: var(--text-light);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .shared-notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shared-notes-header {
+    padding: 1.25rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+  }
+}
