@@ -5,9 +5,14 @@ export default function ShareModal({ note, onClose }) {
   const store = notesStore();
   const [email, setEmail] = useState("");
   const [canEdit, setCanEdit] = useState(false);
+  const [error, setError] = useState("");
+  const [isSharing, setIsSharing] = useState(false);
 
   const handleShare = async (e) => {
     e.preventDefault();
+    setError("");
+    setIsSharing(true);
+
     try {
       await store.shareNote(note._id, email, {
         read: true,
@@ -15,7 +20,9 @@ export default function ShareModal({ note, onClose }) {
       });
       onClose();
     } catch (err) {
-      console.error("Share failed:", err);
+      setError(err.response?.data?.error || "Failed to share note");
+    } finally {
+      setIsSharing(false);
     }
   };
 
@@ -24,6 +31,7 @@ export default function ShareModal({ note, onClose }) {
       <div className="modal-overlay" onClick={onClose} />
       <div className="share-modal">
         <h2>Share Note</h2>
+        {error && <div className="share-error">{error}</div>}
         <form onSubmit={handleShare} className="share-form">
           <div className="form-group">
             <label htmlFor="email">Share with (email):</label>
@@ -35,6 +43,7 @@ export default function ShareModal({ note, onClose }) {
               className="auth-input"
               placeholder="Enter email address"
               required
+              disabled={isSharing}
             />
           </div>
           <div className="form-group">
@@ -43,16 +52,22 @@ export default function ShareModal({ note, onClose }) {
                 type="checkbox"
                 checked={canEdit}
                 onChange={(e) => setCanEdit(e.target.checked)}
+                disabled={isSharing}
               />
               Allow editing
             </label>
           </div>
           <div className="modal-actions">
-            <button type="button" onClick={onClose} className="btn-cancel">
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn-cancel"
+              disabled={isSharing}
+            >
               Cancel
             </button>
-            <button type="submit" className="btn-create">
-              Share
+            <button type="submit" className="btn-create" disabled={isSharing}>
+              {isSharing ? "Sharing..." : "Share"}
             </button>
           </div>
         </form>

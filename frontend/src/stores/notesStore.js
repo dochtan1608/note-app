@@ -144,6 +144,33 @@ const notesStore = create((set, get) => ({
 
   sharedNotes: [],
 
+  updateSharedNote: async (noteId, updates) => {
+    try {
+      const res = await axios.put(`/notes/shared/${noteId}`, updates);
+
+      // Update in sharedNotes array
+      set((state) => ({
+        sharedNotes: state.sharedNotes.map((shared) =>
+          shared.note._id === noteId
+            ? { ...shared, note: res.data.note }
+            : shared
+        ),
+      }));
+
+      // Also update in regular notes if present
+      set((state) => ({
+        notes: state.notes.map((note) =>
+          note._id === noteId ? res.data.note : note
+        ),
+      }));
+
+      return res.data.note;
+    } catch (err) {
+      console.error("Error updating shared note:", err);
+      throw err;
+    }
+  },
+
   togglePin: async (noteId) => {
     const res = await axios.put(`/notes/${noteId}/pin`);
     const notes = get().notes;
@@ -166,16 +193,30 @@ const notesStore = create((set, get) => ({
   },
 
   shareNote: async (noteId, email, permissions) => {
-    await axios.post("/notes/share", {
-      noteId,
-      email,
-      permissions,
-    });
+    try {
+      await axios.post("/notes/share", { noteId, email, permissions });
+    } catch (err) {
+      console.error("Error sharing note:", err);
+      throw err;
+    }
   },
 
   fetchSharedNotes: async () => {
-    const res = await axios.get("/notes/shared");
-    set({ sharedNotes: res.data.sharedNotes });
+    try {
+      console.log("Fetching shared notes...");
+      const res = await axios.get("/notes/shared");
+      console.log("Shared notes response:", res.data);
+
+      if (res.data && Array.isArray(res.data.sharedNotes)) {
+        set({ sharedNotes: res.data.sharedNotes });
+      } else {
+        console.error("Invalid shared notes data:", res.data);
+        set({ sharedNotes: [] });
+      }
+    } catch (err) {
+      console.error("Error fetching shared notes:", err);
+      set({ sharedNotes: [] });
+    }
   },
 }));
 
