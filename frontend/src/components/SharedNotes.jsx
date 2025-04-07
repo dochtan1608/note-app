@@ -5,9 +5,8 @@ import SharedNoteCard from "./SharedNoteCard";
 import LoadingSpinner from "./LoadingSpinner";
 
 const SharedNotes = () => {
-  const { sharedNotes, fetchSharedNotes } = notesStore((state) => ({
+  const { sharedNotes } = notesStore((state) => ({
     sharedNotes: state.sharedNotes,
-    fetchSharedNotes: state.fetchSharedNotes,
   }));
 
   // Group shared notes by sender email
@@ -36,10 +35,6 @@ const SharedNotes = () => {
     },
   };
 
-  const refreshSharedNotes = async () => {
-    await fetchSharedNotes();
-  };
-
   return (
     <motion.div
       className="shared-notes-container"
@@ -51,14 +46,7 @@ const SharedNotes = () => {
         <h2>Shared With Me</h2>
         <div className="shared-header-actions">
           <div className="shared-count">{sharedNotes?.length || 0} notes</div>
-          <motion.button
-            className="btn-refresh"
-            onClick={refreshSharedNotes}
-            whileHover={{ scale: 1.05, rotate: 15 }}
-            whileTap={{ scale: 0.95, rotate: 30 }}
-          >
-            🔄
-          </motion.button>
+          {/* Removed the refresh button */}
         </div>
       </div>
 

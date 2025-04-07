@@ -60,7 +60,7 @@ body {
   gap: 1.5rem;
   margin: 0;
   padding: 0;
-  flex: 0 1 auto; /* Allow shrinking but not growing */
+  flex: 0 1 auto;
 }
 
 .nav-actions {
@@ -68,7 +68,7 @@ body {
   align-items: center;
   gap: 1rem;
   margin-left: auto;
-  flex: 0 1 auto; /* Allow shrinking but not growing */
+  flex: 0 1 auto;
 }
 
 .auth-links {
@@ -76,19 +76,19 @@ body {
   align-items: center;
   gap: 1rem;
   margin-left: auto;
-  white-space: nowrap; /* Prevent text wrapping */
+  white-space: nowrap;
 }
 
 .nav-link {
   color: var(--text-dark);
   text-decoration: none;
   font-size: 1.1rem;
-  padding: 0.5rem 1rem; /* Reduce padding */
+  padding: 0.5rem 1rem;
   border-radius: var(--border-radius);
   transition: background-color var(--transition-speed);
   font-weight: 500;
   position: relative;
-  white-space: nowrap; /* Prevent text wrapping */
+  white-space: nowrap;
 }
 
 .nav-link::after {
@@ -132,9 +132,9 @@ body {
 
 .content-layout {
   display: grid;
-  grid-template-columns: 400px 1fr; /* Tăng từ 350px lên 400px để bằng với update form */
+  grid-template-columns: 400px 1fr;
   gap: 2rem;
-  height: calc(100vh - 80px); /* Subtract navbar height */
+  height: calc(100vh - 80px);
   margin-top: 1rem;
 }
 
@@ -147,7 +147,7 @@ body {
   }
 
   .notes-grid {
-    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-columns: 1fr;
     width: 100%;
   }
 
@@ -225,11 +225,10 @@ body {
   margin: 0;
   color: var(--text-dark);
   margin-bottom: 0.5rem;
-  /* Add these properties to handle long titles */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: calc(100% - 100px); /* Leave space for action buttons */
+  max-width: calc(100% - 100px);
   display: block;
 }
 
@@ -239,11 +238,10 @@ body {
   margin: 0;
   flex-grow: 1;
   line-height: 1.6;
-  /* Add these properties to handle text overflow */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
@@ -294,11 +292,11 @@ body {
   position: sticky;
   top: 1rem;
   height: fit-content;
-  width: 100%; /* Thêm width 100% */
+  width: 100%;
   max-height: calc(100vh - 100px);
   overflow-y: auto;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-sizing: border-box; /* Thêm box-sizing */
+  box-sizing: border-box;
 }
 
 .create-form-section:hover {
@@ -357,7 +355,6 @@ body {
   line-height: 1.6;
 }
 
-/* Dark mode adjustments */
 body.dark-mode .create-form-section {
   background: rgba(45, 45, 45, 0.95);
   border-color: rgba(255, 255, 255, 0.1);
@@ -426,7 +423,6 @@ body.dark-mode .dark-mode-toggle {
   color: #fff;
 }
 
-/* Auth Pages Styling */
 .auth-container {
   max-width: 400px;
   margin: 2rem auto;
@@ -534,7 +530,6 @@ body.dark-mode .dark-mode-toggle {
   text-align: center;
 }
 
-/* Dark mode adjustments */
 body.dark-mode .auth-container {
   background: #2d2d2d;
   border-color: rgba(255, 255, 255, 0.1);
@@ -562,11 +557,9 @@ body.dark-mode .auth-link {
   display: grid;
   grid-template-columns: 400px 1fr;
   gap: 2rem;
-  height: calc(
-    100vh - 120px
-  ); /* Adjusted height accounting for navbar and padding */
+  height: calc(100vh - 120px);
   padding: 2rem;
-  overflow: hidden; /* Prevent double scrollbars */
+  overflow: hidden;
   animation: fadeIn 0.5s ease-out;
 }
 
@@ -668,7 +661,6 @@ body.dark-mode .auth-link {
   line-height: 1.6;
 }
 
-/* Dark mode adjustments for update form */
 body.dark-mode .update-form-section {
   background: rgba(45, 45, 45, 0.95);
   border-color: rgba(255, 255, 255, 0.1);
@@ -793,7 +785,6 @@ button,
   opacity: 0.8;
 }
 
-/* Common button styles */
 .btn-create,
 .btn-update,
 .btn-delete,
@@ -874,7 +865,6 @@ button,
   box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
 
-/* Active state for all buttons */
 .btn-create:active,
 .btn-update:active,
 .btn-delete:active,
@@ -884,7 +874,6 @@ button,
   box-shadow: none;
 }
 
-/* Dark mode adjustments */
 body.dark-mode .btn-create,
 body.dark-mode .auth-button {
   background: #3b82f6;
@@ -899,7 +888,6 @@ body.dark-mode .btn-delete {
   background: #ef4444;
 }
 
-/* Enhanced Button Styles */
 .btn-create,
 .btn-update,
 .btn-delete,
@@ -922,7 +910,6 @@ body.dark-mode .btn-delete {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Button Background Gradients */
 .btn-create,
 .auth-button {
   background: linear-gradient(
@@ -944,7 +931,6 @@ body.dark-mode .btn-delete {
   box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
 }
 
-/* Button Hover Effects */
 .btn-create:hover,
 .auth-button:hover {
   transform: translateY(-3px) scale(1.02);
@@ -962,7 +948,6 @@ body.dark-mode .btn-delete {
   box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
 }
 
-/* Button Active/Press Effects */
 .btn-create:active,
 .btn-update:active,
 .btn-delete:active,
@@ -972,7 +957,6 @@ body.dark-mode .btn-delete {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Button Ripple Effect */
 .btn-create::after,
 .btn-update::after,
 .btn-delete::after,
@@ -1000,7 +984,6 @@ body.dark-mode .btn-delete {
   opacity: 0;
 }
 
-/* Enhanced ripple effect */
 .btn-create::before,
 .btn-update::before,
 .btn-delete::before,
@@ -1030,7 +1013,6 @@ body.dark-mode .btn-delete {
   animation: rippleEffect 0.5s ease-out;
 }
 
-/* Dark Mode Adjustments */
 body.dark-mode .btn-create,
 body.dark-mode .btn-update,
 body.dark-mode .btn-delete,
@@ -1047,7 +1029,6 @@ body.dark-mode .auth-button:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Loading animation for buttons */
 .btn-create:disabled,
 .btn-update:disabled,
 .btn-delete:disabled {
@@ -1080,7 +1061,6 @@ body.dark-mode .auth-button:hover {
   width: 100%;
 }
 
-/* Completely fix password toggle position */
 .password-toggle {
   position: absolute;
   right: 10px;
@@ -1098,30 +1078,25 @@ body.dark-mode .auth-button:hover {
   opacity: 0.7;
   transition: opacity 0.2s ease;
   z-index: 2;
-  /* Remove all transforms that could cause position issues */
   transform: none;
   transform-origin: center;
-  pointer-events: auto; /* Ensure clickable */
+  pointer-events: auto;
 }
 
-/* Make hover only affect opacity, not position */
 .password-toggle:hover,
 .password-toggle:active,
 .password-toggle:focus {
   opacity: 1;
   outline: none;
-  /* No transform changes on any state */
   transform: none;
 }
 
-/* Add a static content for better visual appearance */
 .password-toggle span {
   display: block;
   font-size: 16px;
   line-height: 1;
 }
 
-/* Dark mode adjustments */
 body.dark-mode .password-toggle {
   color: var(--text-light);
   opacity: 0.8;
@@ -1158,7 +1133,6 @@ body.dark-mode .password-toggle:hover {
   transform: rotate(90deg) scale(0.95);
 }
 
-/* Dark mode adjustments for btn-cancel */
 body.dark-mode .btn-cancel {
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-light);
@@ -1169,21 +1143,19 @@ body.dark-mode .btn-cancel:hover {
   color: #ef4444;
 }
 
-/* Note Card Enhancements */
 .note-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
-  /* Add this to ensure proper alignment */
   width: 100%;
 }
 
 .note-actions-top {
   display: flex;
   gap: 0.5rem;
-  flex-shrink: 0; /* Prevent buttons from shrinking */
+  flex-shrink: 0;
 }
 
 .btn-icon {
@@ -1221,7 +1193,6 @@ body.dark-mode .note-card.pinned {
   background: rgba(45, 45, 45, 0.98);
 }
 
-/* Share Modal Styles - Improved centering */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1230,7 +1201,7 @@ body.dark-mode .note-card.pinned {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
-  z-index: 9998; /* High z-index to appear above all app content */
+  z-index: 9998;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1247,44 +1218,38 @@ body.dark-mode .note-card.pinned {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 90%;
   max-width: 500px;
-  z-index: 9999; /* Even higher z-index than the overlay */
+  z-index: 9999;
   max-height: 90vh;
   overflow-y: auto;
   margin: 0;
-
-  /* Enhanced positioning to ensure perfect centering */
   display: block;
   pointer-events: auto;
 }
 
-/* Add more spacing in share modal form groups */
 .share-modal .form-group {
-  margin-bottom: 1.75rem; /* Increase bottom margin for more spacing */
+  margin-bottom: 1.75rem;
 }
 
-/* Make sure data-portal-container elements are properly sized */
 [data-portal-container] {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* Allow clicks to pass through the container */
+  pointer-events: none;
   z-index: 9000;
 }
 
 [data-portal-container] > * {
-  pointer-events: auto; /* Re-enable pointer events for modal children */
+  pointer-events: auto;
 }
 
-/* Force proper stacking in all browser contexts */
 .modal-overlay,
 .share-modal {
   will-change: transform, opacity;
   contain: layout style paint;
 }
 
-/* Tab Styles */
 .tabs {
   display: flex;
   gap: 1rem;
@@ -1325,7 +1290,6 @@ body.dark-mode .tab.active {
   color: white;
 }
 
-/* Shared Notes Page Styles */
 .shared-page {
   padding: 2rem 1rem;
 }
@@ -1602,7 +1566,6 @@ body.dark-mode .tab.active {
   line-height: 1.5;
 }
 
-/* Dark mode adjustments */
 body.dark-mode .shared-notes-container {
   background: var(--bg-dark);
 }
@@ -1639,7 +1602,6 @@ body.dark-mode .empty-message {
   color: var(--text-light);
 }
 
-/* Media queries */
 @media (max-width: 768px) {
   .shared-notes-grid {
     grid-template-columns: 1fr;
@@ -1654,7 +1616,6 @@ body.dark-mode .empty-message {
   }
 }
 
-/* Spinner animation for loading states */
 .spinner {
   display: inline-block;
   width: 16px;
@@ -1673,7 +1634,6 @@ body.dark-mode .empty-message {
   }
 }
 
-/* Shared notes empty state */
 .empty-shared-notes {
   display: flex;
   flex-direction: column;
@@ -1702,7 +1662,6 @@ body.dark-mode .empty-message {
   line-height: 1.6;
 }
 
-/* Error message in forms */
 .share-error {
   background-color: rgba(239, 68, 68, 0.1);
   color: var (--danger-color);
@@ -1713,7 +1672,6 @@ body.dark-mode .empty-message {
   text-align: center;
 }
 
-/* Success message in share modal */
 .share-success {
   padding: 2rem 1rem;
   text-align: center;
@@ -1742,7 +1700,6 @@ body.dark-mode .empty-message {
   color: var(--text-medium);
 }
 
-/* Modal cancel button */
 .btn-cancel-modal {
   background: rgba(0, 0, 0, 0.05);
   color: var(--text-dark);
@@ -1768,7 +1725,6 @@ body.dark-mode .btn-cancel-modal:hover {
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Modal actions */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
@@ -1776,7 +1732,6 @@ body.dark-mode .btn-cancel-modal:hover {
   margin-top: 1.5rem;
 }
 
-/* Checkbox styling */
 .checkbox-label {
   display: flex;
   align-items: center;
@@ -1792,13 +1747,11 @@ body.dark-mode .btn-cancel-modal:hover {
   margin-left: 1.5rem;
 }
 
-/* Page transition */
 .page-container {
   width: 100%;
   height: 100%;
 }
 
-/* Auth loading container */
 .auth-loading-container {
   display: flex;
   flex-direction: column;
@@ -1808,7 +1761,6 @@ body.dark-mode .btn-cancel-modal:hover {
   gap: 1.5rem;
 }
 
-/* Text on logout page */
 .btn-login-again {
   display: inline-block;
   padding: 0.75rem 1.5rem;
@@ -1825,7 +1777,6 @@ body.dark-mode .btn-cancel-modal:hover {
   transform: translateY(-2px);
 }
 
-/* Fallback spinner for when framer-motion is not loaded */
 .simple-spinner {
   border: 4px solid rgba(0, 0, 0, 0.1);
   width: 36px;
@@ -1836,7 +1787,138 @@ body.dark-mode .btn-cancel-modal:hover {
   margin: 0 auto 1rem;
 }
 
-body.dark-mode .simple-spinner {
+.reminder-modal {
+  width: 500px;
+  max-width: 95%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+}
+
+.reminder-modal h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.reminder-form {
+  margin-top: 1.5rem;
+}
+
+.notification-dropdown {
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .notification-dropdown {
+  background: #2d2d2d;
   border-color: rgba(255, 255, 255, 0.1);
-  border-left-color: var(--primary-color-light);
+}
+
+.notification-item {
+  transition: background-color 0.2s ease;
+}
+
+.notification-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+body.dark-mode .notification-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.notification-badge {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+body.dark-mode .btn-dismiss {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: var(--text-light) !important;
+}
+
+body.dark-mode .notification-item,
+body.dark-mode .empty-notifications {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .notification-header {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .reminder-card {
+  background: #2d2d2d;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .empty-reminders {
+  color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+  .reminders-list {
+    grid-template-columns: 1fr !important;
+  }
+
+  .notification-dropdown {
+    position: fixed !important;
+    top: 60px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+}
+
+.reminders-page {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.note-content {
+  cursor: pointer;
+}
+
+.note-body.expanded {
+  -webkit-line-clamp: unset;
+  max-height: none;
+}
+
+.note-card.expanded {
+  z-index: 10;
+  transform: scale(1.02);
+}
+
+.btn-expand {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  padding: 0;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.btn-expand:hover {
+  text-decoration: underline;
+}
+
+body.dark-mode .btn-expand {
+  color: var(--primary-color-light);
 }

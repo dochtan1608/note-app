@@ -9,9 +9,11 @@ import {
 import RequireAuth from "./RequireAuth";
 import NotesPage from "../pages/NotesPage";
 import SharedNotesPage from "../pages/SharedNotesPage";
+import RemindersPage from "../pages/RemindersPage";
 import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import LogoutPage from "../pages/LogoutPage";
+import NotificationBell from "./reminder/NotificationBell";
 import "../styles/styles.css";
 
 // Run this once to add the fallback styles to the document
@@ -56,9 +58,14 @@ function App() {
               <div className="nav-icon">📒 Notes</div>
             </Link>
             {isLoggedIn && (
-              <Link to="/shared" className="nav-link">
-                <div className="nav-icon">🔗 Shared</div>
-              </Link>
+              <>
+                <Link to="/shared" className="nav-link">
+                  <div className="nav-icon">🔗 Shared</div>
+                </Link>
+                <Link to="/reminders" className="nav-link">
+                  <div className="nav-icon">⏰ Reminders</div>
+                </Link>
+              </>
             )}
           </div>
 
@@ -74,9 +81,13 @@ function App() {
                   </Link>
                 </>
               ) : (
-                <Link to="/logout" className="nav-link">
-                  Sign Out
-                </Link>
+                <>
+                  {/* Add notification bell before logout */}
+                  <NotificationBell />
+                  <Link to="/logout" className="nav-link">
+                    Sign Out
+                  </Link>
+                </>
               )}
             </div>
             <button
@@ -107,6 +118,14 @@ function App() {
                 element={
                   <RequireAuth>
                     <SharedNotesPage />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/reminders"
+                element={
+                  <RequireAuth>
+                    <RemindersPage />
                   </RequireAuth>
                 }
               />

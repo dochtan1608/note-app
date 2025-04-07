@@ -108,7 +108,7 @@ const SharedNoteCard = ({ sharedNote }) => {
                   permissions.write ? "can-edit" : "read-only"
                 }`}
               >
-                {permissions.write ? "✏️ Can Edit" : "👁️ Read Only"}
+                {permissions.write ? "✏️ Can Edit" : "🔒 Read Only"}
               </div>
             </div>
             <div className="shared-date" title={formattedDate}>

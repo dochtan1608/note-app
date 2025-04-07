@@ -12,6 +12,7 @@ const notesController = require("./controllers/notesController");
 const userController = require("./controllers/userController");
 const requireAuth = require("./middleware/requireAuth");
 const shareController = require("./controllers/shareController");
+const reminderController = require("./controllers/reminderController");
 
 // create express app
 
@@ -51,6 +52,46 @@ app.delete("/notes/:id", requireAuth, notesController.deleteNote);
 // Note actions routes
 app.put("/notes/:id/pin", requireAuth, notesController.togglePin);
 app.put("/notes/:id/favorite", requireAuth, notesController.toggleFavorite);
+
+// Reminder routes
+app.get("/reminders", requireAuth, reminderController.getReminders);
+app.get("/reminders/:id", requireAuth, reminderController.getReminder);
+app.post("/reminders", requireAuth, reminderController.createReminder);
+app.put("/reminders/:id", requireAuth, reminderController.updateReminder);
+app.delete("/reminders/:id", requireAuth, reminderController.deleteReminder);
+app.put(
+  "/reminders/:id/notify",
+  requireAuth,
+  reminderController.markAsNotified
+);
+app.get(
+  "/notifications/pending",
+  requireAuth,
+  reminderController.getPendingNotifications
+);
+app.post(
+  "/notifications/mark-read",
+  requireAuth,
+  reminderController.markMultipleAsNotified
+);
+
+// Add new routes for sharing reminders
+app.post("/reminders/share", requireAuth, reminderController.shareReminder);
+app.get(
+  "/reminders/shared/pending",
+  requireAuth,
+  reminderController.getSharedReminders
+);
+app.put(
+  "/reminders/shared/:id",
+  requireAuth,
+  reminderController.handleSharedReminder
+);
+app.put(
+  "/reminders/shared/:id/notify",
+  requireAuth,
+  reminderController.markSharedReminderAsNotified
+);
 
 // chay server
 app.listen(process.env.PORT);
