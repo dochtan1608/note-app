@@ -17,7 +17,6 @@ const NoteCard = ({ note }) => {
       <div className="note-card-header">
         <h3 className="note-title">{note.title}</h3>
         <div className="note-actions-top">
-          {/* Restore the pin button */}
           <button
             onClick={() => store.togglePin(note._id)}
             className={`btn-icon ${note.isPinned ? "active" : ""}`}
@@ -62,6 +61,7 @@ const NoteCard = ({ note }) => {
         </button>
       </div>
 
+      {/* Share modal is now rendered through Portal */}
       {showShareModal && (
         <ShareModal note={note} onClose={() => setShowShareModal(false)} />
       )}
