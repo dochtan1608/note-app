@@ -1238,7 +1238,7 @@ body.dark-mode .note-card.pinned {
 
 .share-modal {
   position: fixed;
-  top: 28%;
+  top: 26%;
   left: 28%;
   transform: translate(-50%, -50%);
   background: white;
@@ -1255,6 +1255,11 @@ body.dark-mode .note-card.pinned {
   /* Enhanced positioning to ensure perfect centering */
   display: block;
   pointer-events: auto;
+}
+
+/* Add more spacing in share modal form groups */
+.share-modal .form-group {
+  margin-bottom: 1.75rem; /* Increase bottom margin for more spacing */
 }
 
 /* Make sure data-portal-container elements are properly sized */
@@ -1700,7 +1705,7 @@ body.dark-mode .empty-message {
 /* Error message in forms */
 .share-error {
   background-color: rgba(239, 68, 68, 0.1);
-  color: var(--danger-color);
+  color: var (--danger-color);
   padding: 0.75rem 1rem;
   border-radius: 8px;
   font-size: 0.9rem;
