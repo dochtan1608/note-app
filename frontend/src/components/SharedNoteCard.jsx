@@ -106,7 +106,6 @@ const SharedNoteCard = ({ sharedNote }) => {
           <div className="shared-note-header">
             <div className="shared-info">
               <div className="shared-by">
-                <span className="shared-by-icon">👤</span>
                 <span className="shared-by-name">{sharedBy.email}</span>
               </div>
               <div

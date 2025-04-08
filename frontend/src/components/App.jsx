@@ -7,6 +7,7 @@ import {
   addFallbackStyles,
 } from "./SimpleFallbacks";
 import RequireAuth from "./RequireAuth";
+import HomePage from "../pages/HomePage"; // Import HomePage
 import NotesPage from "../pages/NotesPage";
 import SharedNotesPage from "../pages/SharedNotesPage";
 import RemindersPage from "../pages/RemindersPage";
@@ -14,7 +15,7 @@ import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import LogoutPage from "../pages/LogoutPage";
 import NotificationBell from "./reminder/NotificationBell";
-import SearchBar from "./search/SearchBar";
+import SearchBar from "./search/SearchBar"; // Import the SearchBar component
 import "../styles/styles.css";
 
 // Run this once to add the fallback styles to the document
@@ -50,54 +51,84 @@ function App() {
     setDarkMode(!darkMode);
   };
 
+  // Active route checking
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
   return (
     <>
       <header className="nav-bar">
         <nav className="nav-content">
+          <Link to={isLoggedIn ? "/" : "/home"} className="nav-link">
+            <div className="logo-container">
+              {!isLoggedIn && <span className="logo-text">Chitan Notes</span>}
+            </div>
+          </Link>
+
           <div className="nav-list">
-            <Link to="/" className="nav-link">
-              <div className="nav-icon">📒 Notes</div>
-            </Link>
             {isLoggedIn && (
               <>
-                <Link to="/shared" className="nav-link">
-                  <div className="nav-icon">🔗 Shared</div>
+                <Link
+                  to="/"
+                  className={`nav-link ${isActive("/") ? "active" : ""}`}
+                >
+                  My Notes
                 </Link>
-                <Link to="/reminders" className="nav-link">
-                  <div className="nav-icon">⏰ Reminders</div>
+                <Link
+                  to="/shared"
+                  className={`nav-link ${isActive("/shared") ? "active" : ""}`}
+                >
+                  Shared
+                </Link>
+                <Link
+                  to="/reminders"
+                  className={`nav-link ${
+                    isActive("/reminders") ? "active" : ""
+                  }`}
+                >
+                  Reminders
                 </Link>
               </>
             )}
           </div>
 
-          {/* Add search bar component */}
-          {isLoggedIn && (
-            <div className="search-bar-container">
-              <SearchBar />
-            </div>
-          )}
-
           <div className="nav-actions">
+            {/* Search bar for logged in users */}
+            {isLoggedIn && <SearchBar />}
+
+            {/* Notification bell for logged in users */}
+            {isLoggedIn && <NotificationBell />}
+
+            {/* Auth links */}
             <div className="auth-links">
               {!isLoggedIn ? (
                 <>
-                  <Link to="/login" className="nav-link">
+                  <Link
+                    to="/login"
+                    className={`nav-link ${isActive("/login") ? "active" : ""}`}
+                  >
                     Sign In
                   </Link>
-                  <Link to="/signup" className="nav-link">
+                  <Link
+                    to="/signup"
+                    className={`nav-link ${
+                      isActive("/signup") ? "active" : ""
+                    }`}
+                  >
                     Sign Up
                   </Link>
                 </>
               ) : (
-                <>
-                  {/* Add notification bell before logout */}
-                  <NotificationBell />
-                  <Link to="/logout" className="nav-link">
-                    Sign Out
-                  </Link>
-                </>
+                <Link
+                  to="/logout"
+                  className={`nav-link ${isActive("/logout") ? "active" : ""}`}
+                >
+                  Sign Out
+                </Link>
               )}
             </div>
+
             <button
               className="dark-mode-toggle"
               onClick={toggleDarkMode}
@@ -113,6 +144,8 @@ function App() {
         <div className="page-container">
           <Suspense fallback={<LoadingSpinner />}>
             <Routes location={location}>
+              {/* Add home route */}
+              <Route path="/home" element={<HomePage />} />
               <Route
                 path="/"
                 element={

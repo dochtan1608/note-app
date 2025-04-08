@@ -1,142 +1,110 @@
 import { create } from "zustand";
 import notesStore from "./notesStore";
-import useReminderStore from "./reminderStore";
 
 const useSearchStore = create((set, get) => ({
   searchTerm: "",
-  searchResults: [],
-  isSearching: false,
   showResults: false,
+  searchResults: [],
   selectedResultIndex: -1,
+  isSearching: false,
+  error: null,
 
+  // Set search term and perform search
   setSearchTerm: (term) => {
     set({ searchTerm: term });
 
-    // If term is empty, clear results and hide dropdown
+    // If term is empty, clear results
     if (!term.trim()) {
-      set({
-        searchResults: [],
-        showResults: false,
-        selectedResultIndex: -1,
-      });
+      set({ searchResults: [], showResults: false });
       return;
     }
 
-    // Start searching
+    // Perform search
     set({ isSearching: true, showResults: true });
 
-    // Perform the search
-    const results = get().performSearch(term);
+    try {
+      // Get notes from store
+      const notes = notesStore.getState().notes;
+      const sharedNotes = notesStore.getState().sharedNotes;
 
-    // Update results
-    set({
-      searchResults: results,
-      isSearching: false,
-      selectedResultIndex: results.length > 0 ? 0 : -1,
-    });
-  },
-
-  performSearch: (term) => {
-    const results = [];
-    const searchTerm = term.toLowerCase();
-
-    // Get data from stores
-    const notes = notesStore.getState().notes || [];
-    const sharedNotes = notesStore.getState().sharedNotes || [];
-    const reminders = useReminderStore.getState().reminders || [];
-
-    // Search in notes
-    notes.forEach((note) => {
-      if (
-        note.title.toLowerCase().includes(searchTerm) ||
-        note.body.toLowerCase().includes(searchTerm)
-      ) {
-        results.push({
+      // Search in user's notes
+      const noteResults = notes
+        .filter(
+          (note) =>
+            note.title.toLowerCase().includes(term.toLowerCase()) ||
+            note.body.toLowerCase().includes(term.toLowerCase())
+        )
+        .map((note) => ({
           id: note._id,
+          type: "note",
           title: note.title,
           preview:
-            note.body.substring(0, 50) + (note.body.length > 50 ? "..." : ""),
-          type: "note",
+            note.body.substring(0, 60) + (note.body.length > 60 ? "..." : ""),
           data: note,
-        });
-      }
-    });
+        }));
 
-    // Search in shared notes
-    sharedNotes.forEach((sharedNote) => {
-      if (
-        sharedNote.note?.title.toLowerCase().includes(searchTerm) ||
-        sharedNote.note?.body.toLowerCase().includes(searchTerm)
-      ) {
-        results.push({
-          id: sharedNote.note._id,
-          title: sharedNote.note.title,
-          preview:
-            sharedNote.note.body.substring(0, 50) +
-            (sharedNote.note.body.length > 50 ? "..." : ""),
-          type: "shared",
-          sharedBy: sharedNote.sharedBy?.email || "Unknown",
-          data: sharedNote,
-        });
-      }
-    });
+      // Search in shared notes
+      const sharedResults = sharedNotes
+        ? sharedNotes
+            .filter(
+              (shared) =>
+                shared.note?.title.toLowerCase().includes(term.toLowerCase()) ||
+                shared.note?.body.toLowerCase().includes(term.toLowerCase())
+            )
+            .map((shared) => ({
+              id: shared._id,
+              type: "shared",
+              title: shared.note?.title || "Untitled",
+              preview:
+                shared.note?.body.substring(0, 60) +
+                (shared.note?.body.length > 60 ? "..." : ""),
+              sharedBy: shared.sharedBy?.email,
+              data: shared,
+            }))
+        : [];
 
-    // Search in reminders
-    reminders.forEach((reminder) => {
-      if (
-        reminder.title.toLowerCase().includes(searchTerm) ||
-        (reminder.description &&
-          reminder.description.toLowerCase().includes(searchTerm))
-      ) {
-        results.push({
-          id: reminder._id,
-          title: reminder.title,
-          preview: reminder.description
-            ? reminder.description.substring(0, 50) +
-              (reminder.description.length > 50 ? "..." : "")
-            : "No description",
-          type: "reminder",
-          data: reminder,
-        });
-      }
-    });
-
-    return results;
+      // Combine and set results
+      set({
+        searchResults: [...noteResults, ...sharedResults],
+        isSearching: false,
+        error: null,
+      });
+    } catch (error) {
+      set({ isSearching: false, error: "Error searching notes" });
+      console.error("Search error:", error);
+    }
   },
 
-  toggleResults: (show = null) => {
-    set((state) => ({
-      showResults: show !== null ? show : !state.showResults,
-    }));
-  },
+  // Toggle showing the results
+  toggleResults: (show) => set({ showResults: show }),
 
-  clearSearch: () => {
+  // Clear the search
+  clearSearch: () =>
     set({
       searchTerm: "",
-      searchResults: [],
       showResults: false,
+      searchResults: [],
       selectedResultIndex: -1,
-    });
-  },
+    }),
 
+  // Navigate through results with keyboard
   navigateResults: (direction) => {
-    set((state) => {
-      const { selectedResultIndex, searchResults } = state;
-      let newIndex = selectedResultIndex;
+    const { selectedResultIndex, searchResults } = get();
+    let newIndex;
 
-      if (direction === "down") {
-        newIndex = Math.min(selectedResultIndex + 1, searchResults.length - 1);
-      } else if (direction === "up") {
-        newIndex = Math.max(selectedResultIndex - 1, 0);
-      }
+    if (direction === "down") {
+      newIndex = Math.min(selectedResultIndex + 1, searchResults.length - 1);
+    } else {
+      newIndex = Math.max(selectedResultIndex - 1, 0);
+    }
 
-      return { selectedResultIndex: newIndex };
-    });
+    if (newIndex !== selectedResultIndex) {
+      set({ selectedResultIndex: newIndex });
+    }
   },
 
-  selectResult: (index) => {
-    set({ selectedResultIndex: index });
-  },
+  // Select a specific result by index
+  selectResult: (index) => set({ selectedResultIndex: index }),
 }));
 
 export default useSearchStore;

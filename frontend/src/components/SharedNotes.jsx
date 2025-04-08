@@ -63,7 +63,11 @@ const SharedNotes = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="shared-group-title">From: {email}</h3>
+                <div className="shared-group-header">
+                  <h3 className="shared-group-title">
+                    <span className="shared-from">From:</span> {email}
+                  </h3>
+                </div>
                 <div className="shared-notes-grid">
                   <AnimatePresence>
                     {notes.map((sharedNote) => (
