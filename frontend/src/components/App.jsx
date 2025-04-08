@@ -14,6 +14,7 @@ import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import LogoutPage from "../pages/LogoutPage";
 import NotificationBell from "./reminder/NotificationBell";
+import SearchBar from "./search/SearchBar";
 import "../styles/styles.css";
 
 // Run this once to add the fallback styles to the document
@@ -68,6 +69,13 @@ function App() {
               </>
             )}
           </div>
+
+          {/* Add search bar component */}
+          {isLoggedIn && (
+            <div className="search-bar-container">
+              <SearchBar />
+            </div>
+          )}
 
           <div className="nav-actions">
             <div className="auth-links">

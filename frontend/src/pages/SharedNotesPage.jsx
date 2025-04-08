@@ -37,7 +37,7 @@ const SharedNotesPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h1>Shared Notes</h1>
+          <h1>🔗 Shared Notes</h1>
           <p className="page-description">
             Access and manage notes that others have shared with you
           </p>
