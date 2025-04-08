@@ -47,7 +47,7 @@ const notesStore = create((set, get) => ({
     });
   },
 
-  createNote: async (e) => {
+  createNote: async (e, pendingAttachments = []) => {
     e.preventDefault();
     try {
       const { createForm, notes } = get();
@@ -55,6 +55,31 @@ const notesStore = create((set, get) => ({
       console.log("Create Note Response:", res.data);
 
       if (res.data && res.data.note) {
+        // If we have pending attachments, upload them all
+        if (pendingAttachments.length > 0) {
+          const noteId = res.data.note._id;
+          // Upload each attachment
+          await Promise.all(
+            pendingAttachments.map(async (file) => {
+              const formData = new FormData();
+              formData.append("file", file);
+              try {
+                await axios.post(`/attachments/${noteId}`, formData, {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                  },
+                });
+              } catch (error) {
+                console.error("Error uploading attachment:", error);
+              }
+            })
+          );
+
+          // Fetch the updated note with attachments
+          const updatedRes = await axios.get(`/notes/${noteId}`);
+          res.data.note = updatedRes.data.note;
+        }
+
         // Sort notes - pinned notes first, then by creation date
         const newNotes = [res.data.note, ...notes].sort((a, b) => {
           if (a.isPinned && !b.isPinned) return -1;

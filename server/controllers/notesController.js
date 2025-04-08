@@ -37,10 +37,10 @@ const fetchNote = async (req, res) => {
 
 const createNote = async (req, res) => {
   try {
-    // Lấy data từ request body
+    // Get data from request body
     const { title, body } = req.body;
 
-    // Tạo note mới với user ID
+    // Create new note with user ID
     const note = await Note.create({
       title,
       body,
@@ -48,6 +48,8 @@ const createNote = async (req, res) => {
     });
 
     console.log("Created note:", note);
+
+    // Return the full note object
     res.json({ note });
   } catch (err) {
     console.error("Error in createNote:", err);

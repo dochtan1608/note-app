@@ -1,58 +1,59 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import useAttachmentStore from "../../stores/attachmentStore";
 
-const AttachmentUploader = ({ noteId }) => {
-  const { uploadAttachment, isLoading, uploadProgress, error } =
+const AttachmentUploader = ({
+  noteId,
+  disabled = false,
+  disabledMessage = null,
+}) => {
+  const { uploadAttachment, isLoading, error, uploadProgress } =
     useAttachmentStore();
-  const fileInputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const fileInputRef = useRef(null);
 
-  const handleUpload = async (files) => {
-    if (!files || files.length === 0) return;
+  // Handle file selection through the input
+  const handleFileChange = (e) => {
+    if (disabled) return;
 
-    // Upload each file
-    for (const file of files) {
-      const result = await uploadAttachment(noteId, file);
-      if (result) {
-        setUploadSuccess(true);
-        setTimeout(() => setUploadSuccess(false), 3000);
-      }
+    if (e.target.files.length > 0) {
+      uploadFile(e.target.files[0]);
     }
   };
 
-  const handleFileInputChange = (e) => {
-    handleUpload(e.target.files);
-    // Reset the file input so the same file can be uploaded again if needed
-    e.target.value = null;
-  };
-
-  // Handle drag events for drag and drop functionality
-  const handleDragEnter = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-  };
-
+  // Handle drag-and-drop functionality
   const handleDragOver = (e) => {
     e.preventDefault();
-    e.stopPropagation();
+    if (!disabled && !isLoading) {
+      setIsDragging(true);
+    }
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
-    e.stopPropagation();
     setIsDragging(false);
 
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      handleUpload(e.dataTransfer.files);
+    if (disabled || isLoading) return;
+
+    if (e.dataTransfer.files.length > 0) {
+      uploadFile(e.dataTransfer.files[0]);
+    }
+  };
+
+  // Upload the file
+  const uploadFile = async (file) => {
+    if (!noteId) return;
+    await uploadAttachment(noteId, file);
+  };
+
+  // Click handler for the dropzone
+  const handleClick = () => {
+    if (!disabled && !isLoading && fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
 
@@ -61,52 +62,55 @@ const AttachmentUploader = ({ noteId }) => {
       <input
         type="file"
         ref={fileInputRef}
-        onChange={handleFileInputChange}
-        multiple
+        onChange={handleFileChange}
         style={{ display: "none" }}
+        disabled={disabled || isLoading}
       />
 
-      <motion.div
+      <div
         className={`dropzone ${isDragging ? "dragging" : ""} ${
           isLoading ? "uploading" : ""
-        } ${uploadSuccess ? "success" : ""} ${error ? "error" : ""}`}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
+        } ${disabled ? "disabled" : ""}`}
         onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={() => fileInputRef.current?.click()}
+        onClick={handleClick}
+        style={{
+          opacity: disabled ? 0.6 : 1,
+          cursor: disabled ? "not-allowed" : isLoading ? "wait" : "pointer",
+        }}
       >
         {isLoading ? (
-          <div className="upload-progress">
-            <div
-              className="progress-bar"
-              style={{ width: `${uploadProgress}%` }}
-            ></div>
+          <div className="upload-status">
+            <div className="upload-progress">
+              <div
+                className="progress-bar"
+                style={{ width: `${uploadProgress}%` }}
+              ></div>
+            </div>
             <div className="progress-text">Uploading... {uploadProgress}%</div>
           </div>
-        ) : uploadSuccess ? (
-          <div className="upload-success">
-            <div className="upload-icon">✓</div>
-            <div className="upload-text">File uploaded successfully!</div>
-          </div>
-        ) : error ? (
-          <div className="upload-error">
-            <div className="upload-icon">❌</div>
-            <div className="upload-text">Error: {error}</div>
-          </div>
         ) : (
-          <div className="upload-prompt">
+          <>
             <div className="upload-icon">📎</div>
             <div className="upload-text">
-              {isDragging
-                ? "Drop files here"
-                : "Click to attach files or drag & drop"}
+              {disabled && disabledMessage
+                ? disabledMessage
+                : "Drag & drop a file or click to browse"}
             </div>
-          </div>
+          </>
         )}
-      </motion.div>
+      </div>
+
+      {error && (
+        <motion.div
+          className="attachment-error"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <p>{error}</p>
+        </motion.div>
+      )}
     </div>
   );
 };
