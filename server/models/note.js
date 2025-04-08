@@ -2,11 +2,18 @@ const mongoose = require("mongoose");
 
 const noteSchema = new mongoose.Schema(
   {
-    title: String,
-    body: String,
+    title: {
+      type: String,
+      required: true,
+    },
+    body: {
+      type: String,
+      required: true,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     isPinned: {
       type: Boolean,
@@ -16,10 +23,12 @@ const noteSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
-    },
+    attachments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Attachment",
+      },
+    ],
     sharedWith: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -28,7 +37,7 @@ const noteSchema = new mongoose.Schema(
     ],
   },
   {
-    timestamps: true, // Adds createdAt and updatedAt
+    timestamps: true,
   }
 );
 

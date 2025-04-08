@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import notesStore from "../stores/notesStore";
+import AttachmentList from "./attachment/AttachmentList";
+import AttachmentUploader from "./attachment/AttachmentUploader";
 
 const UpdateForm = () => {
   const store = notesStore((state) => ({
@@ -11,6 +13,7 @@ const UpdateForm = () => {
   }));
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showAttachmentUploader, setShowAttachmentUploader] = useState(false);
 
   // Only render if we have an _id in updateForm
   if (!store.updateForm._id) return null;
@@ -86,6 +89,22 @@ const UpdateForm = () => {
               boxShadow: "0 0 0 3px rgba(245, 158, 11, 0.1)",
             }}
           />
+
+          {/* Show existing attachments */}
+          <AttachmentList noteId={store.updateForm._id} />
+
+          {/* Toggle attachment uploader */}
+          {!showAttachmentUploader ? (
+            <button
+              type="button"
+              className="btn-toggle-attachments"
+              onClick={() => setShowAttachmentUploader(true)}
+            >
+              📎 Add Attachments
+            </button>
+          ) : (
+            <AttachmentUploader noteId={store.updateForm._id} />
+          )}
 
           <motion.button
             className="btn-update-submit"

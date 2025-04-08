@@ -69,9 +69,13 @@ const notesStore = create((set, get) => ({
             body: "",
           },
         });
+
+        // Return the response data so the component can access the new note
+        return res.data;
       }
     } catch (err) {
       console.error("Error creating note:", err);
+      return null;
     }
   },
 

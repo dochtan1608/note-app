@@ -42,6 +42,10 @@ app.post("/notes/share", requireAuth, shareController.shareNote);
 app.get("/notes/shared", requireAuth, shareController.getSharedNotes);
 app.put("/notes/shared/:id", requireAuth, shareController.updateSharedNote);
 
+// Add attachment routes
+const attachmentRoutes = require("./routes/attachmentRoutes");
+app.use("/attachments", attachmentRoutes);
+
 // Regular note routes
 app.get("/notes", requireAuth, notesController.fetchNotes);
 app.get("/notes/:id", requireAuth, notesController.fetchNote);
@@ -92,6 +96,10 @@ app.put(
   requireAuth,
   reminderController.markSharedReminderAsNotified
 );
+
+// Add static file serving for uploaded files
+const path = require("path");
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // chay server
 app.listen(process.env.PORT);

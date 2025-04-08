@@ -4,6 +4,8 @@ import {
   simpleFormatDistanceToNow as formatDistanceToNow,
   simpleFormat as format,
 } from "./SimpleFallbacks";
+import SharedNoteAttachments from "./attachment/SharedNoteAttachments";
+import AttachmentList from "./attachment/AttachmentList";
 
 const SharedNoteCard = ({ sharedNote }) => {
   const store = notesStore();
@@ -14,6 +16,7 @@ const SharedNoteCard = ({ sharedNote }) => {
     title: note?.title || "",
     body: note?.body || "",
   });
+  const [showAttachments, setShowAttachments] = useState(false);
 
   if (!note) return null;
 
@@ -46,6 +49,9 @@ const SharedNoteCard = ({ sharedNote }) => {
   const formattedDate = note.updatedAt
     ? format(new Date(note.updatedAt), "MMM d, yyyy 'at' h:mm a")
     : "";
+
+  // Check if note has attachments
+  const hasAttachments = note.attachments && note.attachments.length > 0;
 
   return (
     <div className={`shared-note-card ${isEditing ? "is-editing" : ""}`}>
@@ -119,6 +125,31 @@ const SharedNoteCard = ({ sharedNote }) => {
           <div className="shared-note-content">
             <h3 className="shared-note-title">{note.title}</h3>
             <p className="shared-note-body">{note.body}</p>
+
+            {/* Show attachment count if there are any */}
+            {hasAttachments && (
+              <div className="note-attachment-indicator">
+                <span className="attachment-icon">📎</span>
+                <span className="attachment-count">
+                  {note.attachments.length}{" "}
+                  {note.attachments.length === 1 ? "attachment" : "attachments"}
+                </span>
+                <button
+                  className="btn-toggle-shared-attachments"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowAttachments(!showAttachments);
+                  }}
+                >
+                  {showAttachments ? "Hide" : "Show"}
+                </button>
+              </div>
+            )}
+
+            {/* Show attachments if expanded */}
+            {showAttachments && hasAttachments && (
+              <SharedNoteAttachments attachments={note.attachments} />
+            )}
           </div>
 
           <div className="shared-note-footer">

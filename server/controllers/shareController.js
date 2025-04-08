@@ -51,7 +51,13 @@ exports.getSharedNotes = async (req, res) => {
     const sharedNotes = await SharedNote.find({
       sharedWith: req.user._id,
     })
-      .populate("note")
+      .populate({
+        path: "note",
+        populate: {
+          path: "attachments",
+          model: "Attachment",
+        },
+      })
       .populate("sharedBy", "email")
       .exec();
 

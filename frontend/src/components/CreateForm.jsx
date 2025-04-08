@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import notesStore from "../stores/notesStore";
+import AttachmentUploader from "./attachment/AttachmentUploader";
 
 const CreateForm = () => {
   const store = notesStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [noteId, setNoteId] = useState(null);
+  const [showAttachmentUploader, setShowAttachmentUploader] = useState(false);
 
   // Don't render if update form is active
   if (store.updateForm._id) return null;
@@ -16,7 +19,10 @@ const CreateForm = () => {
 
     setIsSubmitting(true);
     try {
-      await store.createNote(e);
+      const result = await store.createNote(e);
+      if (result && result.note && result.note._id) {
+        setNoteId(result.note._id);
+      }
     } catch (err) {
       console.error("Error creating note:", err);
     } finally {
@@ -48,6 +54,22 @@ const CreateForm = () => {
           required
           rows="5"
         />
+
+        {/* Show attachment uploader if a note was just created */}
+        {noteId && showAttachmentUploader && (
+          <AttachmentUploader noteId={noteId} />
+        )}
+
+        {/* Button to toggle attachment uploader */}
+        {noteId && !showAttachmentUploader && (
+          <button
+            type="button"
+            className="btn-toggle-attachments"
+            onClick={() => setShowAttachmentUploader(true)}
+          >
+            📎 Add Attachments
+          </button>
+        )}
 
         <button type="submit" className="btn-create" disabled={isSubmitting}>
           {isSubmitting ? (
