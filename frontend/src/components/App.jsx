@@ -7,7 +7,7 @@ import {
   addFallbackStyles,
 } from "./SimpleFallbacks";
 import RequireAuth from "./RequireAuth";
-import HomePage from "../pages/HomePage"; // Import HomePage
+import HomePage from "../pages/HomePage";
 import NotesPage from "../pages/NotesPage";
 import SharedNotesPage from "../pages/SharedNotesPage";
 import RemindersPage from "../pages/RemindersPage";
@@ -15,13 +15,11 @@ import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import LogoutPage from "../pages/LogoutPage";
 import NotificationBell from "./reminder/NotificationBell";
-import SearchBar from "./search/SearchBar"; // Import the SearchBar component
+import SearchBar from "./search/SearchBar";
 import "../styles/styles.css";
 
-// Run this once to add the fallback styles to the document
 addFallbackStyles();
 
-// Local LoadingSpinner implementation that doesn't depend on framer-motion
 const LoadingSpinner = () => (
   <div className="loading-container">
     <div className="simple-spinner"></div>
@@ -31,7 +29,6 @@ const LoadingSpinner = () => (
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
-    // Check localStorage for user preference
     return localStorage.getItem("darkMode") === "true";
   });
   const isLoggedIn = authStore((state) => state.loggedIn);
@@ -43,7 +40,6 @@ function App() {
     } else {
       document.body.classList.remove("dark-mode");
     }
-    // Save preference to localStorage
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
@@ -51,7 +47,6 @@ function App() {
     setDarkMode(!darkMode);
   };
 
-  // Active route checking
   const isActive = (path) => {
     return location.pathname === path;
   };
@@ -94,13 +89,10 @@ function App() {
           </div>
 
           <div className="nav-actions">
-            {/* Search bar for logged in users */}
             {isLoggedIn && <SearchBar />}
 
-            {/* Notification bell for logged in users */}
             {isLoggedIn && <NotificationBell />}
 
-            {/* Auth links */}
             <div className="auth-links">
               {!isLoggedIn ? (
                 <>
@@ -144,7 +136,6 @@ function App() {
         <div className="page-container">
           <Suspense fallback={<LoadingSpinner />}>
             <Routes location={location}>
-              {/* Add home route */}
               <Route path="/home" element={<HomePage />} />
               <Route
                 path="/"

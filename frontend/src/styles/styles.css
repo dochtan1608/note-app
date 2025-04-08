@@ -1386,11 +1386,6 @@ body.dark-mode .tab.active {
   gap: 0.75rem;
 }
 
-/* .page-header h1::before {
-  content: "🔗";
-  font-size: 1.75rem;
-} */
-
 .page-description {
   color: var(--text-medium);
   font-size: 1rem;
@@ -1994,7 +1989,6 @@ body.dark-mode .btn-expand {
   color: var(--primary-color-light);
 }
 
-/* Attachment Styles */
 .attachments-container {
   margin-top: 1.5rem;
   border-top: 1px solid var(--border-color);
@@ -2167,7 +2161,6 @@ body.dark-mode .attachment-message {
   font-size: 0.9rem;
 }
 
-/* Dark mode styles */
 body.dark-mode .attachment-item {
   background: #2d2d2d;
   border-color: rgba(255, 255, 255, 0.1);
@@ -2199,7 +2192,6 @@ body.dark-mode .upload-progress {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Attachment confirmation dialog styles */
 .attachment-confirm-delete {
   padding: 0.75rem;
   text-align: center;
@@ -2286,7 +2278,6 @@ body.dark-mode .btn-toggle-attachments:hover {
   color: var(--primary-color-light);
 }
 
-/* Attachment error message styles */
 .attachment-error {
   padding: 0.75rem;
   background-color: rgba(239, 68, 68, 0.1);
@@ -2326,7 +2317,6 @@ body.dark-mode .attachment-error {
   background-color: rgba(239, 68, 68, 0.2);
 }
 
-/* Shared attachment styles */
 .btn-toggle-shared-attachments {
   background: none;
   border: none;
@@ -2371,8 +2361,6 @@ body.dark-mode .btn-toggle-shared-attachments:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* ...existing code... */
-
 .shared-group-header {
   display: flex;
   align-items: center;
@@ -2410,13 +2398,9 @@ body.dark-mode .btn-toggle-shared-attachments:hover {
   margin-bottom: 1.5rem;
 }
 
-/* ...existing code... */
-
 body.dark-mode .shared-group-header {
   background: rgba(255, 255, 255, 0.05);
 }
-
-/* ...existing code... */
 
 .temp-attachment-uploader {
   position: relative;
@@ -2445,9 +2429,6 @@ body.dark-mode .shared-group-header {
   font-weight: 500;
 }
 
-/* ...existing code... */
-
-/* Search Bar Styles */
 .search-container {
   position: relative;
   width: 350px;
@@ -2512,7 +2493,6 @@ body.dark-mode .shared-group-header {
   margin-left: 0.25rem;
 }
 
-/* Search Results Styles */
 .search-results {
   position: absolute;
   top: 110%;
@@ -2616,7 +2596,6 @@ body.dark-mode .shared-group-header {
   color: var(--text-medium);
 }
 
-/* Dark mode styles for search */
 body.dark-mode .search-input-wrapper {
   background-color: rgba(255, 255, 255, 0.1);
 }
@@ -2666,7 +2645,6 @@ body.dark-mode .result-type {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Then continue with existing code */
 body.dark-mode {
   background: #1a1a1a;
   color: #fff;
@@ -2674,12 +2652,8 @@ body.dark-mode {
 
 body.dark-mode .nav-bar {
   background: rgba(26, 26, 26, 0.9);
-  /* ...existing code... */
 }
 
-/* ...existing code... */
-
-/* Home Page Styles */
 .home-page {
   padding: 0;
   max-width: 100%;
@@ -2939,7 +2913,6 @@ body.dark-mode .nav-bar {
   transform: scale(1.05);
 }
 
-/* Dark Mode Styles for Home Page */
 body.dark-mode .feature-card {
   background: #2d2d2d;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -2966,7 +2939,6 @@ body.dark-mode .preview-note p {
   color: var(--text-light);
 }
 
-/* Responsive design */
 @media (max-width: 992px) {
   .hero-section {
     flex-direction: column;
@@ -3021,7 +2993,6 @@ body.dark-mode .preview-note p {
   }
 }
 
-/* Home page footer styles */
 .home-footer {
   padding: 2rem;
   text-align: center;

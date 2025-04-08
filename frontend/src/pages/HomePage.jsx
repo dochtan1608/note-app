@@ -57,7 +57,7 @@ const HomePage = () => {
             <div className="preview-note important">
               <h3>Meeting Notes</h3>
               <p>Discuss project timeline with team</p>
-              <p>Review quarterly goals</p>
+              <p>Review quarterly goal</p>
             </div>
             <div className="preview-note reminder">
               <h3>Don't Forget</h3>
