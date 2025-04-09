@@ -7,7 +7,7 @@ const CreateForm = () => {
   const { clearNoteAttachments } = useAttachmentStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tempNoteId, setTempNoteId] = useState(`temp-${Date.now()}`);
-  const showAttachmentUploader = true;
+  const [showAttachmentSection, setShowAttachmentSection] = useState(false);
   const [pendingAttachments, setPendingAttachments] = useState([]);
 
   useEffect(() => {
@@ -32,6 +32,7 @@ const CreateForm = () => {
       if (result && result.note && result.note._id) {
         setTempNoteId(`temp-${Date.now()}`);
         setPendingAttachments([]);
+        setShowAttachmentSection(false);
       }
     } catch (err) {
       console.error("Error creating note:", err);
@@ -46,6 +47,10 @@ const CreateForm = () => {
 
   const handleAttachmentRemove = (index) => {
     setPendingAttachments((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const toggleAttachmentSection = () => {
+    setShowAttachmentSection(!showAttachmentSection);
   };
 
   return (
@@ -73,10 +78,17 @@ const CreateForm = () => {
           rows="5"
         />
 
-        <div className="attachments-container">
-          <h4 className="attachments-title">Attachments</h4>
+        <button
+          type="button"
+          className="attachment-toggle-btn"
+          onClick={toggleAttachmentSection}
+        >
+          {showAttachmentSection ? "Hide Attachments" : "Add Attachments"}
+          {pendingAttachments.length > 0 && ` (${pendingAttachments.length})`}
+        </button>
 
-          {showAttachmentUploader && (
+        {showAttachmentSection && (
+          <div className="attachments-container">
             <div className="temp-attachment-uploader">
               <input
                 type="file"
@@ -95,36 +107,36 @@ const CreateForm = () => {
                 </div>
               </div>
             </div>
-          )}
 
-          {pendingAttachments.length > 0 && (
-            <div className="pending-attachments">
-              <h5>Files to attach ({pendingAttachments.length})</h5>
-              <div className="attachments-grid">
-                {pendingAttachments.map((file, index) => (
-                  <div className="attachment-item" key={index}>
-                    <div className="attachment-link">
-                      <div className="attachment-icon">📎</div>
-                      <div className="attachment-details">
-                        <div className="attachment-name">{file.name}</div>
-                        <div className="attachment-meta">
-                          {(file.size / 1024).toFixed(1)} KB
+            {pendingAttachments.length > 0 && (
+              <div className="pending-attachments">
+                <h5>Files to attach ({pendingAttachments.length})</h5>
+                <div className="attachments-grid">
+                  {pendingAttachments.map((file, index) => (
+                    <div className="attachment-item" key={index}>
+                      <div className="attachment-link">
+                        <div className="attachment-icon">📎</div>
+                        <div className="attachment-details">
+                          <div className="attachment-name">{file.name}</div>
+                          <div className="attachment-meta">
+                            {(file.size / 1024).toFixed(1)} KB
+                          </div>
                         </div>
+                        <button
+                          onClick={() => handleAttachmentRemove(index)}
+                          className="attachment-delete"
+                          title="Remove file"
+                        >
+                          🗑️
+                        </button>
                       </div>
-                      <button
-                        onClick={() => handleAttachmentRemove(index)}
-                        className="attachment-delete"
-                        title="Remove file"
-                      >
-                        🗑️
-                      </button>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
 
         <button type="submit" className="btn-create" disabled={isSubmitting}>
           {isSubmitting ? (
