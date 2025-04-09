@@ -10,13 +10,9 @@ const NoteCard = ({ note }) => {
   const { attachments, fetchNoteAttachments } = useAttachmentStore();
   const [showShareModal, setShowShareModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
-
-  // Format the date to be more readable
   const formattedDate = note.updatedAt
     ? formatDistanceToNow(new Date(note.updatedAt))
     : "";
-
-  // Fetch attachments when note is loaded, but with error handling
   useEffect(() => {
     const fetchAttachments = async () => {
       try {
@@ -33,8 +29,6 @@ const NoteCard = ({ note }) => {
 
     fetchAttachments();
   }, [note._id, fetchNoteAttachments]);
-
-  // Get attachment count
   const noteAttachments = attachments[note._id] || [];
   const attachmentCount = noteAttachments.length;
 
@@ -79,8 +73,6 @@ const NoteCard = ({ note }) => {
           <button className="btn-expand">Show more</button>
         )}
       </div>
-
-      {/* Show attachment count if there are any */}
       {attachmentCount > 0 && (
         <div className="note-attachment-indicator">
           <span className="attachment-icon">📎</span>
@@ -106,11 +98,7 @@ const NoteCard = ({ note }) => {
           Edit
         </button>
       </div>
-
-      {/* Render attachments if expanded */}
       {expanded && <AttachmentList noteId={note._id} />}
-
-      {/* Share modal is rendered through Portal */}
       {showShareModal && (
         <ShareModal note={note} onClose={() => setShowShareModal(false)} />
       )}

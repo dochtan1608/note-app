@@ -5,7 +5,6 @@ import {
   simpleFormat as format,
 } from "./SimpleFallbacks";
 import SharedNoteAttachments from "./attachment/SharedNoteAttachments";
-import AttachmentList from "./attachment/AttachmentList";
 
 const SharedNoteCard = ({ sharedNote }) => {
   const store = notesStore();
@@ -41,7 +40,7 @@ const SharedNoteCard = ({ sharedNote }) => {
     }));
   };
 
-  // Format dates in a user-friendly way
+  // Format dates
   const timeAgo = note.updatedAt
     ? formatDistanceToNow(new Date(note.updatedAt))
     : "";
@@ -50,7 +49,7 @@ const SharedNoteCard = ({ sharedNote }) => {
     ? format(new Date(note.updatedAt), "MMM d, yyyy 'at' h:mm a")
     : "";
 
-  // Check if note has attachments
+  // check if note has attachments
   const hasAttachments = note.attachments && note.attachments.length > 0;
 
   return (
@@ -124,8 +123,6 @@ const SharedNoteCard = ({ sharedNote }) => {
           <div className="shared-note-content">
             <h3 className="shared-note-title">{note.title}</h3>
             <p className="shared-note-body">{note.body}</p>
-
-            {/* Show attachment count if there are any */}
             {hasAttachments && (
               <div className="note-attachment-indicator">
                 <span className="attachment-icon">📎</span>
@@ -144,8 +141,6 @@ const SharedNoteCard = ({ sharedNote }) => {
                 </button>
               </div>
             )}
-
-            {/* Show attachments if expanded */}
             {showAttachments && hasAttachments && (
               <SharedNoteAttachments attachments={note.attachments} />
             )}

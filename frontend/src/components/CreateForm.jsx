@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import notesStore from "../stores/notesStore";
-import AttachmentUploader from "./attachment/AttachmentUploader";
-import AttachmentList from "./attachment/AttachmentList";
 import useAttachmentStore from "../stores/attachmentStore";
 
 const CreateForm = () => {
@@ -9,10 +7,9 @@ const CreateForm = () => {
   const { clearNoteAttachments } = useAttachmentStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tempNoteId, setTempNoteId] = useState(`temp-${Date.now()}`);
-  const [showAttachmentUploader, setShowAttachmentUploader] = useState(true);
+  const showAttachmentUploader = true;
   const [pendingAttachments, setPendingAttachments] = useState([]);
 
-  // Clear previous attachments when form is reset
   useEffect(() => {
     return () => {
       if (!store.updateForm._id) {
@@ -21,22 +18,18 @@ const CreateForm = () => {
     };
   }, [tempNoteId, store.updateForm._id, clearNoteAttachments]);
 
-  // Don't render if update form is active - moved after hooks
   if (store.updateForm._id) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Only proceed if there's actual content
     if (!store.createForm.title.trim() && !store.createForm.body.trim()) return;
 
     setIsSubmitting(true);
     try {
-      // Include pending attachments in the note creation payload
       const result = await store.createNote(e, pendingAttachments);
 
       if (result && result.note && result.note._id) {
-        // Reset temp ID and attachments after successful creation
         setTempNoteId(`temp-${Date.now()}`);
         setPendingAttachments([]);
       }
@@ -47,13 +40,10 @@ const CreateForm = () => {
     }
   };
 
-  // Handle attachment upload
   const handleAttachmentUpload = (file) => {
-    // Store attachment in state to be sent with note creation
     setPendingAttachments((prev) => [...prev, file]);
   };
 
-  // Handle attachment removal
   const handleAttachmentRemove = (index) => {
     setPendingAttachments((prev) => prev.filter((_, i) => i !== index));
   };
@@ -83,11 +73,9 @@ const CreateForm = () => {
           rows="5"
         />
 
-        {/* Always show the attachment section */}
         <div className="attachments-container">
           <h4 className="attachments-title">Attachments</h4>
 
-          {/* Show attachment uploader - now enabled even without a real note ID */}
           {showAttachmentUploader && (
             <div className="temp-attachment-uploader">
               <input
@@ -109,7 +97,6 @@ const CreateForm = () => {
             </div>
           )}
 
-          {/* Show pending attachments */}
           {pendingAttachments.length > 0 && (
             <div className="pending-attachments">
               <h5>Files to attach ({pendingAttachments.length})</h5>

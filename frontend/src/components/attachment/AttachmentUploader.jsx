@@ -12,7 +12,6 @@ const AttachmentUploader = ({
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Handle file selection through the input
   const handleFileChange = (e) => {
     if (disabled) return;
 
@@ -21,7 +20,6 @@ const AttachmentUploader = ({
     }
   };
 
-  // Handle drag-and-drop functionality
   const handleDragOver = (e) => {
     e.preventDefault();
     if (!disabled && !isLoading) {
@@ -44,13 +42,12 @@ const AttachmentUploader = ({
     }
   };
 
-  // Upload the file
+  // upload the file
   const uploadFile = async (file) => {
     if (!noteId) return;
     await uploadAttachment(noteId, file);
   };
 
-  // Click handler for the dropzone
   const handleClick = () => {
     if (!disabled && !isLoading && fileInputRef.current) {
       fileInputRef.current.click();

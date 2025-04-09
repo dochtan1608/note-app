@@ -96,8 +96,11 @@ const LogoutPage = () => {
           className="btn-primary auth-button"
           variants={itemVariants}
           whileHover={{
-            backgroundColor: "var(--primary-color-light)",
+            scale: 1.03,
+            y: -4,
+            boxShadow: "0 8px 20px rgba(37, 99, 235, 0.3)",
           }}
+          whileTap={{ scale: 0.98, y: 0 }}
           style={{ marginTop: "1rem" }}
           onClick={() => (window.location.href = "/login")}
         >

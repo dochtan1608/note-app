@@ -590,7 +590,7 @@ body.dark-mode .dark-mode-toggle {
     var(--primary-color-light),
     var(--primary-color)
   );
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: 0 8px 15px rgba(37, 99, 235, 0.25);
 }
 
@@ -1210,13 +1210,11 @@ body.dark-mode .auth-button:hover {
 .password-input-container {
   position: relative;
   width: 100%;
-  display: flex;
-  align-items: center;
 }
 
-.password-input {
-  padding-right: 50px !important;
+.auth-input.password-input {
   width: 100%;
+  padding-right: 45px;
 }
 
 .password-toggle {
@@ -1224,38 +1222,27 @@ body.dark-mode .auth-button:hover {
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  height: 36px;
-  width: 36px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 2;
+  transition: opacity 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.04);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
+}
+
+.password-toggle:hover {
   opacity: 0.7;
-  transition: all 0.2s ease;
-  z-index: 2;
-  font-size: 0.9rem;
-}
-
-.password-toggle:hover,
-.password-toggle:active,
-.password-toggle:focus {
-  opacity: 1;
-  outline: none;
-  background: rgba(0, 0, 0, 0.08);
-}
-
-body.dark-mode .password-toggle {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-light);
-  opacity: 0.8;
+  background: none;
 }
 
 body.dark-mode .password-toggle:hover {
-  opacity: 1;
-  background: rgba(255, 255, 255, 0.15);
+  opacity: 0.7;
+  background: none;
 }
 
 .btn-cancel {
@@ -3260,7 +3247,6 @@ body.dark-mode .btn-primary.auth-button:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Remove the ::after and ::before animations for auth buttons */
 .btn-primary.auth-button::after,
 .btn-primary.auth-button::before {
   display: none;

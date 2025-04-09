@@ -8,7 +8,6 @@ const CreateReminderModal = () => {
   const modalRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handle click outside modal to close
   const handleOutsideClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       reminderStore.toggleCreateModal(false);
@@ -29,7 +28,6 @@ const CreateReminderModal = () => {
     }
   };
 
-  // Handle Escape key to close modal
   useEffect(() => {
     const handleEscKey = (e) => {
       if (e.key === "Escape") reminderStore.toggleCreateModal(false);
@@ -37,9 +35,8 @@ const CreateReminderModal = () => {
 
     document.addEventListener("keydown", handleEscKey);
     return () => document.removeEventListener("keydown", handleEscKey);
-  }, []);
+  }, [reminderStore]);
 
-  // Animation variants
   const modalVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.9 },
     visible: {
@@ -66,7 +63,6 @@ const CreateReminderModal = () => {
     exit: { opacity: 0 },
   };
 
-  // Make sure we render only when modal should be shown
   if (!reminderStore.showCreateModal) return null;
 
   return (

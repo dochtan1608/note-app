@@ -18,9 +18,6 @@ const notesStore = create((set, get) => ({
   fetchNotes: async () => {
     try {
       const res = await axios.get("/notes");
-      console.log("Fetching notes response:", res.data);
-
-      // Sort notes - pinned notes first, then by creation date
       const sortedNotes = (res.data.notes || []).sort((a, b) => {
         if (a.isPinned && !b.isPinned) return -1;
         if (!a.isPinned && b.isPinned) return 1;
@@ -52,13 +49,10 @@ const notesStore = create((set, get) => ({
     try {
       const { createForm, notes } = get();
       const res = await axios.post("/notes", createForm);
-      console.log("Create Note Response:", res.data);
 
       if (res.data && res.data.note) {
-        // If we have pending attachments, upload them all
         if (pendingAttachments.length > 0) {
           const noteId = res.data.note._id;
-          // Upload each attachment
           await Promise.all(
             pendingAttachments.map(async (file) => {
               const formData = new FormData();
@@ -74,13 +68,9 @@ const notesStore = create((set, get) => ({
               }
             })
           );
-
-          // Fetch the updated note with attachments
           const updatedRes = await axios.get(`/notes/${noteId}`);
           res.data.note = updatedRes.data.note;
         }
-
-        // Sort notes - pinned notes first, then by creation date
         const newNotes = [res.data.note, ...notes].sort((a, b) => {
           if (a.isPinned && !b.isPinned) return -1;
           if (!a.isPinned && b.isPinned) return 1;
@@ -94,8 +84,6 @@ const notesStore = create((set, get) => ({
             body: "",
           },
         });
-
-        // Return the response data so the component can access the new note
         return res.data;
       }
     } catch (err) {
@@ -105,7 +93,7 @@ const notesStore = create((set, get) => ({
   },
 
   deleteNote: async (_id) => {
-    // Delete the note
+    // Delete the state
     const res = await axios.delete(`/notes/${_id}`);
     const { notes } = notesStore.getState();
 
@@ -176,8 +164,6 @@ const notesStore = create((set, get) => ({
   updateSharedNote: async (noteId, updates) => {
     try {
       const res = await axios.put(`/notes/shared/${noteId}`, updates);
-
-      // Update in sharedNotes array
       set((state) => ({
         sharedNotes: state.sharedNotes.map((shared) =>
           shared.note._id === noteId
@@ -185,8 +171,6 @@ const notesStore = create((set, get) => ({
             : shared
         ),
       }));
-
-      // Also update in regular notes if present
       set((state) => ({
         notes: state.notes.map((note) =>
           note._id === noteId ? res.data.note : note
@@ -232,9 +216,7 @@ const notesStore = create((set, get) => ({
 
   fetchSharedNotes: async () => {
     try {
-      console.log("Fetching shared notes...");
       const res = await axios.get("/notes/shared");
-      console.log("Shared notes response:", res.data);
 
       if (res.data && Array.isArray(res.data.sharedNotes)) {
         set({ sharedNotes: res.data.sharedNotes });

@@ -8,24 +8,14 @@ const AttachmentList = ({ noteId }) => {
     useAttachmentStore();
   const [fetchAttempted, setFetchAttempted] = useState(false);
 
-  // Load attachments when component mounts
   useEffect(() => {
     if (noteId) {
-      console.log("Fetching attachments for note:", noteId);
       fetchNoteAttachments(noteId);
       setFetchAttempted(true);
     }
   }, [noteId, fetchNoteAttachments]);
 
   const noteAttachments = attachments[noteId] || [];
-
-  console.log("Attachment state:", {
-    noteId,
-    attachments: noteAttachments,
-    isLoading,
-    error,
-    fetchAttempted,
-  });
 
   if (isLoading) {
     return <div className="attachment-loading">Loading attachments...</div>;
@@ -46,7 +36,7 @@ const AttachmentList = ({ noteId }) => {
   }
 
   if (noteAttachments.length === 0 && fetchAttempted) {
-    return null; // Hide when no attachments
+    return null;
   }
 
   return (

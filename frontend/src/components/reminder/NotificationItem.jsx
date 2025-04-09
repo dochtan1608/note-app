@@ -9,21 +9,16 @@ const NotificationItem = ({ notification, type }) => {
     dismissReminder,
     acceptReminderShare,
     rejectReminderShare,
-    toggleNotificationsPopup,
   } = useReminderStore();
 
   const isReminderNotification = type === "reminder";
   const isShareNotification = type === "share";
 
-  // Extract data based on notification type
   const { _id, title, description, priority, dueDate } = notification;
-  // For shared reminders, get creator info
   const creator = isShareNotification ? notification.creator : null;
 
-  // Format the due date to "time ago" format
   const timeAgo = formatDistanceToNow(new Date(dueDate));
 
-  // Get the priority color
   const getPriorityColor = (priority) => {
     switch (priority) {
       case "high":
@@ -37,25 +32,21 @@ const NotificationItem = ({ notification, type }) => {
     }
   };
 
-  // Handler for completing a reminder
   const handleComplete = async (e) => {
-    e.stopPropagation(); // Prevent clicking through to the notification
+    e.stopPropagation();
     await completeReminder(_id);
   };
 
-  // Handler for dismissing a reminder
   const handleDismiss = async (e) => {
-    e.stopPropagation(); // Prevent clicking through to the notification
+    e.stopPropagation();
     await dismissReminder(_id);
   };
 
-  // Handler for accepting a shared reminder
   const handleAccept = async (e) => {
     e.stopPropagation();
     await acceptReminderShare(_id);
   };
 
-  // Handler for rejecting a shared reminder
   const handleReject = async (e) => {
     e.stopPropagation();
     await rejectReminderShare(_id);
@@ -74,7 +65,6 @@ const NotificationItem = ({ notification, type }) => {
         position: "relative",
       }}
     >
-      {/* Priority indicator */}
       <div
         style={{
           position: "absolute",
@@ -86,7 +76,6 @@ const NotificationItem = ({ notification, type }) => {
         }}
       />
 
-      {/* Content */}
       <div style={{ paddingLeft: "8px" }}>
         <div
           className="notification-header"
@@ -143,7 +132,6 @@ const NotificationItem = ({ notification, type }) => {
           </p>
         )}
 
-        {/* Action buttons */}
         <div
           className="notification-actions"
           style={{
@@ -153,7 +141,6 @@ const NotificationItem = ({ notification, type }) => {
           }}
         >
           {isReminderNotification ? (
-            // Buttons for regular reminder notification
             <>
               <button
                 onClick={handleDismiss}
@@ -187,7 +174,6 @@ const NotificationItem = ({ notification, type }) => {
               </button>
             </>
           ) : (
-            // Buttons for shared reminder notification
             <>
               <button
                 onClick={handleReject}

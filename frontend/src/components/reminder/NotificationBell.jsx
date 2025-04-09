@@ -13,20 +13,16 @@ const NotificationBell = () => {
   const [hasNewNotifications, setHasNewNotifications] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  // Calculate total notification count
   const totalNotifications =
     notifications.reminders.length + notifications.sharedInvites.length;
 
-  // Check for notifications on component mount and periodically
   useEffect(() => {
-    // Function to check for new notifications
+    // check new noti
     const fetchNotifications = async () => {
       const fetched = await checkNotifications();
       const hasNew = fetched && fetched.length > 0;
 
-      // Only animate if this isn't the first load and we got new notifications
       if (!isFirstLoad && hasNew && !hasNewNotifications) {
-        // Trigger animation for new notifications
         setHasNewNotifications(true);
       } else {
         setHasNewNotifications(hasNew);
@@ -35,24 +31,25 @@ const NotificationBell = () => {
       if (isFirstLoad) setIsFirstLoad(false);
     };
 
-    // Check immediately
     fetchNotifications();
 
-    // Set up interval for periodic checks (every 30 seconds)
     const interval = setInterval(fetchNotifications, 30000);
 
-    // Clean up interval on unmount
     return () => clearInterval(interval);
-  }, [checkNotifications]);
+  }, [
+    checkNotifications,
+    hasNewNotifications,
+    isFirstLoad,
+    setHasNewNotifications,
+    setIsFirstLoad,
+  ]);
 
-  // Clear "new" status when dropdown is opened
   useEffect(() => {
     if (showNotificationsPopup) {
       setHasNewNotifications(false);
     }
   }, [showNotificationsPopup]);
 
-  // Animation for the bell when new notifications arrive
   const bellAnimation = {
     initial: { rotate: 0 },
     animate: hasNewNotifications
@@ -68,7 +65,6 @@ const NotificationBell = () => {
       : {},
   };
 
-  // Animation for the notification badge
   const badgeAnimation = {
     initial: { scale: 0, opacity: 0 },
     animate: {
@@ -102,9 +98,7 @@ const NotificationBell = () => {
         animate={hasNewNotifications ? "animate" : "initial"}
         variants={bellAnimation}
       >
-        {/* Bell icon */}
         🔔
-        {/* Notification badge */}
         <AnimatePresence>
           {totalNotifications > 0 && (
             <motion.div
@@ -135,7 +129,6 @@ const NotificationBell = () => {
         </AnimatePresence>
       </motion.button>
 
-      {/* Notification dropdown */}
       <NotificationDropdown />
     </div>
   );

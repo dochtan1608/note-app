@@ -13,13 +13,10 @@ const ShareModal = ({ note, onClose }) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    // Focus the email input when modal opens
     setTimeout(() => {
       const emailInput = document.getElementById("share-email-input");
       if (emailInput) emailInput.focus();
     }, 100);
-
-    // Add event listener for escape key
     const handleEscKey = (e) => {
       if (e.key === "Escape") onClose();
     };
@@ -41,15 +38,13 @@ const ShareModal = ({ note, onClose }) => {
       setIsSuccess(true);
       setTimeout(() => {
         onClose();
-      }, 2000); // Auto close after 2 seconds on success
+      }, 2000); // Close modal after 2 seconds
     } catch (err) {
       setError(err.response?.data?.error || "Failed to share note");
     } finally {
       setIsSharing(false);
     }
   };
-
-  // Handle click outside modal to close
   const handleOutsideClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       onClose();

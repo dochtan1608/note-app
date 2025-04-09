@@ -5,9 +5,7 @@ import notesStore from "../stores/notesStore";
 
 const Notes = () => {
   const notes = notesStore((state) => state.notes);
-  const [filter, setFilter] = useState("all"); // 'all', 'favorites'
-
-  // Filter the notes based on the selected tab
+  const [filter, setFilter] = useState("all");
   const filteredNotes = notes?.filter((note) => {
     if (filter === "all") return true;
     if (filter === "favorites") return note.isFavorite;

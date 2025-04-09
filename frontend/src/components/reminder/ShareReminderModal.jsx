@@ -9,7 +9,6 @@ const ShareReminderModal = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // Handle click outside modal to close
   const handleOutsideClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       closeModal();
@@ -19,7 +18,6 @@ const ShareReminderModal = () => {
   const closeModal = () => {
     if (!isSubmitting) {
       reminderStore.toggleShareReminderModal(false);
-      // Reset success state after closing
       setTimeout(() => setSuccess(false), 300);
     }
   };
@@ -32,7 +30,6 @@ const ShareReminderModal = () => {
       const result = await reminderStore.shareReminder();
       if (result) {
         setSuccess(true);
-        // Close modal after 2 seconds
         setTimeout(() => {
           closeModal();
         }, 2000);
@@ -44,7 +41,6 @@ const ShareReminderModal = () => {
     }
   };
 
-  // Handle Escape key to close modal
   useEffect(() => {
     const handleEscKey = (e) => {
       if (e.key === "Escape") closeModal();
@@ -54,7 +50,6 @@ const ShareReminderModal = () => {
     return () => document.removeEventListener("keydown", handleEscKey);
   }, [isSubmitting]);
 
-  // Animation variants
   const modalVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.9 },
     visible: {
@@ -81,7 +76,6 @@ const ShareReminderModal = () => {
     exit: { opacity: 0 },
   };
 
-  // Make sure we render only when modal should be shown
   if (!reminderStore.showShareReminderModal) return null;
 
   return (

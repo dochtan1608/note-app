@@ -8,20 +8,14 @@ export const SimpleLoadingSpinner = () => (
   </div>
 );
 
-// Simple motion component replacement
 export const SimpleMotion = ({ children, className, style = {}, ...props }) => {
-  // Extract any event handlers
   const eventHandlers = {};
   Object.keys(props).forEach((key) => {
     if (key.startsWith("on")) {
       eventHandlers[key] = props[key];
     }
   });
-
-  // Handle whileHover and similar props by converting them to styles
   const extractedStyle = { ...style };
-
-  // Handle variants
   if (props.variants && props.animate) {
     const animateVariant = props.variants[props.animate];
     if (animateVariant) {
@@ -35,13 +29,9 @@ export const SimpleMotion = ({ children, className, style = {}, ...props }) => {
     </div>
   );
 };
-
-// Simple AnimatePresence replacement
 export const SimpleAnimatePresence = ({ children }) => {
   return <>{children}</>;
 };
-
-// Simple formatDistanceToNow function
 export const simpleFormatDistanceToNow = (date) => {
   if (!date) return "";
 
@@ -72,8 +62,6 @@ export const simpleFormatDistanceToNow = (date) => {
   const d = new Date(date);
   return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 };
-
-// Simple format function
 export const simpleFormat = (date, formatString) => {
   const d = new Date(date);
   const months = [
@@ -103,13 +91,11 @@ export const simpleFormat = (date, formatString) => {
     .padStart(2, "0")} ${ampm}`;
 };
 
-// Simple format exports to replace date-fns
+// date-fns
 export const format = simpleFormat;
 export const formatDistanceToNow = simpleFormatDistanceToNow;
 
-// Add additional CSS for the simple spinner
 export const addFallbackStyles = () => {
-  // Check if styles already added
   if (document.getElementById("fallback-styles")) return;
 
   const style = document.createElement("style");

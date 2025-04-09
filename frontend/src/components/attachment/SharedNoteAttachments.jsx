@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const SharedNoteAttachments = ({ attachments }) => {
-  // Get appropriate icon based on file type
   const getFileIcon = (mimeType) => {
     if (mimeType.startsWith("image/")) return "🖼️";
     if (mimeType.startsWith("video/")) return "🎬";
@@ -15,7 +14,6 @@ const SharedNoteAttachments = ({ attachments }) => {
     return "📎";
   };
 
-  // Format file size
   const formatFileSize = (bytes) => {
     if (bytes < 1024) return bytes + " B";
     else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";

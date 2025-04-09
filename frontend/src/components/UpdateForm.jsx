@@ -14,8 +14,6 @@ const UpdateForm = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAttachmentUploader, setShowAttachmentUploader] = useState(false);
-
-  // Only render if we have an _id in updateForm
   if (!store.updateForm._id) return null;
 
   const handleSubmit = async (e) => {
@@ -89,11 +87,7 @@ const UpdateForm = () => {
               boxShadow: "0 0 0 3px rgba(245, 158, 11, 0.1)",
             }}
           />
-
-          {/* Show existing attachments */}
           <AttachmentList noteId={store.updateForm._id} />
-
-          {/* Toggle attachment uploader */}
           {!showAttachmentUploader ? (
             <button
               type="button"

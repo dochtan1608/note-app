@@ -8,7 +8,6 @@ const AttachmentItem = ({ attachment, noteId }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  // Get appropriate icon based on file type
   const getFileIcon = (mimeType) => {
     if (mimeType.startsWith("image/")) return "🖼️";
     if (mimeType.startsWith("video/")) return "🎬";
@@ -21,21 +20,19 @@ const AttachmentItem = ({ attachment, noteId }) => {
     return "📎";
   };
 
-  // Format file size
+  // format
   const formatFileSize = (bytes) => {
     if (bytes < 1024) return bytes + " B";
     else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
     else return (bytes / 1048576).toFixed(1) + " MB";
   };
 
-  // Handle delete click
   const handleDeleteClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setShowConfirm(true);
   };
 
-  // Handle confirmation
   const handleConfirmDelete = async () => {
     setIsDeleting(true);
     await deleteAttachment(attachment._id, noteId);
@@ -43,12 +40,10 @@ const AttachmentItem = ({ attachment, noteId }) => {
     setShowConfirm(false);
   };
 
-  // Handle cancel delete
   const handleCancelDelete = () => {
     setShowConfirm(false);
   };
 
-  // Handle download click
   const handleDownloadClick = (e) => {
     e.preventDefault();
     downloadAttachment(attachment._id, attachment.originalFilename);

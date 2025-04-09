@@ -22,7 +22,6 @@ const SearchBar = () => {
   const searchRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Close search results when clicking outside
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (searchRef.current && !searchRef.current.contains(e.target)) {
@@ -34,7 +33,6 @@ const SearchBar = () => {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [toggleResults]);
 
-  // Handle keyboard navigation in search results
   const handleKeyDown = (e) => {
     if (showResults && searchResults.length > 0) {
       if (e.key === "ArrowDown") {
@@ -52,23 +50,18 @@ const SearchBar = () => {
     }
   };
 
-  // Handle selecting a search result
   const handleSelectResult = (result) => {
     if (!result) return;
 
     clearSearch();
 
-    // Navigate based on result type
     if (result.type === "note") {
       navigate("/");
-      // Highlight the selected note (you can implement this in the notes store)
       notesStore.getState().toggleUpdate(result.data);
     } else if (result.type === "shared") {
       navigate("/shared");
-      // You could add functionality to highlight the specific shared note
     } else if (result.type === "reminder") {
       navigate("/reminders");
-      // You could add functionality to highlight the specific reminder
     }
   };
 

@@ -13,11 +13,9 @@ const NotificationDropdown = ({ position = { top: "100%", right: "0" } }) => {
 
   const dropdownRef = useRef(null);
 
-  // Calculate total number of notifications
   const totalNotifications =
     notifications.reminders.length + notifications.sharedInvites.length;
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -29,7 +27,6 @@ const NotificationDropdown = ({ position = { top: "100%", right: "0" } }) => {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [showNotificationsPopup, toggleNotificationsPopup]);
 
-  // Mark all as read
   const markAllAsRead = async () => {
     if (notifications.reminders.length > 0) {
       const ids = notifications.reminders.map((notif) => notif._id);
@@ -37,7 +34,6 @@ const NotificationDropdown = ({ position = { top: "100%", right: "0" } }) => {
     }
   };
 
-  // Animation variants
   const dropdownVariants = {
     hidden: { opacity: 0, y: -10, scale: 0.95 },
     visible: {
@@ -113,7 +109,6 @@ const NotificationDropdown = ({ position = { top: "100%", right: "0" } }) => {
           <div className="notification-list">
             {totalNotifications > 0 ? (
               <AnimatePresence>
-                {/* First show shared reminder invites */}
                 {notifications.sharedInvites.map((notification) => (
                   <NotificationItem
                     key={`share-${notification._id}`}
@@ -122,7 +117,6 @@ const NotificationDropdown = ({ position = { top: "100%", right: "0" } }) => {
                   />
                 ))}
 
-                {/* Then show regular reminders */}
                 {notifications.reminders.map((notification) => (
                   <NotificationItem
                     key={`reminder-${notification._id}`}

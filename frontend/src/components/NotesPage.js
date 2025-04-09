@@ -11,13 +11,12 @@ export default function NotesPage() {
     const loadNotes = async () => {
       try {
         await store.fetchNotes();
-        console.log("Notes after fetch:", store.notes);
       } catch (error) {
         console.error("Error loading notes:", error);
       }
     };
     loadNotes();
-  }, []);
+  }, [store]);
 
   return (
     <div className="notes-page">

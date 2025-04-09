@@ -17,7 +17,6 @@ const SignupForm = () => {
 
     try {
       await store.signup();
-      // Show success message and navigate
       navigate("/login");
     } catch (err) {
       console.error("Signup failed:", err);
@@ -30,7 +29,6 @@ const SignupForm = () => {
     }
   };
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -129,19 +127,14 @@ const SignupForm = () => {
               }}
               transition={{ type: "spring", stiffness: 400 }}
             />
-            <motion.button
+            <button
               type="button"
               className="password-toggle"
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? "Hide password" : "Show password"}
-              whileHover={{
-                scale: 1.1,
-                backgroundColor: "rgba(0, 0, 0, 0.08)",
-              }}
-              whileTap={{ scale: 0.9 }}
             >
               {showPassword ? "🔓" : "🔒"}
-            </motion.button>
+            </button>
           </div>
         </motion.div>
 
@@ -151,7 +144,15 @@ const SignupForm = () => {
           disabled={isSigningUp}
           variants={itemVariants}
           whileHover={{
-            backgroundColor: "var(--primary-color-light)",
+            scale: 1.02,
+            y: -3,
+            boxShadow: "0 8px 20px rgba(37, 99, 235, 0.3)",
+            transition: { duration: 0.4 },
+          }}
+          whileTap={{
+            scale: 0.98,
+            y: 0,
+            transition: { duration: 0.2 },
           }}
         >
           {isSigningUp ? (

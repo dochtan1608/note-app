@@ -8,8 +8,6 @@ const SharedNotes = () => {
   const { sharedNotes } = notesStore((state) => ({
     sharedNotes: state.sharedNotes,
   }));
-
-  // Group shared notes by sender email
   const groupedSharedNotes = React.useMemo(() => {
     if (!sharedNotes || sharedNotes.length === 0) return {};
 
@@ -46,7 +44,6 @@ const SharedNotes = () => {
         <h2>Shared With Me</h2>
         <div className="shared-header-actions">
           <div className="shared-count">{sharedNotes?.length || 0} notes</div>
-          {/* Removed the refresh button */}
         </div>
       </div>
 

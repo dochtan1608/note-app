@@ -1,11 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import authStore from "../stores/authStore";
-import {
-  SimpleMotion as motion,
-  SimpleAnimatePresence as AnimatePresence,
-  addFallbackStyles,
-} from "./SimpleFallbacks";
+import { addFallbackStyles } from "./SimpleFallbacks";
 import RequireAuth from "./RequireAuth";
 import HomePage from "../pages/HomePage";
 import NotesPage from "../pages/NotesPage";
