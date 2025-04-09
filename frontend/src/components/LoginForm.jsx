@@ -26,28 +26,52 @@ const LoginForm = () => {
     }
   };
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: { duration: 0.3 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4 },
+    },
+  };
+
   return (
     <motion.div
       className="auth-container"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
     >
-      <motion.h2
-        className="auth-title"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.1 }}
-      >
-        Welcome Back
-      </motion.h2>
+      <motion.div variants={itemVariants}>
+        <h2 className="auth-title">Welcome Back</h2>
+      </motion.div>
 
       {loginError && (
         <motion.div
           className="auth-error"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 100 }}
         >
           {loginError}
         </motion.div>
@@ -56,11 +80,9 @@ const LoginForm = () => {
       <motion.form
         onSubmit={handleLogin}
         className="auth-form"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
+        variants={itemVariants}
       >
-        <div className="form-group">
+        <motion.div className="form-group" variants={itemVariants}>
           <label htmlFor="email" className="form-label">
             Email Address
           </label>
@@ -74,11 +96,15 @@ const LoginForm = () => {
             placeholder="Enter your email"
             required
             disabled={isLoggingIn}
-            whileFocus={{ scale: 1.01 }}
+            whileFocus={{
+              scale: 1.01,
+              boxShadow: "0 0 0 4px rgba(37, 99, 235, 0.15)",
+            }}
+            transition={{ type: "spring", stiffness: 400 }}
           />
-        </div>
+        </motion.div>
 
-        <div className="form-group">
+        <motion.div className="form-group" variants={itemVariants}>
           <label htmlFor="password" className="form-label">
             Password
           </label>
@@ -93,27 +119,38 @@ const LoginForm = () => {
               placeholder="Enter your password"
               required
               disabled={isLoggingIn}
-              whileFocus={{ scale: 1.01 }}
+              whileFocus={{
+                scale: 1.01,
+                boxShadow: "0 0 0 4px rgba(37, 99, 235, 0.15)",
+              }}
+              transition={{ type: "spring", stiffness: 400 }}
             />
             <motion.button
               type="button"
               className="password-toggle"
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? "Hide password" : "Show password"}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{
+                scale: 1.1,
+                backgroundColor: "rgba(0, 0, 0, 0.08)",
+              }}
               whileTap={{ scale: 0.9 }}
             >
               {showPassword ? "🔓" : "🔒"}
             </motion.button>
           </div>
-        </div>
+        </motion.div>
 
         <motion.button
           className="auth-button"
           type="submit"
           disabled={isLoggingIn}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+          variants={itemVariants}
+          whileHover={{
+            scale: 1.02,
+            boxShadow: "0 8px 15px rgba(37, 99, 235, 0.25)",
+          }}
+          whileTap={{ scale: 0.98 }}
         >
           {isLoggingIn ? (
             <>
@@ -126,12 +163,7 @@ const LoginForm = () => {
         </motion.button>
       </motion.form>
 
-      <motion.div
-        className="auth-link"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
+      <motion.div className="auth-link" variants={itemVariants}>
         Don't have an account? <Link to="/signup">Sign Up</Link>
       </motion.div>
     </motion.div>
