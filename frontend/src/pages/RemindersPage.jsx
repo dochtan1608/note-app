@@ -25,18 +25,14 @@ const RemindersPage = () => {
     fetchReminders();
   }, [fetchReminders]);
 
-  // Filter reminders based on selected tab
   const filteredReminders = reminders.filter((reminder) => {
     if (filter === "all") return true;
     return reminder.status === filter;
   });
 
-  // Sort reminders by due date (most urgent first)
   const sortedReminders = [...filteredReminders].sort((a, b) => {
     return new Date(a.dueDate) - new Date(b.dueDate);
   });
-
-  // Get a badge color based on priority
   const getPriorityColor = (priority) => {
     switch (priority) {
       case "high":
@@ -49,18 +45,12 @@ const RemindersPage = () => {
         return "var(--secondary-color)";
     }
   };
-
-  // Format the due date
   const formatDueDate = (date) => {
     return format(new Date(date), "MMM d, yyyy 'at' h:mm a");
   };
-
-  // Check if a reminder is overdue
   const isOverdue = (dueDate, status) => {
     return status === "pending" && new Date(dueDate) < new Date();
   };
-
-  // Get status color
   const getStatusColor = (status, dueDate) => {
     if (isOverdue(dueDate, status)) return "var(--danger-color)";
 
@@ -73,8 +63,6 @@ const RemindersPage = () => {
         return "var(--primary-color)";
     }
   };
-
-  // Get status text
   const getStatusText = (status, dueDate) => {
     if (isOverdue(dueDate, status)) return "Overdue";
 
@@ -214,7 +202,6 @@ const RemindersPage = () => {
                   overflow: "hidden",
                 }}
               >
-                {/* Priority indicator */}
                 <div
                   style={{
                     position: "absolute",
@@ -227,7 +214,6 @@ const RemindersPage = () => {
                 />
 
                 <div style={{ paddingLeft: "8px" }}>
-                  {/* Reminder header */}
                   <div
                     style={{
                       display: "flex",
@@ -276,7 +262,6 @@ const RemindersPage = () => {
                     </div>
                   </div>
 
-                  {/* Description */}
                   {reminder.description && (
                     <p
                       style={{
@@ -289,8 +274,6 @@ const RemindersPage = () => {
                       {reminder.description}
                     </p>
                   )}
-
-                  {/* Due date */}
                   <div
                     style={{
                       display: "flex",
@@ -323,8 +306,6 @@ const RemindersPage = () => {
                       </span>
                     </span>
                   </div>
-
-                  {/* Remove the linked note section and add share info if needed */}
                   {reminder.sharedWith && reminder.sharedWith.length > 0 && (
                     <div
                       style={{
@@ -348,8 +329,6 @@ const RemindersPage = () => {
                       </span>
                     </div>
                   )}
-
-                  {/* Actions */}
                   <div
                     style={{
                       display: "flex",
@@ -358,10 +337,10 @@ const RemindersPage = () => {
                       marginTop: "1rem",
                     }}
                   >
-                    {/* Show complete/dismiss buttons only for pending reminders */}
+
                     {reminder.status === "pending" && (
                       <>
-                        {/* Add share button */}
+
                         <motion.button
                           onClick={() =>
                             toggleShareReminderModal(true, reminder._id)

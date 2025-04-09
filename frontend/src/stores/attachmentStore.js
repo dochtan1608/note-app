@@ -6,8 +6,6 @@ const useAttachmentStore = create((set, get) => ({
   isLoading: false,
   error: null,
   uploadProgress: 0,
-
-  // Fetch attachments for a specific note
   fetchNoteAttachments: async (noteId) => {
     set({ isLoading: true, error: null });
     try {
@@ -24,8 +22,6 @@ const useAttachmentStore = create((set, get) => ({
       }));
     } catch (error) {
       console.error("Failed to fetch attachments:", error);
-
-      // Add more detailed error logging
       if (error.response) {
         console.error("Error response data:", error.response.data);
         console.error("Error response status:", error.response.status);
@@ -113,13 +109,9 @@ const useAttachmentStore = create((set, get) => ({
     }
   },
 
-  // Download helper - returns download URL
   getDownloadUrl: (attachmentId) => {
-    // Create an absolute URL instead of a relative path
     return `/attachments/${attachmentId}/download`;
   },
-
-  // Add a method for direct download
   downloadAttachment: async (attachmentId, filename) => {
     try {
       const response = await axios.get(
@@ -148,8 +140,6 @@ const useAttachmentStore = create((set, get) => ({
       return false;
     }
   },
-
-  // Clear all attachments for a note
   clearNoteAttachments: (noteId) => {
     set((state) => {
       const newAttachments = { ...state.attachments };

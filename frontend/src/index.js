@@ -3,12 +3,9 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import App from "./components/App";
-
-// Configure axios
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
 
-// Add response interceptor for debugging
 axios.interceptors.response.use(
   (response) => {
     return response;
@@ -19,7 +16,6 @@ axios.interceptors.response.use(
   }
 );
 
-// Print a message to help users understand what's happening
 console.log(
   "%cNote App Running with Fallbacks",
   "color: blue; font-size: 16px; font-weight: bold;"

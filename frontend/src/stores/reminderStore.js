@@ -25,11 +25,9 @@ const useReminderStore = create((set, get) => ({
     reminderId: "",
   },
 
-  // Toggle modals
   toggleCreateModal: (show = null) => {
     set((state) => ({
       showCreateModal: show !== null ? show : !state.showCreateModal,
-      // Reset form when showing modal
       createForm: show
         ? {
             title: "",
@@ -59,8 +57,6 @@ const useReminderStore = create((set, get) => ({
         show !== null ? show : !state.showNotificationsPopup,
     }));
   },
-
-  // Form handling
   updateCreateForm: (e) => {
     const { name, value } = e.target;
     set((state) => ({
@@ -99,8 +95,6 @@ const useReminderStore = create((set, get) => ({
   checkNotifications: async () => {
     try {
       const response = await axios.get("/notifications/pending");
-
-      // Update both regular reminders and shared invites
       set({
         notifications: {
           reminders: response.data.reminders || [],
@@ -121,8 +115,6 @@ const useReminderStore = create((set, get) => ({
   markNotificationsAsRead: async (reminderIds) => {
     try {
       await axios.post("/notifications/mark-read", { reminderIds });
-
-      // Update local state by removing marked notifications
       set((state) => ({
         notifications: {
           ...state.notifications,
@@ -177,8 +169,6 @@ const useReminderStore = create((set, get) => ({
         ),
         isLoading: false,
       }));
-
-      // If this was in notifications, update that too
       set((state) => ({
         notifications: {
           ...state.notifications,
@@ -274,8 +264,6 @@ const useReminderStore = create((set, get) => ({
       await axios.put(`/reminders/shared/${reminderId}`, {
         status: "accepted",
       });
-
-      // Remove this shared invite from notifications
       set((state) => ({
         notifications: {
           ...state.notifications,
@@ -285,8 +273,6 @@ const useReminderStore = create((set, get) => ({
         },
         isLoading: false,
       }));
-
-      // Refresh reminders to get the new accepted one
       get().fetchReminders();
 
       return true;
@@ -306,8 +292,6 @@ const useReminderStore = create((set, get) => ({
       await axios.put(`/reminders/shared/${reminderId}`, {
         status: "rejected",
       });
-
-      // Remove this shared invite from notifications
       set((state) => ({
         notifications: {
           ...state.notifications,
@@ -332,8 +316,6 @@ const useReminderStore = create((set, get) => ({
   markSharedReminderAsRead: async (reminderId) => {
     try {
       await axios.put(`/reminders/shared/${reminderId}/notify`);
-
-      // Remove this from notifications
       set((state) => ({
         notifications: {
           ...state.notifications,

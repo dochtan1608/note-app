@@ -14,20 +14,17 @@ exports.uploadAttachment = async (req, res) => {
     }
 
     const { noteId } = req.params;
-
-    // Check if note exists and belongs to user
     const note = await Note.findOne({
       _id: noteId,
       user: req.user._id,
     });
 
     if (!note) {
-      // Delete the uploaded file if note doesn't exist
       await fs.unlink(req.file.path);
       return res.status(404).json({ error: "Note not found" });
     }
 
-    // Create attachment record
+    // Create attachment
     const attachment = await Attachment.create({
       filename: req.file.filename,
       originalFilename: req.file.originalname,
@@ -49,8 +46,6 @@ exports.uploadAttachment = async (req, res) => {
     res.status(201).json({ attachment });
   } catch (err) {
     console.error("Error uploading attachment:", err);
-
-    // Clean up file if exists
     if (req.file && req.file.path) {
       try {
         await fs.unlink(req.file.path);
@@ -63,13 +58,11 @@ exports.uploadAttachment = async (req, res) => {
   }
 };
 
-// Get all attachments for a note
 exports.getNoteAttachments = async (req, res) => {
   try {
     const { noteId } = req.params;
     console.log("Fetching attachments for note:", noteId);
 
-    // Verify note belongs to user
     const note = await Note.findOne({
       _id: noteId,
       user: req.user._id,
@@ -104,7 +97,6 @@ exports.downloadAttachment = async (req, res) => {
       return res.status(404).json({ error: "Attachment not found" });
     }
 
-    // Verify file exists
     try {
       await fs.access(attachment.path);
     } catch (error) {
@@ -116,7 +108,6 @@ exports.downloadAttachment = async (req, res) => {
     res.download(attachment.path, attachment.originalFilename, (err) => {
       if (err) {
         console.error("Download error:", err);
-        // If headers already sent, we can't send an error response
         if (!res.headersSent) {
           res.status(500).json({ error: "Failed to download file" });
         }
@@ -141,21 +132,18 @@ exports.deleteAttachment = async (req, res) => {
     if (!attachment) {
       return res.status(404).json({ error: "Attachment not found" });
     }
-
-    // Remove attachment from note
     await Note.findByIdAndUpdate(attachment.note, {
       $pull: { attachments: attachment._id },
     });
 
-    // Delete file from storage
+    // Delete file
     try {
       await fs.unlink(attachment.path);
     } catch (unlinkErr) {
       console.error("Error deleting file:", unlinkErr);
-      // Continue with deletion even if file removal fails
     }
 
-    // Delete attachment record
+    // Delete attachment
     await Attachment.deleteOne({ _id: id });
 
     res.json({ message: "Attachment deleted successfully" });

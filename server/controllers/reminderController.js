@@ -1,7 +1,6 @@
 const Reminder = require("../models/reminder");
 const User = require("../models/user");
 
-// Get all reminders for the authenticated user
 exports.getReminders = async (req, res) => {
   try {
     const reminders = await Reminder.find({ user: req.user._id }).sort({
@@ -15,7 +14,6 @@ exports.getReminders = async (req, res) => {
   }
 };
 
-// Get a single reminder by ID
 exports.getReminder = async (req, res) => {
   try {
     const reminder = await Reminder.findOne({
@@ -68,7 +66,6 @@ exports.updateReminder = async (req, res) => {
         dueDate,
         priority,
         status,
-        // If status changes to completed or dismissed, mark as notified
         ...(status === "completed" || status === "dismissed"
           ? { notified: true }
           : {}),
@@ -106,7 +103,6 @@ exports.deleteReminder = async (req, res) => {
   }
 };
 
-// Mark a reminder as notified
 exports.markAsNotified = async (req, res) => {
   try {
     const reminder = await Reminder.findOneAndUpdate(
@@ -125,8 +121,6 @@ exports.markAsNotified = async (req, res) => {
     res.status(500).json({ error: "Failed to update reminder" });
   }
 };
-
-// Get pending notifications (reminders that are due but not notified)
 exports.getPendingNotifications = async (req, res) => {
   try {
     const now = new Date();
@@ -138,8 +132,6 @@ exports.getPendingNotifications = async (req, res) => {
       status: "pending",
       notified: false,
     });
-
-    // Get pending shared reminder invites
     const sharedInvites = await Reminder.find({
       "sharedWith.user": req.user._id,
       "sharedWith.status": "pending",
@@ -158,7 +150,6 @@ exports.getPendingNotifications = async (req, res) => {
   }
 };
 
-// Mark multiple reminders as notified
 exports.markMultipleAsNotified = async (req, res) => {
   try {
     const { reminderIds } = req.body;
@@ -217,8 +208,6 @@ exports.shareReminder = async (req, res) => {
         .status(400)
         .json({ error: "Reminder already shared with this user" });
     }
-
-    // Add user to sharedWith array
     reminder.sharedWith.push({
       user: recipientUser._id,
       status: "pending",
@@ -238,7 +227,6 @@ exports.shareReminder = async (req, res) => {
   }
 };
 
-// Get shared reminders pending approval
 exports.getSharedReminders = async (req, res) => {
   try {
     const pendingShares = await Reminder.find({
@@ -282,8 +270,6 @@ exports.handleSharedReminder = async (req, res) => {
     reminder.sharedWith[shareIndex].notified = true;
 
     await reminder.save();
-
-    // If accepted, create a copy of the reminder for the current user
     if (status === "accepted") {
       const newReminder = new Reminder({
         title: reminder.title,
@@ -307,8 +293,6 @@ exports.handleSharedReminder = async (req, res) => {
     res.status(500).json({ error: "Failed to process shared reminder" });
   }
 };
-
-// Mark shared reminder invitation as notified
 exports.markSharedReminderAsNotified = async (req, res) => {
   try {
     const reminderId = req.params.id;
@@ -318,8 +302,6 @@ exports.markSharedReminderAsNotified = async (req, res) => {
     if (!reminder) {
       return res.status(404).json({ error: "Reminder not found" });
     }
-
-    // Find the share for the current user
     const shareIndex = reminder.sharedWith.findIndex(
       (share) => share.user.toString() === req.user._id.toString()
     );
@@ -327,8 +309,6 @@ exports.markSharedReminderAsNotified = async (req, res) => {
     if (shareIndex === -1) {
       return res.status(404).json({ error: "Share not found" });
     }
-
-    // Mark as notified
     reminder.sharedWith[shareIndex].notified = true;
     await reminder.save();
 

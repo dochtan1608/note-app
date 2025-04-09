@@ -8,18 +8,13 @@ const useSearchStore = create((set, get) => ({
   selectedResultIndex: -1,
   isSearching: false,
   error: null,
-
-  // Set search term and perform search
   setSearchTerm: (term) => {
     set({ searchTerm: term });
 
-    // If term is empty, clear results
     if (!term.trim()) {
       set({ searchResults: [], showResults: false });
       return;
     }
-
-    // Perform search
     set({ isSearching: true, showResults: true });
 
     try {
@@ -75,10 +70,8 @@ const useSearchStore = create((set, get) => ({
     }
   },
 
-  // Toggle showing the results
   toggleResults: (show) => set({ showResults: show }),
 
-  // Clear the search
   clearSearch: () =>
     set({
       searchTerm: "",
@@ -87,7 +80,6 @@ const useSearchStore = create((set, get) => ({
       selectedResultIndex: -1,
     }),
 
-  // Navigate through results with keyboard
   navigateResults: (direction) => {
     const { selectedResultIndex, searchResults } = get();
     let newIndex;
@@ -103,7 +95,6 @@ const useSearchStore = create((set, get) => ({
     }
   },
 
-  // Select a specific result by index
   selectResult: (index) => set({ selectedResultIndex: index }),
 }));
 

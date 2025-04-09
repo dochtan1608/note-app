@@ -14,7 +14,6 @@ const LogoutPage = () => {
     performLogout();
   }, []);
 
-  // Animation variants (similar to LoginForm and SignupForm)
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {

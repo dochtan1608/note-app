@@ -1,8 +1,3 @@
-/**
- * This script runs before the application starts and checks if the required
- * dependencies are properly installed. If not, it will show a helpful message.
- */
-
 function checkDependencies() {
   const missingDependencies = [];
 

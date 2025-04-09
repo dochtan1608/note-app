@@ -1,14 +1,8 @@
-/**
- * This script installs the missing dependencies
- */
 const { execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
-
-// Define the packages to install
 const packagesToInstall = ["framer-motion@10.16.4", "date-fns@2.30.0"];
 
-// Function to check if a package is already installed
 function isPackageInstalled(packageName) {
   try {
     const packageJsonPath = path.join(__dirname, "package.json");
@@ -22,7 +16,6 @@ function isPackageInstalled(packageName) {
   }
 }
 
-// Main function
 function installDependencies() {
   console.log("Checking dependencies...");
 
@@ -46,7 +39,6 @@ function installDependencies() {
   );
 
   try {
-    // Using npm to install dependencies
     execSync(`npm install ${packagesToActuallyInstall.join(" ")}`, {
       stdio: "inherit",
       cwd: __dirname,

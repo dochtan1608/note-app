@@ -4,7 +4,7 @@ const fetchNotes = async (req, res) => {
   try {
     console.log("Fetching notes for user:", req.user._id);
 
-    // Get all notes for current user
+    // Get all notes
     const notes = await Note.find({
       user: req.user._id,
     }).sort({
@@ -13,7 +13,6 @@ const fetchNotes = async (req, res) => {
 
     console.log("Found notes:", notes);
 
-    // Always return an array
     res.json({ notes: notes || [] });
   } catch (err) {
     console.error("Error in fetchNotes:", err);
