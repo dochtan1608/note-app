@@ -93,13 +93,11 @@ const LogoutPage = () => {
         </motion.div>
 
         <motion.button
-          className="auth-button"
+          className="btn-primary auth-button"
           variants={itemVariants}
           whileHover={{
-            scale: 1.02,
-            boxShadow: "0 8px 15px rgba(37, 99, 235, 0.25)",
+            backgroundColor: "var(--primary-color-light)",
           }}
-          whileTap={{ scale: 0.98 }}
           style={{ marginTop: "1rem" }}
           onClick={() => (window.location.href = "/login")}
         >

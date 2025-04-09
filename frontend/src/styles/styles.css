@@ -3192,3 +3192,84 @@ body.dark-mode .auth-page::after {
     transform: translate(-40px, -20px) scale(0.95);
   }
 }
+
+.btn-primary.auth-button {
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary.auth-button:hover {
+  background-color: var(--primary-color-light);
+}
+
+.btn-primary.auth-button:active {
+  transform: translateY(1px);
+}
+
+.btn-primary.auth-button:disabled {
+  background-color: var(--primary-color);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+body.dark-mode .btn-primary.auth-button {
+  background-color: var(--primary-color);
+}
+
+body.dark-mode .btn-primary.auth-button:hover {
+  background-color: var(--primary-color-light);
+}
+
+.btn-primary.auth-button {
+  background: var(--primary-color);
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary.auth-button:hover {
+  background: var(--primary-color-light);
+}
+
+.btn-primary.auth-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove the ::after and ::before animations for auth buttons */
+.btn-primary.auth-button::after,
+.btn-primary.auth-button::before {
+  display: none;
+}
+
+body.dark-mode .btn-primary.auth-button {
+  background: var(--primary-color);
+}
+
+body.dark-mode .btn-primary.auth-button:hover {
+  background: var(--primary-color-light);
+}
