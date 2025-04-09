@@ -38,67 +38,79 @@ const NoteCard = ({ note }) => {
         expanded ? "expanded" : ""
       }`}
     >
-      <div className="note-card-header">
-        <h3 className="note-title">{note.title}</h3>
-        <div className="note-actions-top">
-          <button
-            onClick={() => store.togglePin(note._id)}
-            className={`btn-icon ${note.isPinned ? "active" : ""}`}
-            title={note.isPinned ? "Unpin" : "Pin"}
-          >
-            📌
-          </button>
-          <button
-            onClick={() => store.toggleFavorite(note._id)}
-            className={`btn-icon ${note.isFavorite ? "active" : ""}`}
-            title={
-              note.isFavorite ? "Remove from favorites" : "Add to favorites"
-            }
-          >
-            {note.isFavorite ? "⭐" : "☆"}
-          </button>
-          <button
-            onClick={() => setShowShareModal(true)}
-            className="btn-icon"
-            title="Share note"
-          >
-            🔗
-          </button>
+      <div className="note-top-content">
+        <div className="note-card-header">
+          <h3 className="note-title">{note.title}</h3>
+          <div className="note-actions-top">
+            <button
+              onClick={() => store.togglePin(note._id)}
+              className={`btn-icon ${note.isPinned ? "active" : ""}`}
+              title={note.isPinned ? "Unpin" : "Pin"}
+            >
+              📌
+            </button>
+            <button
+              onClick={() => store.toggleFavorite(note._id)}
+              className={`btn-icon ${note.isFavorite ? "active" : ""}`}
+              title={
+                note.isFavorite ? "Remove from favorites" : "Add to favorites"
+              }
+            >
+              {note.isFavorite ? "⭐" : "☆"}
+            </button>
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="btn-icon"
+              title="Share note"
+            >
+              🔗
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div className="note-content" onClick={() => setExpanded(!expanded)}>
-        <p className={`note-body ${expanded ? "expanded" : ""}`}>{note.body}</p>
-        {note.body && note.body.length > 100 && !expanded && (
-          <button className="btn-expand">Show more</button>
+        <div className="note-content" onClick={() => setExpanded(!expanded)}>
+          <p className={`note-body ${expanded ? "expanded" : ""}`}>
+            {note.body}
+          </p>
+          {note.body && note.body.length > 100 && !expanded && (
+            <button className="btn-expand">Show more</button>
+          )}
+        </div>
+
+        {attachmentCount > 0 && (
+          <div className="note-attachment-indicator">
+            <span className="attachment-icon">📎</span>
+            <span className="attachment-count">
+              {attachmentCount}{" "}
+              {attachmentCount === 1 ? "attachment" : "attachments"}
+            </span>
+          </div>
         )}
+
+        {expanded && <AttachmentList noteId={note._id} />}
       </div>
-      {attachmentCount > 0 && (
-        <div className="note-attachment-indicator">
-          <span className="attachment-icon">📎</span>
-          <span className="attachment-count">
-            {attachmentCount}{" "}
-            {attachmentCount === 1 ? "attachment" : "attachments"}
-          </span>
+
+      <div className="note-bottom-content">
+        <div className="note-metadata">
+          <span className="note-date">{formattedDate}</span>
         </div>
-      )}
 
-      <div className="note-metadata">
-        <span className="note-date">{formattedDate}</span>
+        <div className="note-actions">
+          <button
+            onClick={() => store.deleteNote(note._id)}
+            className="btn-delete"
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => store.toggleUpdate(note)}
+            className="btn-update"
+          >
+            Edit
+          </button>
+        </div>
       </div>
 
-      <div className="note-actions">
-        <button
-          onClick={() => store.deleteNote(note._id)}
-          className="btn-delete"
-        >
-          Delete
-        </button>
-        <button onClick={() => store.toggleUpdate(note)} className="btn-update">
-          Edit
-        </button>
-      </div>
-      {expanded && <AttachmentList noteId={note._id} />}
       {showShareModal && (
         <ShareModal note={note} onClose={() => setShowShareModal(false)} />
       )}
