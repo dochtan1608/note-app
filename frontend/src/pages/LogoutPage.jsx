@@ -14,62 +14,99 @@ const LogoutPage = () => {
     performLogout();
   }, []);
 
+  // Animation variants (similar to LoginForm and SignupForm)
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: { duration: 0.3 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4 },
+    },
+  };
+
   return (
-    <motion.div
-      className="logout-page"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      style={{
-        minHeight: "80vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: "2rem",
-        textAlign: "center",
-      }}
-    >
+    <div className="auth-page">
       <motion.div
-        initial={{ scale: 0.8 }}
-        animate={{
-          scale: [0.8, 1.2, 1],
-          rotate: [0, 10, -10, 0],
-        }}
-        transition={{ duration: 0.8 }}
-        style={{ fontSize: "4rem" }}
+        className="auth-container"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
       >
-        👋
+        <motion.div variants={itemVariants}>
+          <h2 className="auth-title">See You Soon!</h2>
+        </motion.div>
+
+        <motion.div
+          className="logout-content"
+          variants={itemVariants}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1.5rem",
+            padding: "1rem 0 2rem",
+          }}
+        >
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{
+              scale: [0.8, 1.2, 1],
+              rotate: [0, 10, -10, 0],
+            }}
+            transition={{ duration: 0.8 }}
+            style={{ fontSize: "4rem" }}
+          >
+            👋
+          </motion.div>
+
+          <motion.p
+            style={{
+              fontSize: "1.1rem",
+              textAlign: "center",
+              color: "var(--text-medium)",
+              margin: 0,
+            }}
+          >
+            You have been successfully logged out.
+            <br />
+            Thank you for using Chitan Notes.
+          </motion.p>
+        </motion.div>
+
+        <motion.button
+          className="auth-button"
+          variants={itemVariants}
+          whileHover={{
+            scale: 1.02,
+            boxShadow: "0 8px 15px rgba(37, 99, 235, 0.25)",
+          }}
+          whileTap={{ scale: 0.98 }}
+          style={{ marginTop: "1rem" }}
+          onClick={() => (window.location.href = "/login")}
+        >
+          Log In Again
+        </motion.button>
       </motion.div>
-
-      <motion.h1
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        You have been logged out
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        Thank you for using our application.
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <Link to="/login" className="btn-login-again">
-          Log in again
-        </Link>
-      </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
