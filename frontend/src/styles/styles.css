@@ -1256,7 +1256,7 @@ body.dark-mode .password-toggle:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   width: 40px;
   height: 40px;
   backdrop-filter: blur(8px);
