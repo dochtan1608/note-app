@@ -160,6 +160,7 @@ const notesStore = create((set, get) => ({
   },
 
   sharedNotes: [],
+  pendingSharedNotes: [],
 
   updateSharedNote: async (noteId, updates) => {
     try {
@@ -227,6 +228,74 @@ const notesStore = create((set, get) => ({
     } catch (err) {
       console.error("Error fetching shared notes:", err);
       set({ sharedNotes: [] });
+    }
+  },
+
+  fetchPendingSharedNotes: async () => {
+    try {
+      const res = await axios.get("/notes/shared/pending");
+
+      if (res.data && Array.isArray(res.data.pendingShares)) {
+        set({ pendingSharedNotes: res.data.pendingShares });
+        return res.data.pendingShares;
+      } else {
+        console.error("Invalid pending shared notes data:", res.data);
+        set({ pendingSharedNotes: [] });
+        return [];
+      }
+    } catch (err) {
+      console.error("Error fetching pending shared notes:", err);
+      set({ pendingSharedNotes: [] });
+      return [];
+    }
+  },
+
+  acceptSharedNote: async (shareId) => {
+    try {
+      await axios.put(`/notes/shared/${shareId}/status`, {
+        status: "accepted",
+      });
+      set((state) => ({
+        pendingSharedNotes: state.pendingSharedNotes.filter(
+          (note) => note._id !== shareId
+        ),
+      }));
+      return true;
+    } catch (err) {
+      console.error("Error accepting shared note:", err);
+      return false;
+    }
+  },
+
+  rejectSharedNote: async (shareId) => {
+    try {
+      await axios.put(`/notes/shared/${shareId}/status`, {
+        status: "rejected",
+      });
+      set((state) => ({
+        pendingSharedNotes: state.pendingSharedNotes.filter(
+          (note) => note._id !== shareId
+        ),
+      }));
+      return true;
+    } catch (err) {
+      console.error("Error rejecting shared note:", err);
+      return false;
+    }
+  },
+
+  markSharedNoteAsNotified: async (shareId) => {
+    try {
+      await axios.put(`/notes/shared/${shareId}/notify`);
+      set((state) => ({
+        pendingSharedNotes: state.pendingSharedNotes.filter(
+          (note) => note._id !== shareId
+        ),
+      }));
+      return true;
+    } catch (err) {
+      console.error("Error marking shared note as notified:", err);
+      return false;
     }
   },
 }));

@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useReminderStore from "../../stores/reminderStore";
+import notesStore from "../../stores/notesStore";
 import NotificationItem from "./NotificationItem";
+import SharedNoteNotificationItem from "./SharedNoteNotificationItem";
 
 const NotificationDropdown = ({ position = { top: "100%", right: "0" } }) => {
   const {
@@ -11,10 +13,14 @@ const NotificationDropdown = ({ position = { top: "100%", right: "0" } }) => {
     markNotificationsAsRead,
   } = useReminderStore();
 
+  const { pendingSharedNotes } = notesStore();
+
   const dropdownRef = useRef(null);
 
   const totalNotifications =
-    notifications.reminders.length + notifications.sharedInvites.length;
+    notifications.reminders.length +
+    notifications.sharedInvites.length +
+    pendingSharedNotes.length;
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -109,6 +115,13 @@ const NotificationDropdown = ({ position = { top: "100%", right: "0" } }) => {
           <div className="notification-list">
             {totalNotifications > 0 ? (
               <AnimatePresence>
+                {pendingSharedNotes.map((notification) => (
+                  <SharedNoteNotificationItem
+                    key={`shared-note-${notification._id}`}
+                    notification={notification}
+                  />
+                ))}
+
                 {notifications.sharedInvites.map((notification) => (
                   <NotificationItem
                     key={`share-${notification._id}`}

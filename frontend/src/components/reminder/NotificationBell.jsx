@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useReminderStore from "../../stores/reminderStore";
+import notesStore from "../../stores/notesStore";
 import NotificationDropdown from "./NotificationDropdown";
 
 const NotificationBell = () => {
@@ -10,17 +11,29 @@ const NotificationBell = () => {
     toggleNotificationsPopup,
     showNotificationsPopup,
   } = useReminderStore();
+
+  const { pendingSharedNotes, fetchPendingSharedNotes } = notesStore();
+
   const [hasNewNotifications, setHasNewNotifications] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const totalNotifications =
-    notifications.reminders.length + notifications.sharedInvites.length;
+    notifications.reminders.length +
+    notifications.sharedInvites.length +
+    pendingSharedNotes.length;
 
   useEffect(() => {
-    // check new noti
+    // check new notifications
     const fetchNotifications = async () => {
-      const fetched = await checkNotifications();
-      const hasNew = fetched && fetched.length > 0;
+      // Fetch reminder notifications
+      const fetchedReminders = await checkNotifications();
+
+      // Fetch shared note notifications
+      const fetchedSharedNotes = await fetchPendingSharedNotes();
+
+      const hasNew =
+        (fetchedReminders && fetchedReminders.length > 0) ||
+        (fetchedSharedNotes && fetchedSharedNotes.length > 0);
 
       if (!isFirstLoad && hasNew && !hasNewNotifications) {
         setHasNewNotifications(true);
@@ -38,6 +51,7 @@ const NotificationBell = () => {
     return () => clearInterval(interval);
   }, [
     checkNotifications,
+    fetchPendingSharedNotes,
     hasNewNotifications,
     isFirstLoad,
     setHasNewNotifications,
@@ -129,7 +143,7 @@ const NotificationBell = () => {
         </AnimatePresence>
       </motion.button>
 
-      <NotificationDropdown />
+      <NotificationDropdown pendingSharedNotes={pendingSharedNotes} />
     </div>
   );
 };

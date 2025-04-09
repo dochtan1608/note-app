@@ -97,6 +97,22 @@ app.put(
   reminderController.markSharedReminderAsNotified
 );
 
+app.get(
+  "/notes/shared/pending",
+  requireAuth,
+  shareController.getPendingSharedNotes
+);
+app.put(
+  "/notes/shared/:id/status",
+  requireAuth,
+  shareController.updateSharedNoteStatus
+);
+app.put(
+  "/notes/shared/:id/notify",
+  requireAuth,
+  shareController.markSharedNoteAsNotified
+);
+
 // Add static file serving for uploaded files
 const path = require("path");
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

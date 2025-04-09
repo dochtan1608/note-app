@@ -30,6 +30,8 @@ exports.shareNote = async (req, res) => {
       sharedBy: req.user._id,
       sharedWith: shareWithUser._id,
       permissions,
+      status: "pending",
+      notified: false,
     });
 
     // Update note with share info
@@ -50,6 +52,7 @@ exports.getSharedNotes = async (req, res) => {
 
     const sharedNotes = await SharedNote.find({
       sharedWith: req.user._id,
+      status: "accepted",
     })
       .populate({
         path: "note",
@@ -70,6 +73,75 @@ exports.getSharedNotes = async (req, res) => {
     res.json({ sharedNotes });
   } catch (err) {
     console.error("Get shared notes error:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getPendingSharedNotes = async (req, res) => {
+  try {
+    const pendingShares = await SharedNote.find({
+      sharedWith: req.user._id,
+      status: "pending",
+      notified: false,
+    })
+      .populate("note", "title body")
+      .populate("sharedBy", "email")
+      .exec();
+
+    res.json({ pendingShares });
+  } catch (err) {
+    console.error("Get pending shared notes error:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.updateSharedNoteStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (status !== "accepted" && status !== "rejected") {
+      return res.status(400).json({ error: "Invalid status value" });
+    }
+
+    const sharedNote = await SharedNote.findOne({
+      _id: id,
+      sharedWith: req.user._id,
+      status: "pending",
+    });
+
+    if (!sharedNote) {
+      return res.status(404).json({ error: "Shared note not found" });
+    }
+
+    sharedNote.status = status;
+    sharedNote.notified = true;
+    await sharedNote.save();
+
+    res.json({ success: true, status });
+  } catch (err) {
+    console.error("Update shared note status error:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.markSharedNoteAsNotified = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await SharedNote.findOneAndUpdate(
+      { _id: id, sharedWith: req.user._id },
+      { notified: true },
+      { new: true }
+    );
+
+    if (!result) {
+      return res.status(404).json({ error: "Shared note not found" });
+    }
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Mark shared note as notified error:", err);
     res.status(500).json({ error: err.message });
   }
 };
