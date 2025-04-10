@@ -1515,9 +1515,11 @@ body.dark-mode .tab.active {
 
 .shared-notes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(351px, 1fr));
   gap: 1.5rem;
-  padding: 0.5rem 0 1.5rem;
+  padding: 1.5rem 0 1.5rem;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .shared-note-card {
@@ -2158,7 +2160,7 @@ body.dark-mode .tab.active {
 
 .shared-notes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(351px, 1fr));
   gap: 1.5rem;
   padding: 1.5rem 0 1.5rem;
 }
@@ -3166,7 +3168,7 @@ body.dark-mode .btn-toggle-shared-attachments:hover {
 
 .shared-notes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(351px, 1fr));
   gap: 1.5rem;
   padding: 1.5rem 0 1.5rem;
 }
