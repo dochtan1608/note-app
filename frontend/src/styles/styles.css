@@ -1637,138 +1637,826 @@ body.dark-mode .tab.active {
 }
 
 .edit-shared-form {
-  padding: 1.5rem;
+  padding: 0.5rem;
+  height: 100%;
+}
+
+.edit-shared-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1.25rem;
+}
+
+.edit-shared-form .form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.edit-shared-form .form-header h3 {
+  font-size: 1.35rem;
+  margin: 0;
+  color: var(--primary-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit-shared-form .form-header h3::before {
+  content: "✏️";
+  font-size: 1.2rem;
+}
+
+.edit-form-fields {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-.form-header {
+.edit-shared-form .form-group {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.form-header h3 {
+.edit-shared-form label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-medium);
+  margin-left: 0.25rem;
+}
+
+.edit-shared-form .edit-title {
   font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.close-edit {
-  font-size: 1.1rem;
-  opacity: 0.6;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
+  font-weight: 500;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-light);
   transition: all 0.3s ease;
 }
 
-.close-edit:hover {
-  background: rgba(0, 0, 0, 0.05);
-  opacity: 1;
-}
-
-.edit-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-}
-
-.edit-body {
+.edit-shared-form .edit-body {
   font-size: 1rem;
+  line-height: 1.6;
+  padding: 1rem 1.25rem;
+  resize: vertical;
+  min-height: 180px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-light);
+  transition: all 0.3s ease;
 }
 
-.form-footer {
+.edit-shared-form .input-field:focus {
+  border-color: var(--primary-color);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+.edit-shared-form .form-footer {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
 }
 
-.empty-shared-notes {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 2rem;
-  text-align: center;
+.shared-note-card.is-editing {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  z-index: 5;
 }
 
-.empty-icon {
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.6;
-}
-
-.empty-shared-notes p {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--text-dark);
-  margin: 0 0 0.5rem;
-}
-
-.empty-message {
+.btn-cancel-modal {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background: var(--bg-medium);
+  border: none;
   color: var(--text-medium);
-  font-size: 1rem;
-  max-width: 300px;
-  line-height: 1.5;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-body.dark-mode .shared-notes-container {
-  background: var(--bg-dark);
+.btn-cancel-modal:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-dark);
 }
 
-body.dark-mode .shared-notes-header {
-  background: #2d2d2d;
-  border-bottom-color: rgba(255, 255, 255, 0.1);
+.btn-update-submit {
+  background: linear-gradient(135deg, var(--warning-color), #fbbf24);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
 }
 
-body.dark-mode .shared-count {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-light);
+.btn-update-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(245, 158, 11, 0.3);
 }
 
-body.dark-mode .shared-note-card {
-  background: #2d2d2d;
+.btn-update-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+body.dark-mode .edit-shared-form .form-header {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-body.dark-mode .shared-note-header,
-body.dark-mode .shared-note-footer {
+body.dark-mode .edit-shared-form .form-header h3 {
+  color: var(--primary-color-light);
+}
+
+body.dark-mode .edit-shared-form .form-footer {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-body.dark-mode .close-edit:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-body.dark-mode .empty-shared-notes p {
+body.dark-mode .edit-shared-form .edit-title,
+body.dark-mode .edit-shared-form .edit-body {
+  background: rgba(30, 30, 30, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
   color: white;
 }
 
-body.dark-mode .empty-message {
+body.dark-mode .edit-shared-form .input-field:focus {
+  background: rgba(35, 35, 35, 0.95);
+  border-color: var(--primary-color-light);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+body.dark-mode .edit-shared-form label {
   color: var(--text-light);
 }
 
-@media (max-width: 768px) {
-  .shared-notes-grid {
-    grid-template-columns: 1fr;
-  }
+body.dark-mode .btn-cancel-modal {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
 
-  .shared-notes-header {
-    padding: 1.25rem;
-  }
+body.dark-mode .btn-cancel-modal:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
 
-  .page-header h1 {
-    font-size: 1.75rem;
-  }
+body.dark-mode .shared-note-card.is-editing {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.shared-note-edit-container {
+  padding: 0.5rem;
+  height: 100%;
+}
+
+.edit-shared-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1.25rem;
+}
+
+.edit-shared-form .form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.edit-shared-form .form-header h3 {
+  font-size: 1.35rem;
+  margin: 0;
+  color: var(--primary-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit-shared-form .form-header h3::before {
+  content: "✏️";
+  font-size: 1.2rem;
+}
+
+.edit-form-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.edit-shared-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.edit-shared-form label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-medium);
+  margin-left: 0.25rem;
+}
+
+.edit-shared-form .edit-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-light);
+  transition: all 0.3s ease;
+}
+
+.edit-shared-form .edit-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 1rem 1.25rem;
+  resize: vertical;
+  min-height: 180px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-light);
+  transition: all 0.3s ease;
+}
+
+.edit-shared-form .input-field:focus {
+  border-color: var(--primary-color);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+.edit-shared-form .form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.shared-note-card.is-editing {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+}
+
+.btn-cancel-modal {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background: var(--bg-medium);
+  border: none;
+  color: var(--text-medium);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel-modal:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-dark);
+}
+
+.btn-update-submit {
+  background: linear-gradient(135deg, var(--warning-color), #fbbf24);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
+}
+
+.btn-update-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(245, 158, 11, 0.3);
+}
+
+.btn-update-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+body.dark-mode .edit-shared-form .form-header {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .edit-shared-form .form-header h3 {
+  color: var(--primary-color-light);
+}
+
+body.dark-mode .edit-shared-form .form-footer {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .edit-shared-form .edit-title,
+body.dark-mode .edit-shared-form .edit-body {
+  background: rgba(30, 30, 30, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+body.dark-mode .edit-shared-form .input-field:focus {
+  background: rgba(35, 35, 35, 0.95);
+  border-color: var(--primary-color-light);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+body.dark-mode .edit-shared-form label {
+  color: var(--text-light);
+}
+
+body.dark-mode .btn-cancel-modal {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
+
+body.dark-mode .btn-cancel-modal:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+body.dark-mode .shared-note-card.is-editing {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-modal {
+  position: fixed;
+  top: 26%;
+  left: 28%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  z-index: 9999;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: 0;
+  display: block;
+  pointer-events: auto;
+}
+
+.share-modal .form-group {
+  margin-bottom: 1.75rem;
+}
+
+[data-portal-container] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9000;
+}
+
+[data-portal-container] > * {
+  pointer-events: auto;
+}
+
+.modal-overlay,
+.share-modal {
+  will-change: transform, opacity;
+  contain: layout style paint;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-medium);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.tab.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+body.dark-mode .tab {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
+
+body.dark-mode .tab:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .tab.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.shared-page {
+  padding: 2rem 1rem;
+}
+
+.shared-page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-description {
+  color: var(--text-medium);
+  font-size: 1rem;
+  max-width: 600px;
+}
+
+.shared-notes-container {
+  background: var(--bg-light);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.shared-notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background: white;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.shared-notes-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.shared-count {
+  background: var(--bg-medium);
+  color: var(--text-medium);
+  font-weight: 500;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.shared-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem 0 1.5rem;
+}
+
+.shared-note-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.shared-note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.shared-note-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.shared-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.shared-by {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.shared-by-icon {
+  opacity: 0.7;
+}
+
+.permission-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.permission-badge.can-edit {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning-color);
+}
+
+.permission-badge.read-only {
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--secondary-color);
+}
+
+.shared-date {
+  font-size: 0.8rem;
+  color: var (--text-medium);
+  opacity: 0.8;
+}
+
+.shared-note-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.shared-note-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: var(--text-dark);
+}
+
+.shared-note-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-medium);
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.shared-note-footer {
+  padding: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-edit-shared {
+  background: var(--warning-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-edit-shared:hover {
+  background: #d97706;
+  transform: translateY(-2px);
+}
+
+.btn-icon-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit-shared-form {
+  padding: 0.5rem;
+  height: 100%;
+}
+
+.edit-shared-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1.25rem;
+}
+
+.edit-shared-form .form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.edit-shared-form .form-header h3 {
+  font-size: 1.35rem;
+  margin: 0;
+  color: var(--primary-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit-shared-form .form-header h3::before {
+  content: "✏️";
+  font-size: 1.2rem;
+}
+
+.edit-form-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.edit-shared-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.edit-shared-form label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-medium);
+  margin-left: 0.25rem;
+}
+
+.edit-shared-form .edit-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-light);
+  transition: all 0.3s ease;
+}
+
+.edit-shared-form .edit-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 1rem 1.25rem;
+  resize: vertical;
+  min-height: 180px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-light);
+  transition: all 0.3s ease;
+}
+
+.edit-shared-form .input-field:focus {
+  border-color: var(--primary-color);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+.edit-shared-form .form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.shared-note-card.is-editing {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+}
+
+.btn-cancel-modal {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background: var(--bg-medium);
+  border: none;
+  color: var(--text-medium);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel-modal:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-dark);
+}
+
+.btn-update-submit {
+  background: linear-gradient(135deg, var(--warning-color), #fbbf24);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
+}
+
+.btn-update-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(245, 158, 11, 0.3);
+}
+
+.btn-update-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+body.dark-mode .edit-shared-form .form-header {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .edit-shared-form .form-header h3 {
+  color: var(--primary-color-light);
+}
+
+body.dark-mode .edit-shared-form .form-footer {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .edit-shared-form .edit-title,
+body.dark-mode .edit-shared-form .edit-body {
+  background: rgba(30, 30, 30, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+body.dark-mode .edit-shared-form .input-field:focus {
+  background: rgba(35, 35, 35, 0.95);
+  border-color: var(--primary-color-light);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+body.dark-mode .edit-shared-form label {
+  color: var(--text-light);
+}
+
+body.dark-mode .btn-cancel-modal {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
+
+body.dark-mode .btn-cancel-modal:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+body.dark-mode .shared-note-card.is-editing {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .spinner {
