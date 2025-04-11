@@ -16,19 +16,6 @@ axios.interceptors.response.use(
   }
 );
 
-console.log(
-  "%cNote App Running with Fallbacks",
-  "color: blue; font-size: 16px; font-weight: bold;"
-);
-console.log(
-  "%cSome external dependencies couldn't be loaded. The app is running with simplified components.",
-  "color: orange; font-size: 14px;"
-);
-console.log(
-  "%cTo install missing dependencies run: npm install framer-motion date-fns",
-  "color: green; font-size: 14px;"
-);
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
