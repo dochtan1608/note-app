@@ -1509,14 +1509,14 @@ body.dark-mode .tab.active {
   font-size: 0.875rem;
 }
 
-.shared-notes-grid {
+/* .shared-notes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(351px, 1fr));
   gap: 1.5rem;
   padding: 1.5rem 0 1.5rem;
   margin-left: 10px;
   margin-right: 10px;
-}
+} */
 
 .shared-note-card {
   background: white;
@@ -2152,13 +2152,13 @@ body.dark-mode .tab.active {
   border-radius: 20px;
   font-size: 0.875rem;
 }
-
+/* 
 .shared-notes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(351px, 1fr));
   gap: 1.5rem;
   padding: 1.5rem 0 1.5rem;
-}
+} */
 
 .shared-note-card {
   background: white;
@@ -3165,6 +3165,9 @@ body.dark-mode .btn-toggle-shared-attachments:hover {
   grid-template-columns: repeat(auto-fill, minmax(351px, 1fr));
   gap: 1.5rem;
   padding: 1.5rem 0 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-bottom: 5px solid var(--border-color);
 }
 
 .shared-notes-group {
