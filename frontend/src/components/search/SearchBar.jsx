@@ -84,7 +84,7 @@ const SearchBar = () => {
           onKeyDown={handleKeyDown}
           onFocus={() => searchTerm && toggleResults(true)}
           className="search-input"
-          placeholder="Search notes, reminders..."
+          placeholder="Search notes, shared..."
         />
 
         {searchTerm && (
