@@ -725,7 +725,6 @@ body.dark-mode .auth-link {
 
 .sidebar {
   position: sticky;
-  top: 2rem;
   height: fit-content;
   max-height: calc(100vh - 120px);
   overflow-y: auto;
@@ -782,7 +781,6 @@ body.dark-mode .sidebar::-webkit-scrollbar-thumb {
   border-radius: 24px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   padding: 2.5rem;
-  margin-top: 1.5rem;
   animation: slideIn 0.3s ease;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
