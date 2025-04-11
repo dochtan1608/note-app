@@ -728,7 +728,6 @@ body.dark-mode .auth-link {
   height: fit-content;
   max-height: calc(100vh - 120px);
   overflow-y: auto;
-  padding-right: 5px;
   scrollbar-width: thin;
 }
 
