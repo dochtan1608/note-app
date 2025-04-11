@@ -729,6 +729,7 @@ body.dark-mode .auth-link {
   max-height: calc(100vh - 120px);
   overflow-y: auto;
   scrollbar-width: thin;
+  border-radius: 24px;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -793,7 +794,6 @@ body.dark-mode .sidebar::-webkit-scrollbar-thumb {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
 }
 
 .update-form-header h2 {
