@@ -795,7 +795,6 @@ body.dark-mode .sidebar::-webkit-scrollbar-thumb {
   justify-content: space-between;
   align-items: center;
 }
-
 .update-form-header h2 {
   font-size: 1.75rem;
   font-weight: 700;
@@ -1654,7 +1653,7 @@ body.dark-mode .tab.active {
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-color);
 }
-
+/* 
 .edit-shared-form .form-header h3 {
   font-size: 1.35rem;
   margin: 0;
@@ -1663,12 +1662,12 @@ body.dark-mode .tab.active {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
+} */
 
-.edit-shared-form .form-header h3::before {
+/* .edit-shared-form .form-header h3::before {
   content: "✏️";
   font-size: 1.2rem;
-}
+} */
 
 .edit-form-fields {
   flex: 1;
@@ -1718,15 +1717,14 @@ body.dark-mode .tab.active {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   outline: none;
 }
-
+/* 
 .edit-shared-form .form-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 0.5rem;
-  padding-top: 1rem;
+  gap: 14rem;
   border-top: 1px solid var(--border-color);
-}
+  margin-bottom: 1rem;
+} */
 
 .shared-note-card.is-editing {
   transform: scale(1.02);
@@ -1835,7 +1833,7 @@ body.dark-mode .shared-note-card.is-editing {
   border-bottom: 1px solid var(--border-color);
 }
 
-.edit-shared-form .form-header h3 {
+/* .edit-shared-form .form-header h3 {
   font-size: 1.35rem;
   margin: 0;
   color: var(--primary-color);
@@ -1843,12 +1841,12 @@ body.dark-mode .shared-note-card.is-editing {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
+} */
+/* 
 .edit-shared-form .form-header h3::before {
   content: "✏️";
   font-size: 1.2rem;
-}
+} */
 
 .edit-form-fields {
   flex: 1;
@@ -1898,15 +1896,15 @@ body.dark-mode .shared-note-card.is-editing {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   outline: none;
 }
-
+/* 
 .edit-shared-form .form-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 14rem;
   margin-top: 0.5rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border-color);
-}
+} */
 
 .shared-note-card.is-editing {
   transform: scale(1.02);
@@ -2300,8 +2298,8 @@ body.dark-mode .tab.active {
 
 .edit-shared-form .form-header h3 {
   font-size: 1.35rem;
-  margin: 0;
-  color: var(--primary-color);
+  margin-left: 5px;
+  color: #fbbf24;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -2309,7 +2307,6 @@ body.dark-mode .tab.active {
 }
 
 .edit-shared-form .form-header h3::before {
-  content: "✏️";
   font-size: 1.2rem;
 }
 
@@ -2365,10 +2362,10 @@ body.dark-mode .tab.active {
 .edit-shared-form .form-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  gap: 14rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border-color);
+  margin-bottom: 1rem;
 }
 
 .shared-note-card.is-editing {
