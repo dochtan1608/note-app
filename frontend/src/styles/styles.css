@@ -1446,14 +1446,14 @@ body.dark-mode .tab.active {
   color: white;
 }
 
-.shared-page {
+/* .shared-page {
   padding: 2rem 1rem;
 }
 
 .shared-page-container {
   max-width: 1100px;
   margin: 0 auto;
-}
+} */
 
 .page-header {
   margin-bottom: 2rem;
@@ -2091,7 +2091,7 @@ body.dark-mode .tab.active {
 }
 
 .shared-page {
-  padding: 2rem 1rem;
+  padding: 1rem;
 }
 
 .shared-page-container {
