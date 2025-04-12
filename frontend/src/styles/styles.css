@@ -1565,12 +1565,12 @@ body.dark-mode .tab.active {
   color: var (--text-medium);
   opacity: 0.8;
 }
-/* 
+
 .shared-note-content {
   padding: 1.5rem;
   padding-bottom: 0.5rem;
   flex-grow: 1;
-} */
+}
 
 .shared-note-title {
   font-size: 1.35rem;
@@ -1585,6 +1585,36 @@ body.dark-mode .tab.active {
   color: var(--text-medium);
   margin: 0;
   overflow-wrap: break-word;
+}
+
+.btn-share-reminder {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--primary-color);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.btn-share-reminder:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+body.dark-mode .btn-share-reminder {
+  color: var(--primary-color-light);
+}
+
+.shared-note-footer {
+  padding: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
 }
 
 .shared-note-footer {
@@ -1756,10 +1786,10 @@ body.dark-mode .tab.active {
 body.dark-mode .edit-shared-form .form-header {
   border-color: rgba(255, 255, 255, 0.1);
 }
-/* 
+
 body.dark-mode .edit-shared-form .form-header h3 {
-  color: var(--primary-color-light);
-} */
+  color: #fbbf24;
+}
 
 body.dark-mode .edit-shared-form .form-footer {
   border-color: rgba(255, 255, 255, 0.1);

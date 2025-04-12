@@ -304,6 +304,30 @@ const RemindersPage = () => {
                         {formatDueDate(reminder.dueDate)}
                       </span>
                     </span>
+                    {reminder.status === "pending" && (
+                      <motion.button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleShareReminderModal(true, reminder._id);
+                        }}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
+                        style={{
+                          marginLeft: "auto",
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          fontSize: "1rem",
+                          color: "var(--primary-color)",
+                          padding: "0",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                        title="Share this reminder"
+                      >
+                        📤
+                      </motion.button>
+                    )}
                   </div>
                   {reminder.sharedWith && reminder.sharedWith.length > 0 && (
                     <div
@@ -338,25 +362,6 @@ const RemindersPage = () => {
                   >
                     {reminder.status === "pending" && (
                       <>
-                        <motion.button
-                          onClick={() =>
-                            toggleShareReminderModal(true, reminder._id)
-                          }
-                          className="btn-share"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          style={{
-                            padding: "0.5rem 1rem",
-                            background: "var(--primary-color)",
-                            color: "white",
-                            border: "none",
-                            borderRadius: "6px",
-                            fontSize: "0.875rem",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Share
-                        </motion.button>
                         <motion.button
                           onClick={() => dismissReminder(reminder._id)}
                           className="btn-dismiss"
