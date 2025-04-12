@@ -1565,11 +1565,12 @@ body.dark-mode .tab.active {
   color: var (--text-medium);
   opacity: 0.8;
 }
-
+/* 
 .shared-note-content {
   padding: 1.5rem;
+  padding-bottom: 0.5rem;
   flex-grow: 1;
-}
+} */
 
 .shared-note-title {
   font-size: 1.35rem;
@@ -2188,6 +2189,7 @@ body.dark-mode .tab.active {
 
 .shared-note-content {
   padding: 1.5rem;
+  padding-bottom: 0.5rem;
   flex-grow: 1;
 }
 
