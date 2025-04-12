@@ -4018,3 +4018,51 @@ body.dark-mode .attachments-container {
   background: rgba(45, 45, 45, 0.5);
   border-color: rgba(255, 255, 255, 0.1);
 }
+
+.shared-attachment-item .attachment-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: var(--bg-light);
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-color);
+  justify-content: space-between;
+}
+
+.shared-attachment-item .attachment-link:hover {
+  background: var(--bg-medium);
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow);
+}
+
+.attachment-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.download-icon {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.shared-attachment-item:hover .download-icon {
+  opacity: 1;
+}
+
+.downloading-spinner {
+  animation: spin 1.5s linear infinite;
+  display: inline-block;
+}
+
+body.dark-mode .shared-attachment-item .attachment-link {
+  background: rgba(35, 35, 35, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .shared-attachment-item .attachment-link:hover {
+  background: rgba(45, 45, 45, 0.8);
+}

@@ -1,6 +1,8 @@
 const Note = require("../models/note");
 const User = require("../models/user");
 const SharedNote = require("../models/sharedNote");
+const Attachment = require("../models/attachment");
+const fs = require("fs").promises;
 
 exports.shareNote = async (req, res) => {
   try {
@@ -176,5 +178,60 @@ exports.updateSharedNote = async (req, res) => {
   } catch (err) {
     console.error("Update shared note error:", err);
     res.status(500).json({ error: err.message });
+  }
+};
+
+exports.downloadSharedAttachment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log("Download request for shared attachment:", id);
+
+    // fidn the file that someone sent
+    const attachment = await Attachment.findById(id);
+
+    if (!attachment) {
+      return res.status(404).json({ error: "Attachment not found" });
+    }
+
+    const sharedNote = await SharedNote.findOne({
+      sharedWith: req.user._id,
+      status: "accepted",
+    }).populate("note");
+
+    if (!sharedNote || !sharedNote.note) {
+      return res
+        .status(403)
+        .json({ error: "You don't have access to this attachment" });
+    }
+
+    const noteHasAttachment = sharedNote.note.attachments.some(
+      (attachId) => attachId.toString() === id
+    );
+
+    if (!noteHasAttachment) {
+      return res
+        .status(403)
+        .json({ error: "This attachment does not belong to any shared note" });
+    }
+
+    try {
+      await fs.access(attachment.path);
+    } catch (error) {
+      console.error("File not found on disk:", error);
+      return res.status(404).json({ error: "File not found on server" });
+    }
+
+    console.log("Sending shared attachment file:", attachment.path);
+    res.download(attachment.path, attachment.originalFilename, (err) => {
+      if (err) {
+        console.error("Download error:", err);
+        if (!res.headersSent) {
+          res.status(500).json({ error: "Failed to download file" });
+        }
+      }
+    });
+  } catch (err) {
+    console.error("Error downloading shared attachment:", err);
+    res.status(500).json({ error: "Failed to download shared attachment" });
   }
 };

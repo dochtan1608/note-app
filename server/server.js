@@ -46,6 +46,12 @@ app.put("/notes/shared/:id", requireAuth, shareController.updateSharedNote);
 const attachmentRoutes = require("./routes/attachmentRoutes");
 app.use("/attachments", attachmentRoutes);
 
+app.get(
+  "/shared-attachments/:id/download",
+  requireAuth,
+  shareController.downloadSharedAttachment
+);
+
 // Regular note routes
 app.get("/notes", requireAuth, notesController.fetchNotes);
 app.get("/notes/:id", requireAuth, notesController.fetchNote);
