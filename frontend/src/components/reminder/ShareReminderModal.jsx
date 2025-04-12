@@ -174,7 +174,7 @@ const ShareReminderModal = () => {
             </>
           ) : (
             <div className="share-success">
-              <div className="success-icon">✓</div>
+              <div className="sucess-icon">✓</div>
               <h3>Reminder Shared!</h3>
               <p>
                 The recipient will get a notification to accept your reminder.
