@@ -2139,7 +2139,7 @@ body.dark-mode .tab.active {
 
 .shared-note-header {
   padding: 1.25rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var (--border-color);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -4067,4 +4067,124 @@ body.dark-mode .shared-attachment-item .attachment-link {
 
 body.dark-mode .shared-attachment-item .attachment-link:hover {
   background: rgba(45, 45, 45, 0.8);
+}
+
+body.dark-mode .shared-notes-container {
+  background: rgba(45, 45, 45, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
+
+body.dark-mode .shared-notes-header {
+  background: rgba(30, 30, 30, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .shared-notes-header h2,
+body.dark-mode .shared-group-title {
+  color: white;
+}
+
+body.dark-mode .shared-group-header {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .shared-note-card {
+  background: rgba(35, 35, 35, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .shared-note-title {
+  color: white;
+}
+
+body.dark-mode .shared-note-body {
+  color: var(--text-light);
+}
+
+body.dark-mode .shared-note-header {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .shared-from {
+  color: var(--primary-color-light);
+}
+
+body.dark-mode .shared-by-name {
+  color: var(--text-light);
+}
+
+body.dark-mode .btn-edit-shared {
+  background: var(--primary-color);
+  color: white;
+}
+
+body.dark-mode .empty-shared-notes {
+  color: var(--text-light);
+}
+
+body.dark-mode .empty-message {
+  color: var(--text-medium);
+}
+
+body.dark-mode .shared-note-edit-container {
+  background: rgba(45, 45, 45, 0.98);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .edit-shared-form label {
+  color: var(--text-light);
+}
+
+body.dark-mode .edit-shared-form input,
+body.dark-mode .edit-shared-form textarea {
+  background: rgba(30, 30, 30, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+body.dark-mode .edit-shared-form input:focus,
+body.dark-mode .edit-shared-form textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+body.dark-mode .shared-attachments {
+  background: rgba(30, 30, 30, 0.7);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .shared-attachment-item {
+  background: rgba(40, 40, 40, 0.9);
+}
+
+body.dark-mode .note-attachment-indicator {
+  background: rgba(40, 40, 40, 0.8);
+  color: var(--text-light);
+}
+
+body.dark-mode .btn-toggle-shared-attachments {
+  background: var(--primary-color);
+  color: white;
+}
+
+body.dark-mode .attachments-title {
+  color: var(--text-light);
+}
+
+body.dark-mode .attachment-name {
+  color: var(--text-light);
+}
+
+body.dark-mode .attachment-meta {
+  color: var(--text-medium);
+}
+
+body.dark-mode .shared-note-card.is-editing {
+  background: rgba(30, 30, 30, 0.95);
+}
+
+body.dark-mode .form-header h3 {
+  color: white;
 }
