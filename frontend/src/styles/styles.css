@@ -1921,10 +1921,10 @@ body.dark-mode .shared-note-card.is-editing {
 body.dark-mode .edit-shared-form .form-header {
   border-color: rgba(255, 255, 255, 0.1);
 }
-/* 
+
 body.dark-mode .edit-shared-form .form-header h3 {
-  color: var(--primary-color-light);
-} */
+  color: #fbbf24;
+}
 
 body.dark-mode .edit-shared-form .form-footer {
   border-color: rgba(255, 255, 255, 0.1);
@@ -2405,7 +2405,7 @@ body.dark-mode .edit-shared-form label {
 
 body.dark-mode .btn-cancel-modal {
   background: rgba(255, 255, 255, 0.1);
-  color: var(--text-light);
+  color: var (--text-light);
 }
 
 body.dark-mode .btn-cancel-modal:hover {
@@ -4186,5 +4186,74 @@ body.dark-mode .shared-note-card.is-editing {
 }
 
 body.dark-mode .form-header h3 {
+  color: white;
+}
+
+body.dark-mode .notification-dropdown {
+  background: #2d2d2d;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .notification-item {
+  background: #2a2a2a;
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+body.dark-mode .notification-item:hover {
+  background-color: #333333;
+}
+
+body.dark-mode .notification-header {
+  border-color: rgba(255, 255, 255, 0.07);
+  background: #252525;
+}
+
+body.dark-mode .notification-header h3 {
+  color: #f1f5f9;
+}
+
+body.dark-mode .notification-item h4 {
+  color: #f1f5f9;
+}
+
+body.dark-mode .notification-item p {
+  color: #cbd5e1;
+}
+
+body.dark-mode .mark-all-read {
+  color: var(--primary-color-light);
+}
+
+body.dark-mode .mark-all-read:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .notification-item span[style*="color: var(--text-medium)"] {
+  color: #94a3b8 !important;
+}
+
+body.dark-mode .empty-notifications {
+  background: #2a2a2a;
+  color: #94a3b8;
+}
+
+body.dark-mode .btn-accept {
+  background: var(--success-color);
+  color: white;
+}
+
+body.dark-mode .btn-complete {
+  background: var(--primary-color);
+  color: white;
+}
+
+body.dark-mode .btn-dismiss {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+}
+
+body.dark-mode .btn-dismiss:hover {
+  background: rgba(255, 255, 255, 0.15);
   color: white;
 }
