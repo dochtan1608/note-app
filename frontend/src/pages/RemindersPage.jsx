@@ -114,7 +114,6 @@ const RemindersPage = () => {
           <p
             className="page-description"
             style={{
-              color: "var(--text-medium)",
               fontSize: "1rem",
               maxWidth: "600px",
               margin: "0 0 1rem",
@@ -337,10 +336,8 @@ const RemindersPage = () => {
                       marginTop: "1rem",
                     }}
                   >
-
                     {reminder.status === "pending" && (
                       <>
-
                         <motion.button
                           onClick={() =>
                             toggleShareReminderModal(true, reminder._id)
