@@ -22,8 +22,9 @@ const HomePage = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            A simple, fast, and secure note-taking app to capture your ideas,
-            manage tasks and collaborate with others.
+            This is a demo version. Some features may not be fully functional.
+            Please DON'T USE DARK MODE FOR A BETTER EXPERIENCE because I haven't
+            finished it yet.
           </motion.p>
 
           <motion.div
@@ -57,7 +58,7 @@ const HomePage = () => {
             <div className="preview-note important">
               <h3>Meeting Notes</h3>
               <p>Discuss project timeline with team</p>
-              <p>Review quarterly goal</p>
+              <p>Review quarterly goals</p>
             </div>
             <div className="preview-note reminder">
               <h3>Don't Forget</h3>
