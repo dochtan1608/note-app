@@ -220,7 +220,7 @@ const SharedNoteCard = ({ sharedNote }) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="btn-icon-text">✏️ Edit Note</span>
+                  <span className="btn-icon-text">Edit Note</span>
                 </motion.button>
               )}
             </div>
