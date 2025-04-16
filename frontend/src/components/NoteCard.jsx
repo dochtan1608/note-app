@@ -10,6 +10,10 @@ const NoteCard = ({ note }) => {
   const { attachments, fetchNoteAttachments } = useAttachmentStore();
   const [showShareModal, setShowShareModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+
   const formattedDate = note.updatedAt
     ? formatDistanceToNow(new Date(note.updatedAt))
     : "";
@@ -32,11 +36,40 @@ const NoteCard = ({ note }) => {
   const noteAttachments = attachments[note._id] || [];
   const attachmentCount = noteAttachments.length;
 
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    setShowDeleteConfirm(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    setIsDeleting(true);
+
+    try {
+      // Show success animation before actually deleting
+      setDeleteSuccess(true);
+
+      // Wait a moment to show the success animation
+      setTimeout(async () => {
+        await store.deleteNote(note._id);
+        setIsDeleting(false);
+        setShowDeleteConfirm(false);
+      }, 1500);
+    } catch (error) {
+      console.error("Error deleting note:", error);
+      setIsDeleting(false);
+      setDeleteSuccess(false);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteConfirm(false);
+  };
+
   return (
     <div
       className={`note-card ${note.isPinned ? "pinned" : ""} ${
         expanded ? "expanded" : ""
-      }`}
+      } ${deleteSuccess ? "deleting" : ""}`}
     >
       <div className="note-top-content">
         <div className="note-card-header">
@@ -99,18 +132,67 @@ const NoteCard = ({ note }) => {
         </div>
 
         <div className="note-actions">
-          <button
-            onClick={() => store.deleteNote(note._id)}
-            className="btn-delete"
-          >
-            Delete
-          </button>
-          <button
-            onClick={() => store.toggleUpdate(note)}
-            className="btn-update"
-          >
-            Edit
-          </button>
+          {showDeleteConfirm ? (
+            <div className="delete-confirmation">
+              {deleteSuccess ? (
+                <div className="delete-success">
+                  <div className="success-checkmark">
+                    <svg
+                      className="checkmark"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 52 52"
+                    >
+                      <circle
+                        className="checkmark__circle"
+                        cx="26"
+                        cy="26"
+                        r="25"
+                        fill="none"
+                      />
+                      <path
+                        className="checkmark__check"
+                        fill="none"
+                        d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                      />
+                    </svg>
+                  </div>
+                  <p>Successfully deleted!</p>
+                </div>
+              ) : (
+                <>
+                  <p>Do you want to delete this note?</p>
+                  <div className="confirm-actions">
+                    <button
+                      onClick={handleCancelDelete}
+                      className="btn-cancel-delete"
+                      disabled={isDeleting}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleConfirmDelete}
+                      className="btn-confirm-delete"
+                      disabled={isDeleting}
+                    >
+                      {isDeleting ? "Deleting..." : "Yes"}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : (
+            <>
+              <button onClick={handleDeleteClick} className="btn-delete">
+                Delete
+              </button>
+              <button
+                onClick={() => store.toggleUpdate(note)}
+                className="btn-update"
+              >
+                Edit
+              </button>
+            </>
+          )}
         </div>
       </div>
 
