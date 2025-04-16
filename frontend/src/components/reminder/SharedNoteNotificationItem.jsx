@@ -91,6 +91,8 @@ const SharedNoteNotificationItem = ({ notification }) => {
               fontSize: "14px",
               color: "var(--text-medium)",
               lineHeight: 1.5,
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
             }}
           >
             {note.body.length > 100

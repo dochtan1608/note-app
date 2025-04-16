@@ -123,9 +123,11 @@ const NotificationItem = ({ notification, type }) => {
           <p
             style={{
               margin: "4px 0 12px",
-              fontSize: "14px",
+              fontSize: "0.95rem",
               color: "var(--text-medium)",
-              lineHeight: 1.5,
+              lineHeight: 1.6,
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
             }}
           >
             {description}

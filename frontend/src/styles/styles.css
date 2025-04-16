@@ -225,6 +225,14 @@ body {
   }
 }
 
+.note-body,
+.shared-note-body,
+textarea.input-field {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 .notes-section {
   background: var(--bg-medium);
   padding: 1.5rem;

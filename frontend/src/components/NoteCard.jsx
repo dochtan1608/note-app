@@ -69,7 +69,10 @@ const NoteCard = ({ note }) => {
         </div>
 
         <div className="note-content" onClick={() => setExpanded(!expanded)}>
-          <p className={`note-body ${expanded ? "expanded" : ""}`}>
+          <p
+            className={`note-body ${expanded ? "expanded" : ""}`}
+            style={{ whiteSpace: "pre-wrap" }}
+          >
             {note.body}
           </p>
           {note.body && note.body.length > 100 && !expanded && (

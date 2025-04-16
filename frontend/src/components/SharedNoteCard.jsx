@@ -186,7 +186,12 @@ const SharedNoteCard = ({ sharedNote }) => {
 
             <div className="shared-note-content">
               <h3 className="shared-note-title">{note.title}</h3>
-              <p className="shared-note-body">{note.body}</p>
+              <p
+                className="shared-note-body"
+                style={{ whiteSpace: "pre-wrap" }}
+              >
+                {note.body}
+              </p>
               {hasAttachments && (
                 <div className="note-attachment-indicator">
                   <span className="attachment-icon">📎</span>
